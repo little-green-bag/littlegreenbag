@@ -1,0 +1,26 @@
+<ul>
+  <li *ngFor="let product of products">
+    {{ product.name }}
+  </li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Name</td>
+      <td>
+        <input type="text" [(ngModel)]="product.name" required />
+      </td>
+    </tr>
+    <tr>
+      <td>Phone</td>
+      <td>
+        <input type="number" [(ngModel)]="product.price" required />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<mat-button *ngIf="!toggleUpdateBtn" (click)="addproduct(product)"
+  >Submit</mat-button
+>
