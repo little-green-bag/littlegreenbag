@@ -1,26 +1,31 @@
-<ul>
-  <li *ngFor="let product of products">
-    {{ product.name }}
-  </li>
-</ul>
+<div class="form-container">
+  <mat-form-field>
+    <input matInput placeholder="Input" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Textarea"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Select">
+      <mat-option value="option">Option</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 
 <table>
+  <thead>
+    <th>Name</th>
+    <th>Price</th>
+  </thead>
   <tbody>
-    <tr>
-      <td>Name Sir</td>
+    <tr *ngFor="let product of products">
+      <td>{{ product.name }}</td>
+      <td>{{ product.price }}</td>
       <td>
-        <input type="text" [(ngModel)]="product.name" required />
-      </td>
-    </tr>
-    <tr>
-      <td>Phone</td>
-      <td>
-        <input type="number" [(ngModel)]="product.price" required />
+        <button (click)="delete(product.id)">Delete</button>
       </td>
     </tr>
   </tbody>
 </table>
-
-<mat-button *ngIf="!toggleUpdateBtn" (click)="addproduct(product)"
-  >Submit</mat-button
->
