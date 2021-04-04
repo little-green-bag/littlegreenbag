@@ -30,6 +30,6 @@
   </form>
 </ng-template>
 
-<div>
+<div *ngIf="auth.user$ | async">
   <button (click)="logout()">Logout</button>
 </div>

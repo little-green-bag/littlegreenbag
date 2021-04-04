@@ -15,6 +15,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // Components
 import { HomeComponent } from '@components/home/home.component';
@@ -25,6 +26,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SocialButtonComponent } from './components/social-button/social-button.component';
 import { NoAccessComponent } from './components/no-access/no-access.component';
+import { ValidationErrorsComponent } from './components/validation-errors/validation-errors.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { NoAccessComponent } from './components/no-access/no-access.component';
     ProductListComponent,
     SocialButtonComponent,
     NoAccessComponent,
+    ValidationErrorsComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import { NoAccessComponent } from './components/no-access/no-access.component';
     AngularFireAnalyticsModule,
     AngularFireAuthModule,
     ReactiveFormsModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
