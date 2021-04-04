@@ -10,11 +10,11 @@
     ],
     "headers": [
       {
-        "source": "/service-worker.js",
+        "source": "/build/app/**",
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "no-cache"
+            "value": "public, max-age=0"
           }
         ]
       }
