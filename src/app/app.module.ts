@@ -23,6 +23,7 @@ import { ProductDetailsComponentComponent } from './components/product-details-c
 import { ProductCreateComponentComponent } from './components/product-create-component/product-create-component.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SocialButtonComponent } from './components/social-button/social-button.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NavbarComponent,
     HomeComponent,
     ProductListComponent,
+    SocialButtonComponent,
   ],
   imports: [
     BrowserModule,

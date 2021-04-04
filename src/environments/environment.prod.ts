@@ -7,5 +7,7 @@ export const environment = {
     projectId: 'littlegreenbag-ecb99',
     storageBucket: 'littlegreenbag-ecb99.appspot.com',
     messagingSenderId: '102668460728',
+    clientId:
+      '102668460728-8p6h3ulvnsrob7kjrg7deb3ksrba9bm8.apps.googleusercontent.com',
   },
 };
