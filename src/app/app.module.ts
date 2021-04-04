@@ -1,23 +1,52 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { environment } from '@environments/environment';
+
+// Material
+import { MaterialModule } from './modules/material/material.module';
+
+// AngularFire
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { environment } from 'src/environments/environment';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { HomeComponent } from './components/home/home.component';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+
+// Components
+import { HomeComponent } from '@components/home/home.component';
+import { ProductListComponent } from '@components/product-list/product-list.component';
+import { ProductDetailsComponentComponent } from './components/product-details-component/product-details-component.component';
+import { ProductCreateComponentComponent } from './components/product-create-component/product-create-component.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SocialButtonComponent } from './components/social-button/social-button.component';
 
 @NgModule({
-  declarations: [AppComponent, ProductListComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    ProductDetailsComponentComponent,
+    ProductCreateComponentComponent,
+    NavbarComponent,
+    HomeComponent,
+    ProductListComponent,
+    SocialButtonComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
+    AngularFireDatabaseModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    AngularFireAnalyticsModule,
+    AngularFireAuthModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
