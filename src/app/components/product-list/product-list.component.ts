@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from '@models/product.model';
 import { ProductService } from '@services/product.service';
 
@@ -9,8 +10,13 @@ import { ProductService } from '@services/product.service';
 })
 export class ProductListComponent implements OnInit {
   products: Product[];
+  productForm: FormGroup;
+  formValid: false;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private _fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe((data) => {
@@ -20,6 +26,22 @@ export class ProductListComponent implements OnInit {
         return { id, ...data };
       });
     });
+
+    this.buildForm();
+  }
+
+  buildForm() {
+    this.productForm = this._fb.group({
+      product: this._fb.group({
+        name: ['', Validators.required],
+        description: ['', Validators.required],
+        image_url: [''],
+      }),
+    });
+  }
+
+  onSubmit(f) {
+    this.create(f.product);
   }
 
   create(product: Product) {

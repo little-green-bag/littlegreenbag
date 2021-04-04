@@ -1,17 +1,25 @@
 <div class="form-container">
-  <mat-form-field>
-    <input matInput placeholder="Input" />
-  </mat-form-field>
+  <form
+    action=""
+    (ngSubmit)="onSubmit(productForm.value)"
+    [formGroup]="productForm"
+  >
+    <div class="group" formGroupName="product">
+      <mat-form-field>
+        <input formControlName="name" matInput placeholder="Name" type="text" />
+      </mat-form-field>
 
-  <mat-form-field>
-    <textarea matInput placeholder="Textarea"></textarea>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-select placeholder="Select">
-      <mat-option value="option">Option</mat-option>
-    </mat-select>
-  </mat-form-field>
+      <mat-form-field>
+        <input
+          formControlName="price"
+          matInput
+          placeholder="Price"
+          type="number"
+        />
+      </mat-form-field>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
 </div>
 
 <table>
@@ -23,6 +31,7 @@
     <tr *ngFor="let product of products">
       <td>{{ product.name }}</td>
       <td>{{ product.price }}</td>
+      <td>{{ product.description }}</td>
       <td>
         <button (click)="delete(product.id)">Delete</button>
       </td>

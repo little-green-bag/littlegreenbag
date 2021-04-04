@@ -24,6 +24,7 @@ import { ProductCreateComponentComponent } from './components/product-create-com
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SocialButtonComponent } from './components/social-button/social-button.component';
+import { NoAccessComponent } from './components/no-access/no-access.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SocialButtonComponent } from './components/social-button/social-button.
     HomeComponent,
     ProductListComponent,
     SocialButtonComponent,
+    NoAccessComponent,
   ],
   imports: [
     BrowserModule,

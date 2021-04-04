@@ -10,9 +10,15 @@
 </h3>
 
 <div *ngIf="auth.user$ | async as user; else login">
-  <a class="nav-link" routerLink="/products"
-    >You are successfully logged in. Click here to edit product list</a
+  Welcome {{ user.displayName }}. You have successfully logged in.
+  <a
+    *ngIf="user.uid === '27PqJHgiSSZxeJnP5KwVSwPzbjZ2'"
+    class="nav-link"
+    routerLink="/products"
   >
+    Click here to edit product list</a
+  >
+  <img [src]="user.photoURL" alt="" />
 </div>
 <ng-template #login>
   <form class="form-signin">
@@ -23,3 +29,7 @@
     ></app-social-button>
   </form>
 </ng-template>
+
+<div>
+  <button (click)="logout()">Logout</button>
+</div>

@@ -10,4 +10,8 @@ export class HomeComponent implements OnInit {
   constructor(public auth: AuthService) {}
 
   ngOnInit(): void {}
+
+  logout() {
+    this.auth.signOut();
+  }
 }
