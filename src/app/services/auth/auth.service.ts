@@ -43,7 +43,6 @@ export class AuthService {
   }
 
   async signOut() {
-    console.log('inside signout');
     await this.afAuth.signOut();
     return this.router.navigate(['/']);
   }
