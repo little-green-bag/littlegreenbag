@@ -1,0 +1,11 @@
+@import "../../styles/variables";
+
+.social-button {
+  background: $black;
+  color: $white;
+  font-weight: $textStyle-light;
+
+  &:hover {
+    background: $red;
+  }
+}
