@@ -6,6 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '@environments/environment';
 
+// Swiper
+import { NguCarouselModule } from '@ngu/carousel';
+
 // Material
 import { MaterialModule } from './modules/material/material.module';
 
@@ -53,6 +56,7 @@ import { ValidationErrorsComponent } from './components/validation-errors/valida
     AngularFireAuthModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    NguCarouselModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

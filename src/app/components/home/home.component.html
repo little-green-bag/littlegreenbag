@@ -1,4 +1,4 @@
-<h1>Little Green Bag</h1>
+<!-- <h1>Little Green Bag</h1>
 
 <h3>
   We are currently operating from
@@ -32,4 +32,29 @@
 
 <div *ngIf="auth.user$ | async">
   <button (click)="logout()">Logout</button>
+</div> -->
+
+<ngu-carousel
+  #myCarousel
+  [inputs]="carouselConfig"
+  [dataSource]="carouselItems"
+>
+  <div *nguCarouselDef="let item" class="item">
+    <div class="tile" [style]="{ backgroundImage: item.image }">Hello</div>
+  </div>
+  <button NguCarouselNext class="rightRs">></button>
+  <button NguCarouselPrev class="leftRs"><</button>
+  <ul class="myPoint" NguCarouselPoint>
+    <li
+      *ngFor="let j of myCarousel.pointNumbers; let i = index"
+      [class.active]="j == myCarousel.activePoint"
+      (click)="myCarousel.moveTo(j)"
+    ></li>
+  </ul>
+</ngu-carousel>
+
+<h1>Reset</h1>
+<div>
+  <label><input type="checkbox" [(ngModel)]="resetAnim" />With Animation</label>
 </div>
+<button (click)="reset()">reset</button>
