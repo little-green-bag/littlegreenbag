@@ -5,7 +5,8 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
-import { AuthService } from './../../services/auth/auth.service';
+import { AuthService } from '@services/auth/auth.service';
+import { ProductService } from '@services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -22,14 +23,18 @@ export class HomeComponent implements AfterViewInit {
   carouselConfig: NguCarouselConfig = {
     grid: { xs: 1, sm: 1, md: 1, lg: 1, all: 0 },
     load: 3,
-    // interval: { timing: 4000, initialDelay: 1000 },
+    interval: { timing: 4000, initialDelay: 1000 },
     loop: true,
     touch: true,
     velocity: 0.2,
   };
-  carouselItems = [{ image: '../../../assets/banger-one.png' }, 2, 3];
+  carouselItems = [{ image: '.../../assets/banger-one.png' }, 2, 3];
 
-  constructor(public auth: AuthService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    public auth: AuthService,
+    private cdr: ChangeDetectorRef,
+    private roductService: ProductService
+  ) {}
 
   ngAfterViewInit() {
     this.cdr.detectChanges();

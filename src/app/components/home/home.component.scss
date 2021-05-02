@@ -5,12 +5,14 @@
 
 .tile {
   min-height: 200px;
-  background-color: #ccc;
-  background-size: cover !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background: url(../../../assets/banger-one.png);
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
 }
 
 .leftRs {

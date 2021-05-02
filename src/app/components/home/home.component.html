@@ -40,7 +40,7 @@
   [dataSource]="carouselItems"
 >
   <div *nguCarouselDef="let item" class="item">
-    <div class="tile" [style]="{ backgroundImage: item.image }">Hello</div>
+    <div class="tile" [style.background]="'url(' + item.image + ')'"></div>
   </div>
   <button NguCarouselNext class="rightRs">></button>
   <button NguCarouselPrev class="leftRs"><</button>
