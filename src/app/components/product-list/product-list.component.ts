@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Product } from '@models/product.model';
 import { ProductService } from '@services/product.service';
 import { NotificationsService } from '@services/notifications/notifications.service';
+import { ProductModel, CollectionsModel } from '@models/index';
 
 interface ProductGroup {
   value: string;
@@ -15,7 +15,7 @@ interface ProductGroup {
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  products: Product[] = [];
+  products: ProductModel[] = [];
   productForm: FormGroup;
 
   selectedValue: string;
@@ -46,7 +46,7 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getProducts('products').subscribe((data) => {
       this.products = data.map((action) => {
-        const data = action.payload.doc.data() as Product;
+        const data = action.payload.doc.data() as ProductModel;
         const id = action.payload.doc.id;
         return { id, ...data };
       });
@@ -85,7 +85,7 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  async create(product: Product) {
+  async create(product: ProductModel) {
     await this.productService.createProduct(product, 'products');
     this._notificationService.openSnackBar(
       'Product successfully created',
@@ -94,7 +94,7 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  update(product: Product) {
+  update(product: ProductModel) {
     this.productService.updateProduct(product, 'products');
     this._notificationService.openSnackBar(
       'Product successfully updated',

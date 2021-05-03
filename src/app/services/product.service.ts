@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Product } from '@models/product.model';
+import { ProductModel } from '@models/index';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +12,11 @@ export class ProductService {
     return this.firestore.collection(collection).snapshotChanges();
   }
 
-  createProduct(product: Product, collection) {
+  createProduct(product: ProductModel, collection) {
     return this.firestore.collection(collection).add(product);
   }
 
-  updateProduct(product: Product, collection) {
+  updateProduct(product: ProductModel, collection) {
     delete product.id;
     this.firestore.doc(`${collection}/${product.id}`).update(product);
   }

@@ -10,16 +10,16 @@ import {
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { User } from './../../models/user.model';
+import { UserModel } from './../../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private _user: BehaviorSubject<User> = new BehaviorSubject({});
-  public readonly user: Observable<User> = this._user.asObservable();
+  private _user: BehaviorSubject<UserModel> = new BehaviorSubject({});
+  public readonly user: Observable<UserModel> = this._user.asObservable();
 
-  user$: Observable<User>;
+  user$: Observable<UserModel>;
   constructor(
     private afAuth: AngularFireAuth,
     private afStore: AngularFirestore,
@@ -28,7 +28,9 @@ export class AuthService {
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
-          return this.afStore.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.afStore
+            .doc<UserModel>(`users/${user.uid}`)
+            .valueChanges();
         } else {
           return of(null);
         }
@@ -47,8 +49,8 @@ export class AuthService {
     return this.router.navigate(['/']);
   }
 
-  private updateUserData({ uid, email, displayName, photoURL }: User) {
-    const userRef: AngularFirestoreDocument<User> = this.afStore.doc(
+  private updateUserData({ uid, email, displayName, photoURL }: UserModel) {
+    const userRef: AngularFirestoreDocument<UserModel> = this.afStore.doc(
       `users/${uid}`
     );
 

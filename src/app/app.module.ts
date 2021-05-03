@@ -6,6 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '@environments/environment';
 
+// Services
+import { OrdersService } from './services/shared/orders.service';
+
 // Swiper
 import { NguCarouselModule } from '@ngu/carousel';
 
@@ -30,6 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SocialButtonComponent } from './components/social-button/social-button.component';
 import { NoAccessComponent } from './components/no-access/no-access.component';
 import { ValidationErrorsComponent } from './components/validation-errors/validation-errors.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,7 @@ import { ValidationErrorsComponent } from './components/validation-errors/valida
     SocialButtonComponent,
     NoAccessComponent,
     ValidationErrorsComponent,
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,15 +55,15 @@ import { ValidationErrorsComponent } from './components/validation-errors/valida
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
     AngularFireAnalyticsModule,
     AngularFireAuthModule,
-    ReactiveFormsModule,
     MatSnackBarModule,
     NguCarouselModule,
   ],
-  providers: [],
+  providers: [OrdersService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

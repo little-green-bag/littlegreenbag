@@ -1,4 +1,4 @@
-<!-- <h1>Little Green Bag</h1>
+<h1>Little Green Bag</h1>
 
 <h3>
   We are currently operating from
@@ -9,7 +9,10 @@
   >
 </h3>
 
-<div *ngIf="auth.user$ | async as user; else login">
+<app-carousel></app-carousel>
+
+<!-- // Authorised User -->
+<!-- <div *ngIf="auth.user$ | async as user; else login">
   Welcome {{ user.displayName }}. You have successfully logged in.
   <a
     *ngIf="user.uid === '27PqJHgiSSZxeJnP5KwVSwPzbjZ2'"
@@ -33,28 +36,3 @@
 <div *ngIf="auth.user$ | async">
   <button (click)="logout()">Logout</button>
 </div> -->
-
-<ngu-carousel
-  #myCarousel
-  [inputs]="carouselConfig"
-  [dataSource]="carouselItems"
->
-  <div *nguCarouselDef="let item" class="item">
-    <div class="tile" [style.background]="'url(' + item.image + ')'"></div>
-  </div>
-  <button NguCarouselNext class="rightRs">></button>
-  <button NguCarouselPrev class="leftRs"><</button>
-  <ul class="myPoint" NguCarouselPoint>
-    <li
-      *ngFor="let j of myCarousel.pointNumbers; let i = index"
-      [class.active]="j == myCarousel.activePoint"
-      (click)="myCarousel.moveTo(j)"
-    ></li>
-  </ul>
-</ngu-carousel>
-
-<h1>Reset</h1>
-<div>
-  <label><input type="checkbox" [(ngModel)]="resetAnim" />With Animation</label>
-</div>
-<button (click)="reset()">reset</button>
