@@ -1,8 +1,11 @@
+import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '@services/product.service';
 import { NotificationsService } from '@services/notifications/notifications.service';
-import { ProductModel, CollectionsModel } from '@models/index';
+import { ProductModel } from '@models/index';
+import { Observable } from 'rxjs';
 
 interface ProductGroup {
   value: string;
@@ -15,7 +18,7 @@ interface ProductGroup {
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  products: ProductModel[] = [];
+  products;
   productForm: FormGroup;
 
   selectedValue: string;
@@ -36,7 +39,7 @@ export class ProductListComponent implements OnInit {
     { value: 'Rigs', viewValue: 'Rigs' },
   ];
 
-  dataSource = this.products;
+  // dataSource = this.products;
   constructor(
     private productService: ProductService,
     private _notificationService: NotificationsService,
@@ -44,13 +47,17 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.productService.getProducts('products').subscribe((data) => {
-      this.products = data.map((action) => {
-        const data = action.payload.doc.data() as ProductModel;
-        const id = action.payload.doc.id;
-        return { id, ...data };
-      });
-    });
+    this.products = this.productService.getProducts('products').pipe(
+      map((actions) =>
+        actions.map((action) => {
+          const data = action.payload.doc.data() as ProductModel;
+          const id = action.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+
+    console.log(' this.products is ', this.products);
 
     this._notificationService.openSnackBar(
       'Products successfully fetched',

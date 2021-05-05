@@ -80,7 +80,7 @@
   </tbody>
 </table> -->
 
-<table mat-table [dataSource]="products" class="mat-elevation-z8">
+<table mat-table [dataSource]="products | async" class="mat-elevation-z8">
   <ng-container matColumnDef="position">
     <td mat-cell *matCellDef="let element; let i = index">
       {{ i }}
