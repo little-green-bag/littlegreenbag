@@ -1,19 +1,18 @@
 :host {
-  border: 1px solid red;
-}
+  .spacer {
+    flex: 1 1 auto;
+  }
 
-.spacer {
-  flex: 1 1 auto;
-}
+  .logo {
+    display: grid;
+    height: 100%;
+    width: auto;
+  }
 
-.logo {
-  width: 4rem;
-  display: grid;
-}
-
-button.logo {
-  background-image: url("../../../../assets/images/little-green-bag-logo.png") !important;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  button.logo {
+    background-image: url("../../../../assets/images/little-green-bag-logo.png") !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }

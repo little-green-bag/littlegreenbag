@@ -11,7 +11,6 @@ export class SidenavService {
 
   setDrawer(drawer: MatDrawer) {
     this.drawer = drawer;
-    console.log('this drawer is ', this.drawer);
   }
 
   toggle(): void {

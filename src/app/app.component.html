@@ -1,13 +1,17 @@
-<div class="outer-container">
-  <section class="header">
-    <app-navbar></app-navbar>
-  </section>
-  <section class="body">
-    <app-side-nav></app-side-nav>
-    <!--  <router-outlet></router-outlet> -->
-  </section>
-  <section class="footer">
-    footer
-    <!-- <app-footer></app-footer> -->
-  </section>
-</div>
+<mat-drawer-container class="example-container" autosize [hasBackdrop]="true">
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    Side Menu
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <div class="outer-container">
+      <section class="header">
+        <app-navbar></app-navbar>
+      </section>
+      <section class="body">body</section>
+      <section class="footer">
+        <app-footer></app-footer>
+      </section>
+    </div>
+  </div>
+</mat-drawer-container>
