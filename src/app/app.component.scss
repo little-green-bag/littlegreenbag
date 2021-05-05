@@ -4,13 +4,8 @@
   display: grid;
   height: 100vh;
   grid-template-rows: $header-height 1fr $footer-height;
+
   .header {
-    background-color: red;
-  }
-  .body {
-    background-color: blue;
-  }
-  .footer {
-    background-color: green;
+    display: grid;
   }
 }

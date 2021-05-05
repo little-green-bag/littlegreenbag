@@ -34,7 +34,7 @@ import { HomeComponent } from '@components/home/home.component';
 import { ProductListComponent } from '@components/product-list/product-list.component';
 import { ProductDetailsComponentComponent } from '@components/product-details-component/product-details-component.component';
 import { ProductCreateComponentComponent } from '@components/product-create-component/product-create-component.component';
-import { NavbarComponent } from '@components/navbar/navbar.component';
+import { NavbarComponent } from '@components/header/navbar/navbar.component';
 import { SocialButtonComponent } from '@components/social-button/social-button.component';
 import { NoAccessComponent } from '@components/no-access/no-access.component';
 import { ValidationErrorsComponent } from '@components/validation-errors/validation-errors.component';
