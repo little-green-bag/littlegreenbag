@@ -1,29 +1,28 @@
 <mat-toolbar>
-  <button mat-icon-button (click)="toggleSidenav()">
-    <a mat-raised-button routerLink="/home">
-      <mat-icon>menu</mat-icon>
-    </a>
-  </button>
-  <span class="spacer"></span>
   <button
     mat-icon-button
+    color="accent"
+    aria-label="Example icon button with a menu icon"
     (click)="toggleSidenav()"
-    class="logo"
-    style.background="../../../assets/images/little-green-bag-logo.png"
   >
-    <a mat-raised-button routerLink="/home"> </a>
+    <mat-icon>menu</mat-icon>
   </button>
+  <span class="spacer"></span>
+
+  <img
+    class="logo"
+    src="../../../assets/images/little-green-bag-logo.png"
+    alt=""
+  />
 
   <span class="spacer"></span>
-  <button mat-icon-button>
-    <a mat-raised-button routerLink="/checkout-page">
-      <mat-icon
-        matBadgeSize="small"
-        [matBadge]="(cart$ | async).length"
-        [matBadgeHidden]="(cart$ | async).length === 0"
-        [matBadgeColor]="'warn'"
-        >shopping_basket</mat-icon
-      >
-    </a>
-  </button>
+  <a mat-raised-button routerLink="/checkout-page">
+    <mat-icon
+      matBadgeSize="small"
+      [matBadge]="(cart$ | async).length"
+      [matBadgeHidden]="(cart$ | async).length === 0"
+      [matBadgeColor]="'warn'"
+      >shopping_basket</mat-icon
+    >
+  </a>
 </mat-toolbar>

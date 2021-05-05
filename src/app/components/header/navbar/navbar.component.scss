@@ -7,13 +7,13 @@
 }
 
 .logo {
-  // width: 4rem;
+  width: 4rem;
   display: grid;
 }
 
 button.logo {
   background-image: url("../../../../assets/images/little-green-bag-logo.png") !important;
-  background-size: cover; //or cover
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }

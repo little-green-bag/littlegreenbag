@@ -8,8 +8,6 @@ import { SidenavService } from '@services/shared/sidenav.service';
   styleUrls: ['./mobile-nav.component.scss'],
 })
 export class MobileNavComponent implements AfterViewInit {
-  opened: boolean;
-
   @ViewChild('drawer') public drawer: MatDrawer;
   constructor(private sidenavService: SidenavService) {}
   ngAfterViewInit() {
