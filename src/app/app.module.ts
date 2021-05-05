@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { environment } from '@environments/environment';
 
 // Store
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
-
-import { environment } from '@environments/environment';
+import { cartReducer } from '../app/store/reducers/cart.reducer';
+import { itemsReducer } from '../app/store/reducers/items.reducer';
 
 // Services
 import { OrdersService } from './services/shared/orders.service';
@@ -66,6 +67,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     AngularFireAuthModule,
     MatSnackBarModule,
     NguCarouselModule,
+    StoreModule.forRoot({ items: itemsReducer, cart: cartReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode

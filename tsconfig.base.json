@@ -9,7 +9,8 @@
       "@components/*": ["./src/app/components/*"],
       "@models/*": ["./src/app/models/*"],
       "@modules/*": ["./src/app/modules/*"],
-      "@styles/*": ["./src/app/styles/*"]
+      "@styles/*": ["./src/app/styles/*"],
+      "@reducers/*": ["./src/app/reducers/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

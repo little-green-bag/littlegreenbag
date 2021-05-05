@@ -8,7 +8,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
-
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSidenavModule } from '@angular/material/sidenav';
 @NgModule({
   declarations: [],
   imports: [
@@ -21,6 +24,10 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatSnackBarModule,
     MatTableModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatListModule,
+    MatGridListModule,
   ],
   exports: [
     CommonModule,
@@ -32,6 +39,10 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatSnackBarModule,
     MatTableModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatListModule,
+    MatGridListModule,
   ],
 })
 export class MaterialModule {}

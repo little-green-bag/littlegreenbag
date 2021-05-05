@@ -1,11 +1,9 @@
 import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '@services/product.service';
 import { NotificationsService } from '@services/notifications/notifications.service';
 import { ProductModel } from '@models/index';
-import { Observable } from 'rxjs';
 
 interface ProductGroup {
   value: string;
@@ -30,6 +28,7 @@ export class ProductListComponent implements OnInit {
     'description',
     'productGroup',
     'delete',
+    'image',
   ];
 
   productGroups: ProductGroup[] = [
@@ -39,7 +38,6 @@ export class ProductListComponent implements OnInit {
     { value: 'Rigs', viewValue: 'Rigs' },
   ];
 
-  // dataSource = this.products;
   constructor(
     private productService: ProductService,
     private _notificationService: NotificationsService,
@@ -47,23 +45,25 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.products = this.productService.getProducts('products').pipe(
-      map((actions) =>
-        actions.map((action) => {
-          const data = action.payload.doc.data() as ProductModel;
-          const id = action.payload.doc.id;
-          return { id, ...data };
-        })
-      )
-    );
-
-    console.log(' this.products is ', this.products);
-
-    this._notificationService.openSnackBar(
-      'Products successfully fetched',
-      'PRODUCTS',
-      'red-snackbar'
-    );
+    const localStorageProducts = localStorage.getItem('products');
+    if (!localStorageProducts) {
+      this.products = this.productService.getProducts('products').pipe(
+        map((actions) =>
+          actions.map((action) => {
+            const data = action.payload.doc.data() as ProductModel;
+            const id = action.payload.doc.id;
+            const result = { id, ...data };
+            localStorage.setItem('products', JSON.stringify(result));
+            this._notificationService.openSnackBar(
+              'Products successfully fetched',
+              'PRODUCTS',
+              'red-snackbar'
+            );
+            return result;
+          })
+        )
+      );
+    }
 
     this.buildForm();
   }
@@ -90,6 +90,16 @@ export class ProductListComponent implements OnInit {
         'red-snackbar'
       );
     }
+  }
+
+  retrieveImage(p: ProductModel) {
+    console.log('p is ', p);
+    // const words = p.image_url.split('-');
+    // const type = words[0];
+    // const item = words[1];
+    // console.log('words are ', words);
+    return '../../../../assets/bangers/bangers-four.png';
+    // return `../../assets/${type}/${item}`;
   }
 
   async create(product: ProductModel) {
