@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { ProductModel } from '@models/product.model';
+import { selectCart } from '@store/selectors/cart.selector';
+import { SidenavService } from '@services/shared/sidenav.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
+  cart$ = this.store.pipe(select(selectCart));
 
-  constructor() { }
+  constructor(
+    private store: Store<{ products: ProductModel[]; cart: [] }>,
+    private sidenavService: SidenavService
+  ) {}
 
-  ngOnInit(): void {
+  toggleSidenav() {
+    this.sidenavService.toggle();
   }
-
 }

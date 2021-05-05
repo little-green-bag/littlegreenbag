@@ -98,7 +98,7 @@ export class ProductListComponent implements OnInit {
     // const type = words[0];
     // const item = words[1];
     // console.log('words are ', words);
-    return '../../../../assets/bangers/bangers-four.png';
+    return '../../../assets/bangers/bangers-four.png';
     // return `../../assets/${type}/${item}`;
   }
 

@@ -1,17 +1,16 @@
-.example-container {
-  width: 100vw;
-  height: calc(100vh - 56px);
-  position: absolute;
-  border: 2px solid blue;
-}
+@import "../styles/variables";
 
-.example-sidenav-content {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-}
-
-.example-sidenav {
-  padding: 20px;
+.outer-container {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: $header-height 1fr $footer-height;
+  .header {
+    background-color: red;
+  }
+  .body {
+    background-color: blue;
+  }
+  .footer {
+    background-color: green;
+  }
 }

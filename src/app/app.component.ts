@@ -1,5 +1,4 @@
-import { MatDrawer } from '@angular/material/sidenav';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +7,4 @@ import { Component, ViewChild } from '@angular/core';
 })
 export class AppComponent {
   title = 'littlegreenbag';
-
-  @ViewChild('drawer') public drawer: MatDrawer;
-  constructor(private sidenavService: SidenavService) {}
-  ngAfterViewInit() {
-    this.sidenavService.setDrawer(this.drawer);
-  }
 }

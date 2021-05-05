@@ -1,29 +1,29 @@
-<!-- <mat-toolbar>
+<mat-toolbar>
   <button mat-icon-button (click)="toggleSidenav()">
     <a mat-raised-button routerLink="/home">
       <mat-icon>menu</mat-icon>
     </a>
   </button>
   <span class="spacer"></span>
-  <a mat-raised-button routerLink="/home">
-    <div class="logo">
-      <img src="../../../assets/images/little-green-bag-logo.png" alt="" />
-    </div>
-  </a>
-  <span class="spacer"></span>
-  <button
+  <!-- <button
     mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
+    (click)="toggleSidenav()"
+    class="logo"
+    style.background="../../../assets/images/little-green-bag-logo.png"
   >
+    <a mat-raised-button routerLink="/home"> </a>
+  </button> -->
+
+  <span class="spacer"></span>
+  <button mat-icon-button>
     <a mat-raised-button routerLink="/checkout-page">
       <mat-icon
         matBadgeSize="small"
         [matBadge]="(cart$ | async).length"
-        [matBadgeColor]="'warn'"
         [matBadgeHidden]="(cart$ | async).length === 0"
+        [matBadgeColor]="'warn'"
         >shopping_basket</mat-icon
       >
     </a>
   </button>
-</mat-toolbar> -->
+</mat-toolbar>

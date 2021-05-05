@@ -1,19 +1,15 @@
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="over">
-    <mat-list role="list">
-      <mat-list-item role="listitem">
-        <mat-icon>home</mat-icon> Home</mat-list-item
-      >
-      <mat-divider></mat-divider>
-      <mat-list-item role="listitem">Rigs</mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item role="listitem">Bangers</mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item role="listitem">Decorative</mat-list-item>
-      <mat-divider></mat-divider>
-    </mat-list>
-  </mat-drawer>
-  <mat-drawer-content>
-    <router-outlet></router-outlet>
-  </mat-drawer-content>
-</mat-drawer-container>
+<div class="outer-container">
+  <section class="header">
+    header
+    <!-- <app-navbar></app-navbar> -->
+  </section>
+  <section class="body">
+    body
+    <!-- <app-side-nav></app-side-nav>
+  <router-outlet></router-outlet> -->
+  </section>
+  <section class="footer">
+    footer
+    <!-- <app-footer></app-footer> -->
+  </section>
+</div>

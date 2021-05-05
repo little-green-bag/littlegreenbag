@@ -1,0 +1,19 @@
+<mat-sidenav-container class="base-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+    <app-side-nav></app-side-nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <p>
+      <button
+        (click)="sidenav.toggle()"
+        mat-icon-button
+        color="accent"
+        aria-label="Example icon button with a menu icon"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+    </p>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

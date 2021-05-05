@@ -3,17 +3,17 @@ import { createAction, props } from '@ngrx/store';
 export enum ActionTypes {
   Add = '[Product] Add to cart',
   Remove = '[Product] Remove from cart',
-  LoadItems = '[Products] Load items from server',
+  LoadProducts = '[Products] Load products from server',
   LoadSuccess = '[Products] Load success',
 }
 
 export const AddToCart = createAction(ActionTypes.Add, props<{ Product }>());
-export const GetItems = createAction(ActionTypes.LoadItems);
+export const GetProducts = createAction(ActionTypes.LoadProducts);
 export const RemoveFromCart = createAction(
   ActionTypes.Remove,
   props<{ Product }>()
 );
-export const LoadItems = createAction(
+export const LoadProducts = createAction(
   ActionTypes.LoadSuccess,
   props<{ Product }>()
 );

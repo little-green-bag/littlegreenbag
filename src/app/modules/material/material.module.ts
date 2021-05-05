@@ -12,6 +12,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -28,6 +30,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatCardModule,
     MatListModule,
     MatGridListModule,
+    MatButtonModule,
   ],
   exports: [
     CommonModule,
@@ -43,6 +46,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatCardModule,
     MatListModule,
     MatGridListModule,
+    MatButtonModule,
   ],
 })
 export class MaterialModule {}
