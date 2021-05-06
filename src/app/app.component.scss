@@ -7,8 +7,20 @@
 
   .header {
     display: grid;
+    mat-toolbar {
+      background: $white;
+    }
   }
   .body {
-    background: black;
+    background: $black;
+    color: white;
+    padding: 2rem;
+    .inner-body {
+      height: 100%;
+      border: 1px solid $green;
+    }
+  }
+  .footer {
+    background-color: $white;
   }
 }

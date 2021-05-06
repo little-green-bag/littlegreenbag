@@ -1,0 +1,108 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i");
+@import "../../../styles/variables";
+
+.container {
+  width: 100%;
+  margin: auto;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 0 200px;
+}
+
+.animate {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.animate span {
+  display: inline-block;
+}
+
+.animate span:nth-of-type(2) {
+  animation-delay: 0.05s;
+}
+.animate span:nth-of-type(3) {
+  animation-delay: 0.1s;
+}
+.animate span:nth-of-type(4) {
+  animation-delay: 0.15s;
+}
+.animate span:nth-of-type(5) {
+  animation-delay: 0.2s;
+}
+.animate span:nth-of-type(6) {
+  animation-delay: 0.25s;
+}
+.animate span:nth-of-type(7) {
+  animation-delay: 0.3s;
+}
+.animate span:nth-of-type(8) {
+  animation-delay: 0.35s;
+}
+.animate span:nth-of-type(9) {
+  animation-delay: 0.4s;
+}
+.animate span:nth-of-type(10) {
+  animation-delay: 0.45s;
+}
+.animate span:nth-of-type(11) {
+  animation-delay: 0.5s;
+}
+.animate span:nth-of-type(12) {
+  animation-delay: 0.55s;
+}
+.animate span:nth-of-type(13) {
+  animation-delay: 0.6s;
+}
+.animate span:nth-of-type(14) {
+  animation-delay: 0.65s;
+}
+.animate span:nth-of-type(15) {
+  animation-delay: 0.7s;
+}
+.animate span:nth-of-type(16) {
+  animation-delay: 0.75s;
+}
+.animate span:nth-of-type(17) {
+  animation-delay: 0.8s;
+}
+.animate span:nth-of-type(18) {
+  animation-delay: 0.85s;
+}
+.animate span:nth-of-type(19) {
+  animation-delay: 0.9s;
+}
+.animate span:nth-of-type(20) {
+  animation-delay: 0.95s;
+}
+
+.three span {
+  color: $green;
+  opacity: 0;
+  transform: translate(-300px, 0) scale(0);
+  animation: sideSlide 0.5s forwards;
+}
+
+@keyframes sideSlide {
+  30% {
+    transform: translate(20px, 0) scale(1);
+    color: $green;
+  }
+
+  60% {
+    transform: translate(20px, 0) scale(1);
+    color: $green;
+  }
+
+  99% {
+    transform: translate(0) scale(1.2);
+    color: $white;
+  }
+
+  100% {
+    transform: translate(0) scale(1);
+    opacity: 1;
+    color: $green;
+  }
+}
