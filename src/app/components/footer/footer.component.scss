@@ -1,5 +1,7 @@
-@import "variables";
-
-.test {
-  height: $footer-height;
+.details {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
