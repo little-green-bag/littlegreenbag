@@ -1,9 +1,10 @@
 import { map } from 'rxjs/operators';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '@services/product.service';
 import { NotificationsService } from '@services/notifications/notifications.service';
 import { ProductModel } from '@models/index';
+import { Observable } from 'rxjs';
 
 interface ProductGroup {
   value: string;
@@ -15,8 +16,8 @@ interface ProductGroup {
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent implements OnInit {
-  products;
+export class ProductListComponent implements OnInit, AfterViewInit {
+  products: Observable<ProductModel[]>;
   productForm: FormGroup;
 
   selectedValue: string;
@@ -44,26 +45,31 @@ export class ProductListComponent implements OnInit {
     private _fb: FormBuilder
   ) {}
 
-  ngOnInit(): void {
-    const localStorageProducts = localStorage.getItem('products');
-    if (!localStorageProducts) {
-      this.products = this.productService.getProducts('products').pipe(
-        map((actions) =>
-          actions.map((action) => {
-            const data = action.payload.doc.data() as ProductModel;
-            const id = action.payload.doc.id;
-            const result = { id, ...data };
-            localStorage.setItem('products', JSON.stringify(result));
-            this._notificationService.openSnackBar(
-              'Products successfully fetched',
-              'PRODUCTS',
-              'red-snackbar'
-            );
-            return result;
-          })
-        )
-      );
+  async ngAfterViewInit() {
+    if (this.products) {
+      this.products.subscribe((products) => {
+        console.log('products are ', products);
+      });
     }
+  }
+
+  ngOnInit(): void {
+    this.products = this.productService.getProducts('products').pipe(
+      map((actions) =>
+        actions.map((action) => {
+          const data = action.payload.doc.data() as ProductModel;
+          const id = action.payload.doc.id;
+          const result = { id, ...data };
+          localStorage.setItem('products', JSON.stringify(result));
+          this._notificationService.openSnackBar(
+            'Products successfully fetched',
+            'PRODUCTS',
+            'red-snackbar'
+          );
+          return result;
+        })
+      )
+    );
 
     this.buildForm();
   }
@@ -93,7 +99,6 @@ export class ProductListComponent implements OnInit {
   }
 
   retrieveImage(p: ProductModel) {
-    console.log('p is ', p);
     // const words = p.image_url.split('-');
     // const type = words[0];
     // const item = words[1];

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { ProductModel } from '@models/product.model';
-import { selectCart } from '@store/selectors/cart.selector';
+// import { selectCart } from '@store/selectors/cart.selector';
 import { SidenavService } from '@services/shared/sidenav.service';
 
 @Component({
@@ -10,10 +10,10 @@ import { SidenavService } from '@services/shared/sidenav.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  cart$ = this.store.pipe(select(selectCart));
+  // cart$ = this.store.pipe(select(selectCart));
 
   constructor(
-    private store: Store<{ products: ProductModel[]; cart: [] }>,
+    // private store: Store<{ products: ProductModel[]; cart: [] }>,
     private sidenavService: SidenavService
   ) {}
 

@@ -7,12 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '@environments/environment';
 
-// Store
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreModule } from '@ngrx/store';
-import { cartReducer } from '../app/store/reducers/cart.reducer';
-import { productsReducer } from '../app/store/reducers/products.reducer';
-
 // Services
 import { SidenavService } from './services/shared/sidenav.service';
 
@@ -37,7 +31,7 @@ import { ProductCreateComponentComponent } from '@components/product-create-comp
 import { NavbarComponent } from '@components/header/navbar/navbar.component';
 import { SocialButtonComponent } from '@components/social-button/social-button.component';
 import { NoAccessComponent } from '@components/no-access/no-access.component';
-import { ValidationErrorsComponent } from '@components/validation-errors/validation-errors.component';
+import { ValidationErrorsComponent } from '@components/forms/validation-errors/validation-errors.component';
 import { CarouselComponent } from '@components/carousel/carousel.component';
 import { MobileNavComponent } from './components/mobile/mobile-nav/mobile-nav.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -73,11 +67,6 @@ import { CheckoutPageComponent } from './components/checkout-page/checkout-page.
     AngularFireAnalyticsModule,
     AngularFireAuthModule,
     NguCarouselModule,
-    StoreModule.forRoot({ products: productsReducer, cart: cartReducer }),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
-      logOnly: environment.production, // Restrict extension to log-only mode
-    }),
   ],
   providers: [SidenavService],
   bootstrap: [AppComponent],

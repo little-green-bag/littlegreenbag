@@ -10,7 +10,7 @@ import {
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { UserModel } from './../../models/user.model';
+import { UserModel } from '@models/user.model';
 
 @Injectable({
   providedIn: 'root',
