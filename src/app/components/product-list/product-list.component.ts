@@ -59,4 +59,8 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       )
     );
   }
+
+  delete(product: ProductModel): void {
+    this.productService.deleteProduct(product.id, 'products');
+  }
 }

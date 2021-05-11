@@ -15,7 +15,7 @@ export const LinksNavigation = [
     protected: false,
   },
   {
-    url: '/images',
+    url: '/create',
     icon: 'create',
     protected: false,
   },

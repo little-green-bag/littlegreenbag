@@ -13,6 +13,10 @@ export class SidenavService {
     this.drawer = drawer;
   }
 
+  resetDrawer(): void {
+    this.drawer.close();
+  }
+
   toggle(): void {
     this.drawer.toggle();
   }

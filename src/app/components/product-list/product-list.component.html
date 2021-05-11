@@ -50,14 +50,19 @@
   <ng-container matColumnDef="image">
     <th mat-header-cell *matHeaderCellDef>Image</th>
     <td class="cell--image" mat-cell *matCellDef="let element">
-      <!-- <img class="brand-image" [src]="retrieveImage(element)" alt="" /> -->
+      <img
+        *ngIf="element.imageUrl?.length"
+        class="brand-image"
+        [src]="element.imageUrl"
+        alt=""
+      />
     </td>
   </ng-container>
 
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef>Delete</th>
     <td mat-cell *matCellDef="let element">
-      <button (click)="delete(element.id)">Delete</button>
+      <button (click)="delete(element)">Delete</button>
     </td>
   </ng-container>
 

@@ -81,6 +81,7 @@ export class ProductCreateComponentComponent implements OnInit {
               'PRODUCTS',
               'green-snackbar'
             );
+            this.resetForm();
           });
         })
       )

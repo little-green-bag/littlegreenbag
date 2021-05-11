@@ -13,6 +13,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [],
@@ -31,6 +32,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatListModule,
     MatGridListModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     CommonModule,
@@ -47,6 +49,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatListModule,
     MatGridListModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class MaterialModule {}
