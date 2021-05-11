@@ -1,1 +1,2 @@
-export * from './links.ts/navigation';
+export * from './links/navigation';
+export * from './products/categories';

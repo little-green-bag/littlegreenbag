@@ -1,1 +1,77 @@
-<p>product-create-component works!</p>
+<div class="form-container">
+  <form
+    action=""
+    (ngSubmit)="onSubmit(productForm.value)"
+    [formGroup]="productForm"
+  >
+    <div class="group" formGroupName="product">
+      <mat-form-field appearance="fill">
+        <mat-label>Product Type</mat-label>
+        <mat-select formControlName="productGroup">
+          <mat-option
+            *ngFor="let productGroup of productGroups"
+            [value]="productGroup.value"
+          >
+            {{ productGroup.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="name" matInput placeholder="Name" type="text" />
+        <mat-error>
+          <app-validation-errors
+            [title]="'name'"
+            [errors]="productForm.get('product.name').errors"
+          ></app-validation-errors>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          formControlName="price"
+          matInput
+          placeholder="Price"
+          type="number"
+        />
+        <mat-error>
+          <app-validation-errors
+            [title]="'price'"
+            [errors]="productForm.get('product.price').errors"
+          ></app-validation-errors>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          formControlName="description"
+          matInput
+          placeholder="Description"
+          type="text"
+        />
+        <mat-error>
+          <app-validation-errors
+            [title]="'description'"
+            [errors]="productForm.get('product.description').errors"
+          ></app-validation-errors>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          formControlName="image_url"
+          matInput
+          placeholder="Image String"
+          type="text"
+        />
+        <mat-error>
+          <app-validation-errors
+            [title]="'image_url'"
+            [errors]="productForm.get('product.image_url').errors"
+          ></app-validation-errors>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>

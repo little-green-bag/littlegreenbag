@@ -1,0 +1,24 @@
+<ngu-carousel
+  #myCarousel
+  [inputs]="carouselConfig"
+  [dataSource]="carouselItems"
+>
+  <div *nguCarouselDef="let item" class="item">
+    <div class="tile" [style.background]="'url(' + item.image_url + ')'"></div>
+  </div>
+
+  <button *ngIf="config?.displayPoints" NguCarouselNext class="rightRs">
+    >
+  </button>
+  <button *ngIf="config?.displayPoints" NguCarouselPrev class="leftRs">
+    <
+  </button>
+
+  <ul class="myPoint" NguCarouselPoint *ngIf="config?.displayPoints">
+    <li
+      *ngFor="let j of myCarousel.pointNumbers; let i = index"
+      [class.active]="j == myCarousel.activePoint"
+      (click)="myCarousel.moveTo(j)"
+    ></li>
+  </ul>
+</ngu-carousel>

@@ -33,9 +33,8 @@ import { SocialButtonComponent } from '@components/social-button/social-button.c
 import { NoAccessComponent } from '@components/no-access/no-access.component';
 import { ValidationErrorsComponent } from '@components/forms/validation-errors/validation-errors.component';
 import { CarouselComponent } from '@components/carousel/carousel.component';
-import { MobileNavComponent } from './components/mobile/mobile-nav/mobile-nav.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { SideNavComponent } from './components/mobile/side-nav/side-nav.component';
 import { LinkComponent } from './components/shared/link/link.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ShopComponent } from './components/shop/shop.component';
@@ -52,7 +51,6 @@ import { ShopComponent } from './components/shop/shop.component';
     NoAccessComponent,
     ValidationErrorsComponent,
     CarouselComponent,
-    MobileNavComponent,
     SideNavComponent,
     FooterComponent,
     LinkComponent,

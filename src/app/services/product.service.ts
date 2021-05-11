@@ -1,4 +1,3 @@
-import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ProductModel } from '@models/index';
@@ -7,7 +6,7 @@ import { ProductModel } from '@models/index';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private firestore: AngularFirestore, private store: Store) {}
+  constructor(private firestore: AngularFirestore) {}
 
   getProducts(collection) {
     return this.firestore.collection(collection).snapshotChanges();
