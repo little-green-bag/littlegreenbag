@@ -2,6 +2,7 @@ export class ProductModel {
   id: string;
   name: string;
   description: string;
-  image_url?: string;
+  category: string;
+  imageUrl?: string;
   price: number;
 }

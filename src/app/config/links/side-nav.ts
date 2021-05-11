@@ -14,4 +14,9 @@ export const LinksNavigation = [
     icon: 'shopping_basket',
     protected: false,
   },
+  {
+    url: '/images',
+    icon: 'create',
+    protected: false,
+  },
 ];

@@ -3,16 +3,17 @@
     action=""
     (ngSubmit)="onSubmit(productForm.value)"
     [formGroup]="productForm"
+    #f="ngForm"
   >
     <div class="group" formGroupName="product">
       <mat-form-field appearance="fill">
         <mat-label>Product Type</mat-label>
-        <mat-select formControlName="productGroup">
+        <mat-select formControlName="category">
           <mat-option
-            *ngFor="let productGroup of productGroups"
-            [value]="productGroup.value"
+            *ngFor="let category of categories"
+            [value]="category.value"
           >
-            {{ productGroup.viewValue }}
+            {{ category.viewValue }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -51,26 +52,20 @@
         />
         <mat-error>
           <app-validation-errors
-            [title]="'description'"
+            [title]="'f'"
             [errors]="productForm.get('product.description').errors"
           ></app-validation-errors>
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field>
+      <div>
+        <img [src]="currentImgSrc" width="350px" height="250px" />
         <input
-          formControlName="image_url"
-          matInput
-          placeholder="Image String"
-          type="text"
+          formControlName="imageUrl"
+          type="file"
+          (change)="onFileSelected($event)"
         />
-        <mat-error>
-          <app-validation-errors
-            [title]="'image_url'"
-            [errors]="productForm.get('product.image_url').errors"
-          ></app-validation-errors>
-        </mat-error>
-      </mat-form-field>
+      </div>
     </div>
     <button type="submit">Submit</button>
   </form>

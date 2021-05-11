@@ -1,6 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { AuthService } from '@services/auth/auth.service';
-import { ProductService } from '@services/product.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +7,4 @@ import { ProductService } from '@services/product.service';
 })
 export class HomeComponent {
   name = 'Angular';
-
-  constructor(public auth: AuthService) {}
-
-  logout() {
-    this.auth.signOut();
-  }
 }

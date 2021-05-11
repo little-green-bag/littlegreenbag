@@ -8,7 +8,7 @@ import { environment } from '@environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 
 // Services
-import { SidenavService } from './services/shared/sidenav.service';
+import { SidenavService } from './services/shared/sidenav/sidenav.service';
 
 // Swiper
 import { NguCarouselModule } from '@ngu/carousel';
@@ -33,11 +33,11 @@ import { SocialButtonComponent } from '@components/shared/social-button/social-b
 import { NoAccessComponent } from '@components/no-access/no-access.component';
 import { ValidationErrorsComponent } from '@components/forms/validation-errors/validation-errors.component';
 import { CarouselComponent } from '@components/shared/carousel/carousel.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { SideNavComponent } from './components/mobile/side-nav/side-nav.component';
-import { LinkComponent } from './components/shared/link/link.component';
-import { CheckoutComponent } from './components/body/pages/checkout/checkout.component';
-import { ShopComponent } from './components/body/pages/shop/shop.component';
+import { FooterComponent } from '@components/footer/footer.component';
+import { SideNavComponent } from '@components/mobile/side-nav/side-nav.component';
+import { LinkComponent } from '@components/shared/link/link.component';
+import { CheckoutComponent } from '@components/body/pages/checkout/checkout.component';
+import { ShopComponent } from '@components/body/pages/shop/shop.component';
 
 @NgModule({
   declarations: [

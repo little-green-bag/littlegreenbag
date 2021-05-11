@@ -30,32 +30,36 @@ export class CarouselComponent implements OnInit, AfterViewInit {
   };
   carouselItems: ProductModel[] = [
     {
-      image_url: '../../../../assets/banger-one.png',
+      imageUrl: '../../../../assets/banger-one.png',
       id: '',
       name: '',
       description: '',
       price: 1,
+      category: '',
     },
     {
-      image_url: '../../../../assets/banger-two.png',
+      imageUrl: '../../../../assets/banger-two.png',
       id: '',
       name: '',
       description: '',
       price: 1,
+      category: '',
     },
     {
-      image_url: '../../../../assets/banger-three.png',
+      imageUrl: '../../../../assets/banger-three.png',
       id: '',
       name: '',
       description: '',
       price: 1,
+      category: '',
     },
     {
-      image_url: '../../../../assets/banger-four.png',
+      imageUrl: '../../../../assets/banger-four.png',
       id: '',
       name: '',
       description: '',
       price: 1,
+      category: '',
     },
   ];
 

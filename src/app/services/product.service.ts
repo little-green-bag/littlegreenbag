@@ -1,3 +1,4 @@
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ProductModel } from '@models/index';
@@ -17,6 +18,7 @@ export class ProductService {
   }
 
   createProduct(product: ProductModel, collection) {
+    console.log('product is ', product);
     return this.firestore.collection(collection).add(product);
   }
 

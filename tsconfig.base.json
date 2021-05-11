@@ -12,7 +12,8 @@
       "@styles/*": ["./src/app/styles/*"],
       "@reducers/*": ["./src/app/store/reducers/*"],
       "@store/*": ["./src/app/store/*"],
-      "@config/*": ["./src/app/config/*"]
+      "@config/*": ["./src/app/config/*"],
+      "@images/*": ["./src/app/images/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

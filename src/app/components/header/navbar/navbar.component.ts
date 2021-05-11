@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { ProductModel } from '@models/product.model';
 // import { selectCart } from '@store/selectors/cart.selector';
-import { SidenavService } from '@services/shared/sidenav.service';
+import { SidenavService } from '@services/shared/sidenav/sidenav.service';
 
 @Component({
   selector: 'app-navbar',
