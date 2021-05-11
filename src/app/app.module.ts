@@ -24,20 +24,20 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 
 // Components
-import { HomeComponent } from '@components/home/home.component';
+import { HomeComponent } from '@components/body/pages/home/home.component';
 import { ProductListComponent } from '@components/product-list/product-list.component';
 import { ProductDetailsComponentComponent } from '@components/product-details-component/product-details-component.component';
 import { ProductCreateComponentComponent } from '@components/product-create-component/product-create-component.component';
 import { NavbarComponent } from '@components/header/navbar/navbar.component';
-import { SocialButtonComponent } from '@components/social-button/social-button.component';
+import { SocialButtonComponent } from '@components/shared/social-button/social-button.component';
 import { NoAccessComponent } from '@components/no-access/no-access.component';
 import { ValidationErrorsComponent } from '@components/forms/validation-errors/validation-errors.component';
-import { CarouselComponent } from '@components/carousel/carousel.component';
+import { CarouselComponent } from '@components/shared/carousel/carousel.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SideNavComponent } from './components/mobile/side-nav/side-nav.component';
 import { LinkComponent } from './components/shared/link/link.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
-import { ShopComponent } from './components/shop/shop.component';
+import { CheckoutComponent } from './components/body/pages/checkout/checkout.component';
+import { ShopComponent } from './components/body/pages/shop/shop.component';
 
 @NgModule({
   declarations: [
