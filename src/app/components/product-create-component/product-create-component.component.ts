@@ -52,15 +52,6 @@ export class ProductCreateComponentComponent implements OnInit {
     });
   }
 
-  retrieveImage(p: ProductModel) {
-    // const words = p.image_url.split('-');
-    // const type = words[0];
-    // const item = words[1];
-    // console.log('words are ', words);
-    return '../../../assets/bangers/bangers-four.png';
-    // return `../../assets/${type}/${item}`;
-  }
-
   async create(product: ProductModel) {
     await this.productService.createProduct(product, 'products');
     this._notificationService.openSnackBar(
