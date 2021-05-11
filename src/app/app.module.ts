@@ -1,4 +1,3 @@
-import { SideNavComponent } from './components/mobile/mobile-nav/side-nav/side-nav.component';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -6,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '@environments/environment';
+import { EffectsModule } from '@ngrx/effects';
 
 // Services
 import { SidenavService } from './services/shared/sidenav.service';
@@ -35,7 +35,10 @@ import { ValidationErrorsComponent } from '@components/forms/validation-errors/v
 import { CarouselComponent } from '@components/carousel/carousel.component';
 import { MobileNavComponent } from './components/mobile/mobile-nav/mobile-nav.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { CheckoutPageComponent } from './components/checkout-page/checkout-page.component';
+import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { LinkComponent } from './components/shared/link/link.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ShopComponent } from './components/shop/shop.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,9 @@ import { CheckoutPageComponent } from './components/checkout-page/checkout-page.
     MobileNavComponent,
     SideNavComponent,
     FooterComponent,
-    CheckoutPageComponent,
+    LinkComponent,
+    CheckoutComponent,
+    ShopComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +72,7 @@ import { CheckoutPageComponent } from './components/checkout-page/checkout-page.
     AngularFireAnalyticsModule,
     AngularFireAuthModule,
     NguCarouselModule,
+    EffectsModule,
   ],
   providers: [SidenavService],
   bootstrap: [AppComponent],

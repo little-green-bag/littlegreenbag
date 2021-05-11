@@ -1,0 +1,8 @@
+.mat-divider {
+  &:first-of-type {
+    margin-bottom: 10px;
+  }
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+}

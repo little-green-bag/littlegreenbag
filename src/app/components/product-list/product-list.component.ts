@@ -16,7 +16,7 @@ interface ProductGroup {
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent implements OnInit, AfterViewInit {
+export class ProductListComponent implements OnInit {
   products: Observable<ProductModel[]>;
   productForm: FormGroup;
 
@@ -45,13 +45,13 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     private _fb: FormBuilder
   ) {}
 
-  async ngAfterViewInit() {
-    if (this.products) {
-      this.products.subscribe((products) => {
-        console.log('products are ', products);
-      });
-    }
-  }
+  // async ngAfterViewInit() {
+  //   if (this.products) {
+  //     this.products.subscribe((products) => {
+  //       console.log('products are ', products);
+  //     });
+  //   }
+  // }
 
   ngOnInit(): void {
     this.products = this.productService.getProducts('products').pipe(

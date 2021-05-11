@@ -1,0 +1,9 @@
+<a
+  mat-raised-button
+  [routerLink]="linkConfig.url"
+  [ngClass]="linkConfig.className"
+>
+  <mat-icon *ngIf="linkConfig.icon">{{ linkConfig.icon }}</mat-icon>
+  <p *ngIf="linkConfig.text">{{ linkConfig.text }}</p>
+</a>
+<mat-divider></mat-divider>

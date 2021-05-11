@@ -7,11 +7,13 @@ import { ProductListComponent } from '@components/product-list/product-list.comp
 import { ProductCreateComponentComponent } from '@components/product-create-component/product-create-component.component';
 import { ProductDetailsComponentComponent } from '@components/product-details-component/product-details-component.component';
 import { NoAccessComponent } from '@components/no-access/no-access.component';
-import { CheckoutPageComponent } from '@components/checkout-page/checkout-page.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ShopComponent } from './components/shop/shop.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'shop', component: ShopComponent },
   {
     path: 'products',
     component: ProductListComponent,
@@ -19,7 +21,7 @@ const routes: Routes = [
   },
   { path: 'products/:id', component: ProductDetailsComponentComponent },
   { path: 'create', component: ProductCreateComponentComponent },
-  { path: 'checkout-page', component: CheckoutPageComponent },
+  { path: 'checkout', component: CheckoutComponent },
   { path: 'no-access', component: NoAccessComponent },
 ];
 

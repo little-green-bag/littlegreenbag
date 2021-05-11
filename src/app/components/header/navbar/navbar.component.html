@@ -2,7 +2,6 @@
   <button
     mat-icon-button
     color="accent"
-    aria-label="Example icon button with a menu icon"
     (click)="toggleSidenav()"
     class="icon--mobile"
   >
@@ -15,7 +14,7 @@
   </a>
 
   <span class="spacer"></span>
-  <a mat-raised-button routerLink="/checkout-page" class="icon--basket">
+  <a mat-raised-button routerLink="/checkout" class="icon--basket">
     <!-- <mat-icon
       matBadgeSize="small"
       [matBadge]="(cart$ | async).length"
