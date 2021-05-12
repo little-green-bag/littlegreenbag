@@ -18,3 +18,17 @@
     <span>g</span>
   </div>
 </div> -->
+<div class="logins">
+  <div *ngIf="auth.user$ | async as user; else login">
+    <mat-button (click)="auth.signOut()">Logout</mat-button>
+  </div>
+  <ng-template #login>
+    <form class="form-signin">
+      <app-social-button
+        (clicked)="auth.googleSignIn()"
+        [user]="user"
+        [text]="'Sign in with Google'"
+      ></app-social-button>
+    </form>
+  </ng-template>
+</div>

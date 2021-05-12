@@ -1,3 +1,4 @@
+import { AuthService } from '@services/auth/auth.service';
 import { Component } from '@angular/core';
 import { LinksNavigation } from '@config/index';
 @Component({
@@ -8,5 +9,5 @@ import { LinksNavigation } from '@config/index';
 export class SideNavComponent {
   links = LinksNavigation;
 
-  constructor() {}
+  constructor(private auth: AuthService) {}
 }

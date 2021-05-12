@@ -17,6 +17,6 @@ export const LinksNavigation = [
   {
     url: '/create',
     icon: 'create',
-    protected: false,
+    protected: true,
   },
 ];
