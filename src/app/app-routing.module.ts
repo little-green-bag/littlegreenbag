@@ -7,12 +7,12 @@ import { HomeComponent } from '@components/body/pages/home/home.component';
 import { ProductListComponent } from '@components/product-list/product-list.component';
 import { ProductCreateComponentComponent } from '@components/product-create-component/product-create-component.component';
 import { ProductDetailsComponentComponent } from '@components/product-details-component/product-details-component.component';
-import { NoAccessComponent } from '@components/no-access/no-access.component';
+import { NoAccessComponent } from '@components/shared/no-access/no-access.component';
 import { CheckoutComponent } from '@components/body/pages/checkout/checkout.component';
 import { ShopComponent } from '@components/body/pages/shop/shop.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'create', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'shop', component: ShopComponent },
   {
@@ -21,7 +21,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'products/:id', component: ProductDetailsComponentComponent },
-  { path: 'create', component: ProductCreateComponentComponent },
+  {
+    path: 'create',
+    component: ProductCreateComponentComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'no-access', component: NoAccessComponent },
 ];

@@ -14,9 +14,7 @@ export class AuthGuard implements CanActivate {
     return this.auth.user$.pipe(
       take(1),
       map((user) => {
-        console.log('user is ', user);
         if (!user || user?.uid !== '27PqJHgiSSZxeJnP5KwVSwPzbjZ2') {
-          console.log(!user ? 'no user' : 'incorrect user');
           this.router.navigate(['/no-access']);
         }
         return !!user;

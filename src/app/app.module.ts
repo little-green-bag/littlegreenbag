@@ -30,8 +30,8 @@ import { ProductDetailsComponentComponent } from '@components/product-details-co
 import { ProductCreateComponentComponent } from '@components/product-create-component/product-create-component.component';
 import { NavbarComponent } from '@components/header/navbar/navbar.component';
 import { SocialButtonComponent } from '@components/shared/social-button/social-button.component';
-import { NoAccessComponent } from '@components/no-access/no-access.component';
-import { ValidationErrorsComponent } from '@components/forms/validation-errors/validation-errors.component';
+import { NoAccessComponent } from '@components/shared/no-access/no-access.component';
+import { ValidationErrorsComponent } from '@components/shared/forms/validation-errors/validation-errors.component';
 import { CarouselComponent } from '@components/shared/carousel/carousel.component';
 import { FooterComponent } from '@components/footer/footer.component';
 import { SideNavComponent } from '@components/mobile/side-nav/side-nav.component';
