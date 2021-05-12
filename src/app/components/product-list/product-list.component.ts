@@ -49,10 +49,9 @@ export class ProductListComponent implements OnInit, AfterViewInit {
           const id = action.payload.doc.id;
           const result = { id, ...data };
           localStorage.setItem('products', JSON.stringify(result));
-          this._notificationService.openSnackBar(
+          this._notificationService.successAlert(
             'Products successfully fetched',
-            'PRODUCTS',
-            'red-snackbar'
+            'PRODUCTS'
           );
           return result;
         })
@@ -61,6 +60,6 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   delete(product: ProductModel): void {
-    this.productService.deleteProduct(product.id, 'products');
+    this.productService.deleteProduct(product, 'products');
   }
 }

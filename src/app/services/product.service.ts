@@ -1,4 +1,4 @@
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ProductModel } from '@models/index';
@@ -7,7 +7,10 @@ import { ProductModel } from '@models/index';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(
+    private firestore: AngularFirestore,
+    private storage: AngularFireStorage
+  ) {}
 
   getProducts(collection) {
     return this.firestore.collection(collection).snapshotChanges();
@@ -27,7 +30,12 @@ export class ProductService {
     this.firestore.doc(`${collection}/${product.id}`).update(product);
   }
 
-  deleteProduct(productId: string, collection) {
-    this.firestore.doc(`${collection}/${productId}`).delete();
+  deleteProduct(product: ProductModel, collection) {
+    this.firestore
+      .doc(`${collection}/${product.id}`)
+      .delete()
+      .catch((err) => console.log('error deleting that product'));
+    const ref = this.storage.refFromURL(product.imageUrl);
+    ref.delete();
   }
 }

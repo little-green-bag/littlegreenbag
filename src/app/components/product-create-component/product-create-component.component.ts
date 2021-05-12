@@ -18,6 +18,7 @@ export class ProductCreateComponentComponent implements OnInit {
   defaultImageSrc = '/assets/images/little-green-bag-logo.png';
   currentImgSrc = '';
   selectedImage: any = null;
+  formSubmitted = false;
   categories = [
     { value: 'Products', viewValue: 'Products' },
     { value: 'Bangers', viewValue: 'Bangers' },
@@ -25,16 +26,6 @@ export class ProductCreateComponentComponent implements OnInit {
     { value: 'Rigs', viewValue: 'Rigs' },
   ];
 
-  displayedColumns: string[] = [
-    'position',
-    'name',
-    'price',
-    'description',
-
-    'categories',
-    'delete',
-    'image',
-  ];
   constructor(
     private _fb: FormBuilder,
     private productService: ProductService,
@@ -60,11 +51,15 @@ export class ProductCreateComponentComponent implements OnInit {
   }
 
   async create(product: ProductModel) {
-    const filePath = `${product.category}/${this.selectedImage.name
+    if (!this.selectedImage) {
+      this.formSubmitted = false;
+      this._notificationService.warningAlert('Please provide an image');
+      return;
+    }
+    const filePath = `${product.category}/${this.selectedImage?.name
       .split('.')
       .slice(0, -1)
       .join('.')}_${new Date().getTime()}`;
-    console.log('file path is ', filePath);
     const fileRef = this.storage.ref(filePath);
     this.storage
       .upload(filePath, this.selectedImage)
@@ -72,8 +67,6 @@ export class ProductCreateComponentComponent implements OnInit {
       .pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
-            console.log('url is ', url);
-            console.log('product is ', product);
             product['imageUrl'] = url;
             this.productService.createProduct(product, 'products');
             this._notificationService.openSnackBar(
@@ -89,20 +82,13 @@ export class ProductCreateComponentComponent implements OnInit {
   }
 
   resetForm() {
-    this.productForm.reset();
     this.productForm.markAsPristine();
     this.productForm.markAsUntouched();
-    this.productForm.setValue({
-      name: '',
-      description: '',
-      price: '',
-      imageUrl: '',
-      category: 'products-0',
-    });
     this.currentImgSrc = this.defaultImageSrc;
     this.selectedImage = null;
+    this.productForm.reset();
     this.myNgForm.resetForm();
-    console.log('this is now ', this);
+    this.formSubmitted = false;
   }
 
   onFileSelected(event: any) {
@@ -126,25 +112,12 @@ export class ProductCreateComponentComponent implements OnInit {
     );
   }
 
-  delete(id: string) {
-    console.log('id is ', id);
-    this.productService.deleteProduct(id, 'products');
-    this._notificationService.openSnackBar(
-      'Product successfully deleted',
-      'PRODUCTS',
-      'red-snackbar'
-    );
-  }
-
   onSubmit(f) {
     if (this.productForm.valid) {
+      this.formSubmitted = true;
       this.create(f.product);
     } else {
-      this._notificationService.openSnackBar(
-        `INVALID FORM - check errors `,
-        'ERROR-MANAGEMENT',
-        'red-snackbar'
-      );
+      this._notificationService.warningAlert(`INVALID FORM - check errors`);
     }
   }
 }

@@ -7,18 +7,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class NotificationsService {
   constructor(public _snackBar: MatSnackBar) {}
 
-  openSnackBar(message: string, action: string, className: string) {
+  openSnackBar(message: string, action?: string, className?: string) {
     this._snackBar.open(message, action, {
-      duration: 5000,
+      duration: 500000,
       panelClass: [className],
     });
   }
 
-  warningAlert(message) {
-    this.openSnackBar(message, null, 'red-snackbar');
+  public warningAlert(message, action?) {
+    this.openSnackBar(message, action, 'red-snackbar');
   }
 
-  public successAlert(message) {
-    this.openSnackBar(message, null, 'green-snackbar');
+  public successAlert(message, action?) {
+    this.openSnackBar(message, action, 'green-snackbar');
   }
 }
