@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { ProductService } from '@services/product.service';
 import { NotificationsService } from '@services/shared/notifications/notifications.service';
-import { ProductModel } from '@models/index';
+import { ProductModel, ProductGroupModel } from '@models/index';
 import { finalize } from 'rxjs/operators';
-import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-product-create-component',
@@ -19,7 +19,7 @@ export class ProductCreateComponentComponent implements OnInit {
   currentImgSrc = '';
   selectedImage: any = null;
   formSubmitted = false;
-  categories = [
+  categories: ProductGroupModel[] = [
     { value: 'Products', viewValue: 'Products' },
     { value: 'Bangers', viewValue: 'Bangers' },
     { value: 'Decoration', viewValue: 'Decoration' },

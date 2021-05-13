@@ -1,15 +1,9 @@
 import { map } from 'rxjs/operators';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { ProductService } from '@services/product.service';
 import { NotificationsService } from '@services/shared/notifications/notifications.service';
 import { ProductModel } from '@models/index';
 import { Observable } from 'rxjs';
-
-interface ProductGroup {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-product-list',
@@ -24,6 +18,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     'price',
     'description',
     'productGroup',
+    'edit',
     'delete',
     'image',
   ];
@@ -61,5 +56,9 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
   delete(product: ProductModel): void {
     this.productService.deleteProduct(product, 'products');
+  }
+
+  edit(product: ProductModel): void {
+    // this.productService.editProduct(product, 'products');
   }
 }
