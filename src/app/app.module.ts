@@ -38,6 +38,7 @@ import { SideNavComponent } from '@components/mobile/side-nav/side-nav.component
 import { LinkComponent } from '@components/shared/link/link.component';
 import { CheckoutComponent } from '@components/body/pages/checkout/checkout.component';
 import { ShopComponent } from '@components/body/pages/shop/shop.component';
+import { DialogComponent } from './components/shared/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ShopComponent } from '@components/body/pages/shop/shop.component';
     LinkComponent,
     CheckoutComponent,
     ShopComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,

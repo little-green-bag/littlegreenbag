@@ -1,9 +1,11 @@
+import { DialogComponent } from './../shared/dialog/dialog.component';
 import { map } from 'rxjs/operators';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ProductService } from '@services/product.service';
 import { NotificationsService } from '@services/shared/notifications/notifications.service';
 import { ProductModel } from '@models/index';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-product-list',
@@ -25,7 +27,8 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private productService: ProductService,
-    private _notificationService: NotificationsService
+    private _notificationService: NotificationsService,
+    public dialog: MatDialog
   ) {}
 
   async ngAfterViewInit() {
@@ -59,6 +62,18 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   edit(product: ProductModel): void {
-    // this.productService.editProduct(product, 'products');
+    this.openDialog('Update', product);
+  }
+
+  openDialog(action, obj) {
+    obj.action = action;
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: obj,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('result is ', result);
+      this.productService.updateProduct(result.data, 'products');
+    });
   }
 }

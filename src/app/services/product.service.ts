@@ -26,7 +26,6 @@ export class ProductService {
   }
 
   updateProduct(product: ProductModel, collection) {
-    delete product.id;
     this.firestore.doc(`${collection}/${product.id}`).update(product);
   }
 
