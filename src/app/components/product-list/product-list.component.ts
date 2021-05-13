@@ -65,6 +65,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     this.openDialog('Update', product);
   }
 
+  // create dialog service
   openDialog(action, obj) {
     obj.action = action;
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -72,8 +73,15 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       data: obj,
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('result is ', result);
-      this.productService.updateProduct(result.data, 'products');
+      const { event } = result;
+      switch (event) {
+        case 'Update':
+          this.productService.updateProduct(result.data, 'products');
+          break;
+        default:
+          this._notificationService.warningAlert('Operation Cancelled');
+          break;
+      }
     });
   }
 }

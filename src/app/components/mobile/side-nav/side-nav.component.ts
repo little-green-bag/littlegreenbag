@@ -1,4 +1,4 @@
-import { AuthService } from '@services/auth/auth.service';
+import { AuthService } from '@services/core/auth/auth.service';
 import { Component } from '@angular/core';
 import { LinksNavigation } from '@config/index';
 @Component({

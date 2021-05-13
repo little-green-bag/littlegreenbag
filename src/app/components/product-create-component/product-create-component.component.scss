@@ -1,0 +1,10 @@
+.product-image--container {
+  max-height: 20rem;
+  min-height: 100px;
+  position: relative;
+}
+.product-image {
+  position: absolute;
+  height: 100%;
+  width: auto;
+}

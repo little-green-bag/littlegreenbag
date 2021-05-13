@@ -62,16 +62,23 @@
         </mat-error>
       </mat-form-field>
 
-      <div>
-        <img [src]="currentImgSrc" width="350px" height="250px" />
-        <input
-          formControlName="imageUrl"
-          type="file"
-          (change)="onFileSelected($event)"
-        />
+      <div class="product-image--container">
+        <img class="product-image" [src]="currentImgSrc" />
       </div>
+      <input
+        formControlName="imageUrl"
+        type="file"
+        placeholder="Choose Image"
+        (change)="onFileSelected($event)"
+        #fileInput
+        style="display: none"
+      />
+      <button mat-raised-button color="accent" (click)="fileInput.click()">
+        Add Image
+      </button>
     </div>
-    <button type="submit">Submit</button>
+    <button mat-raised-button color="accent" type="submit">Submit</button>
+    <!-- <button type="submit">Submit</button> -->
   </form>
 </div>
 
