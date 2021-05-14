@@ -66,8 +66,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   delete(e: ProductModel): void {
-    console.log('e is ', e);
-    return this.productService.deleteProduct(e, e.category);
+    return this.productService.deleteProduct(e, 'products');
   }
 
   edit(e, obj): void {

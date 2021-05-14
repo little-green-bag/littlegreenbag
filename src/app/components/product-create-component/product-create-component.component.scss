@@ -1,9 +1,24 @@
+@import "variables";
+
 .product-card {
-  max-width: 400px;
+  margin: 0 auto;
+  max-width: 200px;
 }
 
 .product-header-image {
   background-position: center;
   background-image: url("../../../assets/images/little-green-bag-logo.png");
   background-size: cover;
+}
+
+.inputs {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+  align-items: center;
+}
+
+.mat-raised-button {
+  width: 100%;
 }
