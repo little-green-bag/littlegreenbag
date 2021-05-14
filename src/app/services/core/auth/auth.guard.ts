@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivate {
     return this.auth.user$.pipe(
       take(1),
       map((user) => {
-        console.log('user is ', user);
         if (!user || user?.uid !== '27PqJHgiSSZxeJnP5KwVSwPzbjZ2') {
           this.router.navigate(['/no-access']);
         }
@@ -22,7 +21,6 @@ export class AuthGuard implements CanActivate {
       }),
       tap((loggedIn) => {
         if (!loggedIn) {
-          console.log('access denied');
           this.router.navigate(['/no-access']);
         }
       })

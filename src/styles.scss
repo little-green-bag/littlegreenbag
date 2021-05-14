@@ -9,6 +9,14 @@ html {
   box-sizing: inherit;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+img {
+  float: left;
+}
 html,
 body {
   height: 100%;
@@ -45,6 +53,11 @@ image {
   font-weight: bold;
   text-align: center;
 }
+
+.mat-divider {
+  margin: $mat-divider--margin;
+}
+
 .progress-loader {
   display: grid;
   align-items: center;

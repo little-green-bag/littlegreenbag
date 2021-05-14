@@ -74,7 +74,7 @@ import { DialogComponent } from './components/shared/dialog/dialog.component';
     NguCarouselModule,
     EffectsModule,
   ],
-  providers: [SidenavService],
+  providers: [SidenavService, DialogComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

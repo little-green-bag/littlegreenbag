@@ -13,17 +13,19 @@ import { finalize } from 'rxjs/operators';
 })
 export class ProductCreateComponentComponent implements OnInit {
   @ViewChild('f') myNgForm;
+  @ViewChild('inputRef') inputRef;
 
   productForm: FormGroup;
-  defaultImageSrc = '/assets/images/little-green-bag-logo.png';
+  defaultImageSrc =
+    'https://firebasestorage.googleapis.com/v0/b/littlegreenbag-ecb99.appspot.com/o/products-0%2Fclick-here-to-upload_1620928912575?alt=media&token=d974ff59-7007-4ce7-97ac-feac006c4ad6';
   currentImgSrc = '';
   selectedImage: any = null;
   formSubmitted = false;
   categories: ProductGroupModel[] = [
-    { value: 'Products', viewValue: 'Products' },
-    { value: 'Bangers', viewValue: 'Bangers' },
-    { value: 'Decoration', viewValue: 'Decoration' },
-    { value: 'Rigs', viewValue: 'Rigs' },
+    { value: 'products', viewValue: 'Products' },
+    { value: 'bangers', viewValue: 'Bangers' },
+    { value: 'decoration', viewValue: 'Decoration' },
+    { value: 'rigs', viewValue: 'Rigs' },
   ];
 
   constructor(
@@ -45,7 +47,7 @@ export class ProductCreateComponentComponent implements OnInit {
         description: ['', Validators.required],
         price: ['', Validators.required],
         imageUrl: [''],
-        category: ['products-0', Validators.required],
+        category: ['', Validators.required],
       }),
     });
   }
@@ -113,6 +115,7 @@ export class ProductCreateComponentComponent implements OnInit {
   }
 
   onSubmit(f) {
+    console.log('submitting form');
     if (this.productForm.valid) {
       this.formSubmitted = true;
       this.create(f.product);

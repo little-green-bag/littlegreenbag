@@ -2,6 +2,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ProductModel } from '@models/index';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -12,16 +13,27 @@ export class ProductService {
     private storage: AngularFireStorage
   ) {}
 
-  getProducts(collection) {
-    return this.firestore.collection(collection).snapshotChanges();
+  getCollection(collection) {
+    return this.firestore
+      .collection(collection)
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((action) => {
+            const data = action.payload.doc.data() as ProductModel;
+            const id = action.payload.doc.id;
+            const result = { id, ...data };
+            return result;
+          })
+        )
+      );
   }
 
-  getProduct(id: string) {
-    return this.firestore.doc(id);
+  getProduct(id, collection) {
+    return this.firestore.doc(`${collection}/${id}`);
   }
 
   createProduct(product: ProductModel, collection) {
-    console.log('product is ', product);
     return this.firestore.collection(collection).add(product);
   }
 
@@ -30,11 +42,17 @@ export class ProductService {
   }
 
   deleteProduct(product: ProductModel, collection) {
+    console.log(`deleting ${collection}/${product.id}`);
     this.firestore
       .doc(`${collection}/${product.id}`)
       .delete()
       .catch((err) => console.log('error deleting that product'));
-    const ref = this.storage.refFromURL(product.imageUrl);
+
+    // this.removeStorageRef(product.imageUrl);
+  }
+
+  removeStorageRef(imgUrl): void {
+    const ref = this.storage.refFromURL(imgUrl);
     ref.delete();
   }
 }

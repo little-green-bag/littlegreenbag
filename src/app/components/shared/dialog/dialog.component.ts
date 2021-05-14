@@ -1,4 +1,4 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { OnInit, Component, Inject, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductModel } from '@models/index';
 
@@ -7,7 +7,7 @@ import { ProductModel } from '@models/index';
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],
 })
-export class DialogComponent {
+export class DialogComponent implements OnInit {
   action: string;
   local_data: any;
 
@@ -15,9 +15,13 @@ export class DialogComponent {
     public dialogRef: MatDialogRef<DialogComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: ProductModel
   ) {
-    console.log(data);
     this.local_data = { ...data };
     this.action = this.local_data.action;
+  }
+
+  ngOnInit() {
+    console.log('this.data is ', this.data);
+    console.log('this.action is ', this.action);
   }
 
   doAction() {

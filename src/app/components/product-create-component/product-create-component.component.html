@@ -10,61 +10,99 @@
     #f="ngForm"
   >
     <div class="group" formGroupName="product">
-      <mat-form-field appearance="fill">
-        <mat-label>Product Type</mat-label>
-        <mat-select formControlName="category">
-          <mat-option
-            *ngFor="let category of categories"
-            [value]="category.value"
-          >
-            {{ category.viewValue }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="inputs">
+        <mat-form-field appearance="fill">
+          <mat-label>Product Type</mat-label>
+          <mat-select formControlName="category">
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.value"
+            >
+              {{ category.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field>
-        <input formControlName="name" matInput placeholder="Name" type="text" />
-        <mat-error>
-          <app-validation-errors
-            [title]="'name'"
-            [errors]="productForm.get('product.name').errors"
-          ></app-validation-errors>
-        </mat-error>
-      </mat-form-field>
+        <mat-form-field>
+          <input
+            #inputRef
+            formControlName="name"
+            matInput
+            placeholder="Name"
+            type="text"
+          />
+          <mat-error>
+            <app-validation-errors
+              [title]="'name'"
+              [errors]="productForm.get('product.name').errors"
+            ></app-validation-errors>
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field>
-        <input
-          formControlName="price"
-          matInput
-          placeholder="Price"
-          type="number"
-        />
-        <mat-error>
-          <app-validation-errors
-            [title]="'price'"
-            [errors]="productForm.get('product.price').errors"
-          ></app-validation-errors>
-        </mat-error>
-      </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="price"
+            matInput
+            placeholder="Price"
+            type="number"
+          />
+          <mat-error>
+            <app-validation-errors
+              [title]="'price'"
+              [errors]="productForm.get('product.price').errors"
+            ></app-validation-errors>
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field>
-        <input
-          formControlName="description"
-          matInput
-          placeholder="Description"
-          type="text"
-        />
-        <mat-error>
-          <app-validation-errors
-            [title]="'f'"
-            [errors]="productForm.get('product.description').errors"
-          ></app-validation-errors>
-        </mat-error>
-      </mat-form-field>
-
-      <div class="product-image--container">
-        <img class="product-image" [src]="currentImgSrc" />
+        <mat-form-field>
+          <input
+            formControlName="description"
+            matInput
+            placeholder="Description"
+            type="text"
+          />
+          <mat-error>
+            <app-validation-errors
+              [title]="'f'"
+              [errors]="productForm.get('product.description').errors"
+            ></app-validation-errors>
+          </mat-error>
+        </mat-form-field>
       </div>
+
+      <mat-card class="product-card">
+        <mat-card-header>
+          <div mat-card-avatar class="product-header-image"></div>
+          <mat-card-title>
+            <pre>{{ productForm.get("product.name").value }}</pre>
+          </mat-card-title>
+          <mat-card-subtitle>
+            <pre>{{ productForm.get("product.price").value }}</pre>
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <img
+          (click)="fileInput.click()"
+          mat-card-image
+          [src]="currentImgSrc"
+          alt="Photo of a Shiba Inu"
+        />
+
+        <mat-card-content>
+          <p>{{ productForm.get("product.description").value }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            mat-raised-button
+            color="accent"
+            type="button"
+            (click)="fileInput.click()"
+          >
+            Add Image
+          </button>
+        </mat-card-actions>
+      </mat-card>
+
       <input
         formControlName="imageUrl"
         type="file"
@@ -73,12 +111,11 @@
         #fileInput
         style="display: none"
       />
-      <button mat-raised-button color="accent" (click)="fileInput.click()">
-        Add Image
-      </button>
     </div>
-    <button mat-raised-button color="accent" type="submit">Submit</button>
-    <!-- <button type="submit">Submit</button> -->
+    <mat-divider></mat-divider>
+    <div>
+      <button mat-raised-button color="accent" type="submit">Submit</button>
+    </div>
   </form>
 </div>
 
