@@ -1,3 +1,4 @@
+import { DialogService } from '@services/shared/dialog/dialog.service';
 import { ProductService } from '@services/product.service';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -19,7 +20,21 @@ export class TableComponent implements OnInit {
     'delete',
     'image',
   ];
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private dialogService: DialogService
+  ) {}
 
   ngOnInit(): void {}
+
+  delete(e) {
+    this.dialogService
+      .openDialog({ action: 'Delete' })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res.event !== 'Cancel') {
+          this.productService.deleteProduct(e, 'products');
+        }
+      });
+  }
 }
