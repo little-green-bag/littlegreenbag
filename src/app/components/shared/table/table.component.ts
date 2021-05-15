@@ -28,13 +28,10 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {}
 
   delete(e) {
-    this.dialogService
-      .openDialog({ action: 'Delete' })
-      .afterClosed()
-      .subscribe((res) => {
-        if (res.event !== 'Cancel') {
-          this.productService.deleteProduct(e, 'products');
-        }
-      });
+    this.productService.deleteProduct(e, 'products');
+  }
+
+  edit(obj): void {
+    this.productService.updateProduct(obj, 'products');
   }
 }

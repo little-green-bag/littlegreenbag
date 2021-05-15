@@ -16,7 +16,6 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    // private notificationService: NotificationsService,
     public dialogService: DialogService
   ) {}
 
@@ -29,27 +28,4 @@ export class ProductListComponent implements OnInit {
       this.data$ = reponse;
     });
   }
-
-  // delete(e: ProductModel): void {
-  //   return this.productService.deleteProduct(e, 'products');
-  // }
-
-  // edit(e, obj): void {
-  //   obj.action = e;
-  //   const ref = this.dialogService.openDialog(obj);
-  //   ref.afterClosed().subscribe((res) => {
-  //     console.log('res is ', res);
-  //     const { event } = res;
-  //     switch (event) {
-  //       case 'Update':
-  //         this.productService.updateProduct(res.data, 'products');
-  //         break;
-  //       case 'Cancel':
-  //         this.notificationService.warningAlert('Operation Cancelled');
-  //       default:
-  //         this.notificationService.warningAlert('Operation Cancelled');
-  //         break;
-  //     }
-  //   });
-  // }
 }

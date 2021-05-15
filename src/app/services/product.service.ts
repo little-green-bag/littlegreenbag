@@ -1,3 +1,4 @@
+import { DialogService } from '@services/shared/dialog/dialog.service';
 import { NotificationsService } from './shared/notifications/notifications.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Injectable } from '@angular/core';
@@ -12,7 +13,8 @@ export class ProductService {
   constructor(
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
-    private notificationsService: NotificationsService
+    private notificationsService: NotificationsService,
+    private dialogService: DialogService
   ) {}
 
   getCollection(collection) {
@@ -46,24 +48,38 @@ export class ProductService {
   }
 
   updateProduct(product: ProductModel, collection: string): void {
-    this.firestore
-      .doc(`${collection}/${product.id}`)
-      .update(product)
-      .catch((err) => console.log('error updating product', err));
-    this.notificationsService.successAlert(
-      `${product.name} successfully updated`
-    );
+    this.dialogService
+      .openDialog({ ...product, action: 'Update' })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res.event !== 'Cancel') {
+          this.firestore
+            .doc(`${collection}/${product.id}`)
+            .update(res.data)
+            .catch((err) => console.log('error updating product', err));
+          this.notificationsService.successAlert(
+            `${product.name} successfully updated`
+          );
+        }
+      });
   }
 
   deleteProduct(product: ProductModel, collection: string): void {
-    this.firestore
-      .doc(`${collection}/${product.id}`)
-      .delete()
-      .catch((err) => console.log('error deleting that product', err));
-    this.removeStorageRef(product.imageUrl);
-    this.notificationsService.successAlert(
-      `${product.name} successfully deleted`
-    );
+    this.dialogService
+      .openDialog({ action: 'Delete' })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res.event !== 'Cancel') {
+          this.firestore
+            .doc(`${collection}/${product.id}`)
+            .delete()
+            .catch((err) => console.log('error deleting that product', err));
+          this.removeStorageRef(product.imageUrl);
+          this.notificationsService.successAlert(
+            `${product.name} successfully deleted`
+          );
+        }
+      });
   }
 
   removeStorageRef(imgUrl: string): void {
