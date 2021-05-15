@@ -1,3 +1,4 @@
+import { DialogService } from '@services/shared/dialog/dialog.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -10,7 +11,8 @@ import { map } from 'rxjs/operators';
 export class ProductService {
   constructor(
     private firestore: AngularFirestore,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private dialogService: DialogService
   ) {}
 
   getCollection(collection) {
@@ -43,12 +45,18 @@ export class ProductService {
 
   deleteProduct(product: ProductModel, collection) {
     console.log(`deleting ${collection}/${product.id}`);
-    this.firestore
-      .doc(`${collection}/${product.id}`)
-      .delete()
-      .catch((err) => console.log('error deleting that product'));
-
-    // this.removeStorageRef(product.imageUrl);
+    this.dialogService
+      .openDialog({ action: 'Delete' })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res.event !== 'Cancel') {
+          this.firestore
+            .doc(`${collection}/${product.id}`)
+            .delete()
+            .catch((err) => console.log('error deleting that product'));
+          this.removeStorageRef(product.imageUrl);
+        }
+      });
   }
 
   removeStorageRef(imgUrl): void {

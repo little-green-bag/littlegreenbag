@@ -39,6 +39,7 @@ import { LinkComponent } from '@components/shared/link/link.component';
 import { CheckoutComponent } from '@components/body/pages/checkout/checkout.component';
 import { ShopComponent } from '@components/body/pages/shop/shop.component';
 import { DialogComponent } from './components/shared/dialog/dialog.component';
+import { TableComponent } from './components/shared/table/table.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { DialogComponent } from './components/shared/dialog/dialog.component';
     CheckoutComponent,
     ShopComponent,
     DialogComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,
