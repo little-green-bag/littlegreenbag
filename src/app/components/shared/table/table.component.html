@@ -1,7 +1,7 @@
 <table mat-table [dataSource]="data" class="mat-elevation-z8">
   <ng-container matColumnDef="position">
     <td mat-cell *matCellDef="let e; let i = index">
-      {{ i }}
+      {{ i + 1 }}
     </td>
     <th mat-header-cell *matHeaderCellDef>No.</th>
   </ng-container>
@@ -53,5 +53,9 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="onRowClicked(row)"
+  ></tr>
 </table>

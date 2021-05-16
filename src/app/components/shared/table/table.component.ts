@@ -1,15 +1,13 @@
-import { DialogService } from '@services/shared/dialog/dialog.service';
 import { ProductService } from '@services/product.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent {
   @Input() data;
-
   displayedColumns: string[] = [
     'position',
     'name',
@@ -20,12 +18,12 @@ export class TableComponent implements OnInit {
     'delete',
     'image',
   ];
-  constructor(
-    private productService: ProductService,
-    private dialogService: DialogService
-  ) {}
 
-  ngOnInit(): void {}
+  constructor(private productService: ProductService) {}
+
+  onRowClicked(r) {
+    console.log('r is ', r);
+  }
 
   delete(e) {
     this.productService.deleteProduct(e, 'products');
