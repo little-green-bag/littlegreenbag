@@ -18,19 +18,7 @@ export class ProductService {
   ) {}
 
   getCollection(collection) {
-    return this.firestore
-      .collection(collection)
-      .snapshotChanges()
-      .pipe(
-        map((actions) =>
-          actions.map((action) => {
-            const data = action.payload.doc.data() as ProductModel;
-            const id = action.payload.doc.id;
-            const result = { id, ...data };
-            return result;
-          })
-        )
-      );
+    return this.firestore.collection(collection).snapshotChanges();
   }
 
   getProduct(id: string, collection: string) {

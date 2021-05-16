@@ -1,6 +1,7 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
+
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
@@ -13,18 +14,20 @@
       "@reducers/*": ["./src/app/store/reducers/*"],
       "@store/*": ["./src/app/store/*"],
       "@config/*": ["./src/app/config/*"],
-      "@images/*": ["./src/app/images/*"]
+      "@images/*": ["./src/app/images/*"],
+      "@actions/*": ["./src/app/shop/actions/*"],
+      "@effects/*": ["./src/app/shop/effects/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
-    "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
     "allowSyntheticDefaultImports": true,
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
+    "experimentalDecorators": true
   }
 }

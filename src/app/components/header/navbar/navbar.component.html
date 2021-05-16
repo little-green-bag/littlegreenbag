@@ -15,17 +15,11 @@
 
   <span class="spacer"></span>
   <a mat-raised-button routerLink="/checkout" class="icon--basket">
-    <!-- <mat-icon
+    <mat-icon
+      *ngIf="cart$ | async"
       matBadgeSize="small"
       [matBadge]="(cart$ | async).length"
       [matBadgeHidden]="(cart$ | async).length === 0"
-      [matBadgeColor]="'warn'"
-      >shopping_basket</mat-icon
-    > -->
-    <mat-icon
-      matBadgeSize="small"
-      [matBadge]="2"
-      [matBadgeHidden]="false"
       [matBadgeColor]="'warn'"
       >shopping_basket</mat-icon
     >

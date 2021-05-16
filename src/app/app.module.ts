@@ -1,3 +1,4 @@
+import { ProductsEffects } from './shop/effects/products.effects';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -7,8 +8,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from '@environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 
+// Store
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import * as fromProducts from './shop/reducers/products.reducer';
+
 // Services
-import { SidenavService } from './services/shared/sidenav/sidenav.service';
+import { SidenavService } from '@services/shared/sidenav/sidenav.service';
 
 // Swiper
 import { NguCarouselModule } from '@ngu/carousel';
@@ -40,6 +45,7 @@ import { CheckoutComponent } from '@components/body/pages/checkout/checkout.comp
 import { ShopComponent } from '@components/body/pages/shop/shop.component';
 import { DialogComponent } from './components/shared/dialog/dialog.component';
 import { TableComponent } from './components/shared/table/table.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -51,8 +57,6 @@ import { TableComponent } from './components/shared/table/table.component';
     ProductListComponent,
     SocialButtonComponent,
     NoAccessComponent,
-    ValidationErrorsComponent,
-    CarouselComponent,
     SideNavComponent,
     FooterComponent,
     LinkComponent,
@@ -60,6 +64,8 @@ import { TableComponent } from './components/shared/table/table.component';
     ShopComponent,
     DialogComponent,
     TableComponent,
+    ValidationErrorsComponent,
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +80,12 @@ import { TableComponent } from './components/shared/table/table.component';
     AngularFireAnalyticsModule,
     AngularFireAuthModule,
     NguCarouselModule,
-    EffectsModule,
+    EffectsModule.forRoot([ProductsEffects]),
+    StoreModule.forRoot({ store: fromProducts.reducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
   ],
   providers: [SidenavService, DialogComponent],
   bootstrap: [AppComponent],
