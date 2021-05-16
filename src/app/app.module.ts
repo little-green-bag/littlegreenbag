@@ -10,7 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 // Store
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import * as fromProducts from './shop/reducers/products.reducer';
+import { initialState, reducers } from './shop/reducers/index';
 
 // Services
 import { SidenavService } from '@services/shared/sidenav/sidenav.service';
@@ -45,7 +45,7 @@ import { CheckoutComponent } from '@components/body/pages/checkout/checkout.comp
 import { ShopComponent } from '@components/body/pages/shop/shop.component';
 import { DialogComponent } from './components/shared/dialog/dialog.component';
 import { TableComponent } from './components/shared/table/table.component';
-import { StoreModule } from '@ngrx/store';
+import { combineReducers, StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -81,7 +81,7 @@ import { StoreModule } from '@ngrx/store';
     AngularFireAuthModule,
     NguCarouselModule,
     EffectsModule.forRoot([ProductsEffects]),
-    StoreModule.forRoot({ store: fromProducts.reducer }),
+    StoreModule.forRoot({ store: reducers }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
