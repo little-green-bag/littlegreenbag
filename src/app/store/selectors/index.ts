@@ -1,16 +1,19 @@
+import { ProductModel } from '@models/index';
+import { AppState } from '../states/products.state';
 import { createSelector } from '@ngrx/store';
 
-export interface FeatureState {
-  counter: number;
-}
+export const _selectCart = (state: { app: AppState }) => {
+  return state.app.cart;
+};
 
-export interface AppState {
-  feature: FeatureState;
-}
+export const selectCart = createSelector(_selectCart, (state) => {
+  return state;
+});
 
-export const selectFeature = (state: AppState) => state.feature;
+export const _selectProducts = (state: { app: AppState }) => {
+  return state.app.products;
+};
 
-export const selectFeatureCount = createSelector(
-  selectFeature,
-  (state: FeatureState) => state.counter
-);
+export const selectProducts = createSelector(_selectProducts, (state) => {
+  return state;
+});
