@@ -1,29 +1,24 @@
+import { Store } from '@ngrx/store';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { combineLatest, forkJoin, merge, Observable, zip } from 'rxjs';
-import { ProductService } from '@services/product.service';
-import { NotificationsService } from '@services/shared/notifications/notifications.service';
-import { DialogService } from '@services/shared/dialog/dialog.service';
-import { ProductModel } from '@models/index';
-import { mergeMap, switchMap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { loadProducts } from '@actions/products.actions';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent implements OnInit {
-  data$;
+export class ProductListComponent implements OnInit, AfterViewInit {
+  data$: Observable<any>;
 
-  constructor(
-    private productService: ProductService,
-    public dialogService: DialogService
-  ) {}
+  constructor(private store: Store<{ products: any }>) {}
 
   ngOnInit(): void {
-    this.fetchProducts();
+    this.store.dispatch(loadProducts());
   }
 
-  fetchProducts() {
-    this.data$ = this.productService.getCollection('products');
+  ngAfterViewInit(): void {
+    // this.data$ = this.store.select(selectProducts);
+    // this.data$.subscribe((res) => console.log('data is ', res));
   }
 }

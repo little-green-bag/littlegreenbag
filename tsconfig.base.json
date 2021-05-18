@@ -11,12 +11,14 @@
       "@models/*": ["./src/app/models/*"],
       "@modules/*": ["./src/app/modules/*"],
       "@styles/*": ["./src/app/styles/*"],
-      "@reducers/*": ["./src/app/store/reducers/*"],
       "@store/*": ["./src/app/store/*"],
       "@config/*": ["./src/app/config/*"],
       "@images/*": ["./src/app/images/*"],
-      "@actions/*": ["./src/app/shop/actions/*"],
-      "@effects/*": ["./src/app/shop/effects/*"]
+      "@actions/*": ["./src/app/store/actions/*"],
+      "@effects/*": ["./src/app/store/effects/*"],
+      "@reducers/*": ["./src/app/store/reducers/*"],
+      "@selectors/*": ["./src/app/store/selectors/*"],
+      "@states/*": ["./src/app/store/states/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

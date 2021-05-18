@@ -1,4 +1,4 @@
-import * as ProductActions from '@actions/products.actions';
+// import * as ProductActions from '@actions/products.actions';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -11,17 +11,15 @@ import { SidenavService } from '@services/shared/sidenav/sidenav.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  cart$: Observable<ProductModel[]> = this.store.select(
-    (state) => state.products
-  );
+  cart$: Observable<ProductModel[]> = this.store.select((state) => state.cart);
 
   constructor(
-    private store: Store<{ products: ProductModel[] }>,
+    private store: Store<any>,
     private sidenavService: SidenavService
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(ProductActions.loadProducts({ category: 'products' }));
+    this.store.select('cart').subscribe((state) => (this.cart$ = state));
   }
 
   toggleSidenav() {

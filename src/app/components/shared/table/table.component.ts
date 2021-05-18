@@ -1,5 +1,5 @@
 import { ProductService } from '@services/product.service';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-table',

@@ -10,7 +10,7 @@ export const LinksNavigation = [
     protected: false,
   },
   {
-    url: '/checkout',
+    url: '/cart',
     icon: 'shopping_basket',
     protected: false,
   },

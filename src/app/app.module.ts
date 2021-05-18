@@ -1,4 +1,3 @@
-import { ProductsEffects } from './shop/effects/products.effects';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -6,11 +5,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '@environments/environment';
-import { EffectsModule } from '@ngrx/effects';
 
 // Store
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { initialState, reducers } from './shop/reducers/index';
+import { EffectsModule } from '@ngrx/effects';
+import { appReducer } from '@reducers/index';
+import { ProductsEffects } from '@effects/products.effects';
 
 // Services
 import { SidenavService } from '@services/shared/sidenav/sidenav.service';
@@ -31,7 +31,6 @@ import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 // Components
 import { HomeComponent } from '@components/body/pages/home/home.component';
 import { ProductListComponent } from '@components/product-list/product-list.component';
-import { ProductDetailsComponentComponent } from '@components/product-details-component/product-details-component.component';
 import { ProductCreateComponentComponent } from '@components/product-create-component/product-create-component.component';
 import { NavbarComponent } from '@components/header/navbar/navbar.component';
 import { SocialButtonComponent } from '@components/shared/social-button/social-button.component';
@@ -41,16 +40,16 @@ import { CarouselComponent } from '@components/shared/carousel/carousel.componen
 import { FooterComponent } from '@components/footer/footer.component';
 import { SideNavComponent } from '@components/mobile/side-nav/side-nav.component';
 import { LinkComponent } from '@components/shared/link/link.component';
-import { CheckoutComponent } from '@components/body/pages/checkout/checkout.component';
 import { ShopComponent } from '@components/body/pages/shop/shop.component';
-import { DialogComponent } from './components/shared/dialog/dialog.component';
-import { TableComponent } from './components/shared/table/table.component';
-import { combineReducers, StoreModule } from '@ngrx/store';
+import { DialogComponent } from '@components/shared/dialog/dialog.component';
+import { TableComponent } from '@components/shared/table/table.component';
+import { StoreModule } from '@ngrx/store';
+import { CartComponent } from '@components/body/pages/cart/cart.component';
+import { ProductComponent } from '@components/product/product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductDetailsComponentComponent,
     ProductCreateComponentComponent,
     NavbarComponent,
     HomeComponent,
@@ -60,12 +59,13 @@ import { combineReducers, StoreModule } from '@ngrx/store';
     SideNavComponent,
     FooterComponent,
     LinkComponent,
-    CheckoutComponent,
     ShopComponent,
     DialogComponent,
     TableComponent,
     ValidationErrorsComponent,
     CarouselComponent,
+    CartComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,8 +80,8 @@ import { combineReducers, StoreModule } from '@ngrx/store';
     AngularFireAnalyticsModule,
     AngularFireAuthModule,
     NguCarouselModule,
+    StoreModule.forRoot({ app: appReducer }),
     EffectsModule.forRoot([ProductsEffects]),
-    StoreModule.forRoot({ store: reducers }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode

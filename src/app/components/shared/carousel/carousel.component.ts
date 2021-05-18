@@ -1,4 +1,3 @@
-import { ProductService } from '@services/product.service';
 import {
   AfterViewInit,
   Component,
@@ -8,8 +7,7 @@ import {
   Input,
 } from '@angular/core';
 import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
-import { CarouselConfigModel, ProductModel } from '@models/index';
-import { map } from 'rxjs/operators';
+import { CarouselConfigModel } from '@models/index';
 
 @Component({
   selector: 'app-carousel',
@@ -28,66 +26,19 @@ export class CarouselComponent implements OnInit, AfterViewInit {
     touch: true,
     velocity: 0.2,
   };
-  carouselItems: ProductModel[] = [
-    {
-      imageUrl: '../../../../assets/banger-one.png',
-      id: '',
-      name: '',
-      description: '',
-      price: 1,
-      category: '',
-    },
-    {
-      imageUrl: '../../../../assets/banger-two.png',
-      id: '',
-      name: '',
-      description: '',
-      price: 1,
-      category: '',
-    },
-    {
-      imageUrl: '../../../../assets/banger-three.png',
-      id: '',
-      name: '',
-      description: '',
-      price: 1,
-      category: '',
-    },
-    {
-      imageUrl: '../../../../assets/banger-four.png',
-      id: '',
-      name: '',
-      description: '',
-      price: 1,
-      category: '',
-    },
-  ];
 
   @ViewChild('myCarousel') myCarousel: NguCarousel<any>;
   @Input() config: CarouselConfigModel;
-  @Input() items;
-  constructor(
-    private cdr: ChangeDetectorRef,
-    private productService: ProductService
-  ) {}
+  @Input() carouselItems;
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    // this.productService.getProducts('products').subscribe((data) => {
-    //   this.carouselItems = data.map((action) => {
-    //     const data = action.payload.doc.data() as Product;
-    //     const id = action.payload.doc.id;
-    //     console.log('data.name is ', data.name);
-    //     return returnItem;
-    //   });
-    // });
+    console.log('this.items ', this.carouselItems);
   }
 
   ngAfterViewInit() {
     this.cdr.detectChanges();
-  }
-
-  reset() {
-    this.myCarousel.reset(!this.resetAnim);
   }
 
   moveTo(slide) {
