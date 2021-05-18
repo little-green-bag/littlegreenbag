@@ -1,3 +1,4 @@
+import { RoutingService } from '@services/core/routing.service';
 import { ProductService } from '@services/product.service';
 import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 
@@ -16,10 +17,14 @@ export class TableComponent {
     'productGroup',
     'edit',
     'delete',
+    'inspect',
     'image',
   ];
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private routerService: RoutingService
+  ) {}
 
   onRowClicked(r) {
     console.log('r is ', r);
@@ -31,5 +36,9 @@ export class TableComponent {
 
   edit(obj): void {
     this.productService.updateProduct(obj, 'products');
+  }
+
+  inspect(e): void {
+    this.routerService.go(`/product/${e.id}`);
   }
 }

@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProductModel } from '@models/product.model';
 import { SidenavService } from '@services/shared/sidenav/sidenav.service';
+import { selectCart } from '@store/selectors/index';
+import { Routes } from '@config/index';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +13,8 @@ import { SidenavService } from '@services/shared/sidenav/sidenav.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  cart$: Observable<ProductModel[]> = this.store.select((state) => state.cart);
+  cart$: Observable<ProductModel[]>;
+  routes = Routes;
 
   constructor(
     private store: Store<any>,
@@ -19,7 +22,7 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.select('cart').subscribe((state) => (this.cart$ = state));
+    this.cart$ = this.store.select(selectCart);
   }
 
   toggleSidenav() {

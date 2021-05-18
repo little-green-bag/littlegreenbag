@@ -1,4 +1,4 @@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
   <div class="my-list">
     <img
       src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png"
@@ -14,6 +14,7 @@
       <a (click)="addToCart(product)" class="btn btn-info">Add To Cart</a>
     </div>
   </div>
-</div>
+</div>-->
 
-<app-carousel [carouselItems]="[product]"></app-carousel>
+{{ (product$ | async)?.name }}
+<!-- <app-carousel [carouselItems]="[product$ | async]"></app-carousel> -->

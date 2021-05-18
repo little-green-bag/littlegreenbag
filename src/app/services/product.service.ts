@@ -4,7 +4,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ProductModel } from '@models/index';
-import { map } from 'rxjs/operators';
+import { Collections } from '@config/index';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +17,22 @@ export class ProductService {
     private dialogService: DialogService
   ) {}
 
-  getCollection(collection) {
-    return this.firestore.collection(collection).snapshotChanges();
+  getData(action) {
+    const data = action.payload.doc.data() as ProductModel;
+    const id = action.payload.doc.id;
+    const result = { id, ...data };
+    return result;
   }
 
-  getProduct(id: string, collection: string) {
-    return this.firestore.doc(`${collection}/${id}`);
+  getProducts() {
+    return this.firestore.collection(Collections.PRODUCTS).snapshotChanges();
+  }
+
+  getProduct(id: string = 'PmLoHqnQV5xS0GtbIhXo') {
+    console.log('insidegetProduct');
+    return this.firestore
+      .doc(`${Collections.PRODUCTS}/${id}`)
+      .snapshotChanges();
   }
 
   createProduct(product: ProductModel, collection: string): void {

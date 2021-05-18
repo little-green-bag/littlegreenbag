@@ -14,6 +14,7 @@ import { ProductsEffects } from '@effects/products.effects';
 
 // Services
 import { SidenavService } from '@services/shared/sidenav/sidenav.service';
+import { RoutingService } from '@services/core/routing.service';
 
 // Swiper
 import { NguCarouselModule } from '@ngu/carousel';
@@ -87,7 +88,7 @@ import { ProductComponent } from '@components/product/product.component';
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
   ],
-  providers: [SidenavService, DialogComponent],
+  providers: [SidenavService, DialogComponent, RoutingService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

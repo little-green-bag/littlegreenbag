@@ -1,9 +1,11 @@
+import { Observable } from 'rxjs';
+import { selectSelectedProduct } from './../../store/selectors/index';
 import { Component, OnInit } from '@angular/core';
-import { ProductModel } from '@models/product.model';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as Cart from '../../store/actions/cart.actions';
-// import { PRODUCTS } from '../../store/market';
+import { AddProduct } from '@actions/cart.actions';
+import { ProductModel } from '@models/product.model';
+import { getProduct } from '@actions/products.actions';
 
 @Component({
   selector: 'app-product',
@@ -11,26 +13,24 @@ import * as Cart from '../../store/actions/cart.actions';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
-  product: ProductModel;
+  product$: Observable<ProductModel> = this.store.select(selectSelectedProduct);
+  productId: string;
 
   constructor(private route: ActivatedRoute, private store: Store<any>) {}
 
   ngOnInit() {
+    this.subscribeToParams();
+    this.store.dispatch(getProduct({ id: this.productId }));
+  }
+
+  subscribeToParams(): void {
     this.route.params.subscribe((p) => {
       let id = p['id'];
-      // let result = Array.prototype.filter.call(PRODUCTS, (v) => v.id == id);
-      let result = Array.prototype.filter.call(
-        [{ id: 777 }],
-        (v) => v.id == id
-      );
-
-      if (result.length > 0) {
-        this.product = result[0];
-      }
+      this.productId = id;
     });
   }
 
   addToCart(product) {
-    this.store.dispatch(new Cart.AddProduct(product));
+    this.store.dispatch(new AddProduct(product));
   }
 }

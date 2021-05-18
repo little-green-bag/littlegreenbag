@@ -14,7 +14,7 @@
   </a>
 
   <span class="spacer"></span>
-  <a mat-raised-button routerLink="/checkout" class="icon--basket">
+  <a mat-raised-button [routerLink]="routes?.CART" class="icon--basket">
     <mat-icon
       *ngIf="cart$ | async"
       matBadgeSize="small"
