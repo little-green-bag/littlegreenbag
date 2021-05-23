@@ -3,11 +3,12 @@ import { ProductModel } from '@models/index';
 
 export const enum ProductActionTypes {
   LOAD_PRODUCTS = '[Products] Load Products',
-  LOAD_PRODUCTS_SUCCESS = '[Products API] Products Loaded Success',
+  LOAD_PRODUCTS_SUCCESS = '[Products API] Load Products Success',
   CREATE_PRODUCT = '[Products] Create Product',
   CREATE_PRODUCT_SUCCESS = '[Products] Create Product success',
   GET_PRODUCT = '[Products] Get Product',
   GET_PRODUCT_SUCCESS = '[Products] Get Product Success',
+  ADD_PRODUCT_IMAGE = '[Products] Add Product Image',
 }
 
 export const loadProducts = createAction(ProductActionTypes.LOAD_PRODUCTS);
@@ -23,3 +24,7 @@ export const getProductSuccess = createAction(
   ProductActionTypes.GET_PRODUCT_SUCCESS,
   props<{ product: ProductModel }>()
 );
+export const addProductImage = createAction(
+  ProductActionTypes.ADD_PRODUCT_IMAGE,
+  props<{ url: string }>()
+)

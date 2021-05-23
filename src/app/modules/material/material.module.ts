@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [],
@@ -37,6 +38,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatProgressBarModule
   ],
   exports: [
     CommonModule,
@@ -56,6 +58,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatProgressBarModule
   ],
 })
-export class MaterialModule {}
+export class MaterialModule { }

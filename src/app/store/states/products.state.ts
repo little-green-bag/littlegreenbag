@@ -4,10 +4,12 @@ export interface AppState {
   products: ProductModel[];
   selectedProduct: ProductModel;
   cart: ProductModel[];
+  loading: boolean;
 }
 
 export const initialAppState: AppState = {
   products: [],
-  selectedProduct: null,
+  selectedProduct: new ProductModel({}),
   cart: [],
+  loading: false
 };

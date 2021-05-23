@@ -1,10 +1,16 @@
 @import "variables";
+@import "spinner";
+@import "mixins";
 
+.app-container{
+  .app-sidenav-content{
+    height: 100%;
+  }
+}
 .outer-container {
   display: grid;
-  height: 100vh;
-  grid-template-rows: $header-height 1fr $footer-height;
-
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
   .header {
     display: grid;
     mat-toolbar {
@@ -12,14 +18,15 @@
     }
   }
   .body {
-    padding: 2rem;
     .inner-body {
       height: 100%;
       border: 1px solid $green;
       position: relative;
+      overflow: hidden;
     }
   }
   .footer {
     background-color: $white;
   }
 }
+

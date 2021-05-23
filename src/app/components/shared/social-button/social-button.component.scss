@@ -1,11 +1,16 @@
 @import "variables";
 
-.social-button {
-  background: $black;
-  color: $white;
-  font-weight: $textStyle-light;
+.social-button-container {
 
-  &:hover {
-    background: $red;
+}
+
+:host{
+  ::ng-deep{
+    span.mat-button-wrapper {
+      display: grid;
+      align-items: center;
+      grid-template-columns: auto 1fr;
+      grid-gap: 10px;
+    }
   }
 }

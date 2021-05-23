@@ -15,7 +15,7 @@ export class ProductService {
     private storage: AngularFireStorage,
     private notificationsService: NotificationsService,
     private dialogService: DialogService
-  ) {}
+  ) { }
 
   getData(action) {
     const data = action.payload.doc.data() as ProductModel;
@@ -29,7 +29,6 @@ export class ProductService {
   }
 
   getProduct(id: string = 'PmLoHqnQV5xS0GtbIhXo') {
-    console.log('insidegetProduct');
     return this.firestore
       .doc(`${Collections.PRODUCTS}/${id}`)
       .snapshotChanges();
@@ -39,10 +38,10 @@ export class ProductService {
     this.firestore
       .collection(collection)
       .add(product)
-      .catch((err) => console.log('error creating product', err));
-    this.notificationsService.successAlert(
-      `${product.name} successfully created`
-    );
+      .catch((err) => console.log('error creating product', err)).then(() =>
+        this.notificationsService.successAlert(
+          `${product.name} successfully created`
+        ))
   }
 
   updateProduct(product: ProductModel, collection: string): void {
@@ -63,21 +62,21 @@ export class ProductService {
   }
 
   deleteProduct(product: ProductModel, collection: string): void {
-    this.dialogService
-      .openDialog({ action: 'Delete' })
-      .afterClosed()
-      .subscribe((res) => {
-        if (res.event !== 'Cancel') {
-          this.firestore
-            .doc(`${collection}/${product.id}`)
-            .delete()
-            .catch((err) => console.log('error deleting that product', err));
-          this.removeStorageRef(product.imageUrl);
-          this.notificationsService.successAlert(
-            `${product.name} successfully deleted`
-          );
-        }
-      });
+    // this.dialogService
+    //   .openDialog({ action: 'Delete' })
+    //   .afterClosed()
+    //   .subscribe((res) => {
+    //     if (res.event !== 'Cancel') {
+    //       this.firestore
+    //         .doc(`${collection}/${product.id}`)
+    //         .delete()
+    //         .catch((err) => console.log('error deleting that product', err));
+    //       this.removeStorageRef(product.imageUrl);
+    //       this.notificationsService.successAlert(
+    //         `${product.name} successfully deleted`
+    //       );
+    //     }
+    //   });
   }
 
   removeStorageRef(imgUrl: string): void {

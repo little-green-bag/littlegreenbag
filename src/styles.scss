@@ -58,23 +58,25 @@ image {
   margin: $mat-divider--margin;
 }
 
-.progress-loader {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  border: 2px solid black;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  background: rgb(0, 0, 0, 0.7);
 
-  mat-progress-spinner {
-    width: 60px !important;
-    height: 60px !important;
-    svg {
-      width: 60px !important;
-      height: 60px !important;
-    }
-  }
-}
+
+// .progress-loader {
+//   display: grid;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 1rem;
+//   border: 2px solid black;
+//   height: 100%;
+//   width: 100%;
+//   position: absolute;
+//   background: rgb(0, 0, 0, 0.7);
+
+//   mat-progress-spinner {
+//     width: 60px !important;
+//     height: 60px !important;
+//     svg {
+//       width: 60px !important;
+//       height: 60px !important;
+//     }
+//   }
+// }

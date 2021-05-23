@@ -1,0 +1,18 @@
+<mat-card>
+  <div>
+    <mat-progress-bar mode="buffer" [value]="currentPercent"></mat-progress-bar>
+    {{(percentage | async) | number }}%
+  </div>
+  <mat-card-actions>
+    <!-- <div class="controls" *ngIf="snapshot | async as snap">
+      <button mat-raised-button color="primary" (click)="task.pause()"
+        [ngStyle]="{display: !isActive(snap) ? 'none': 'inline-block'}">Pause</button>
+      <button mat-raised-button color="warn" (click)="cancelTask(task)"
+        [ngStyle]="{display: !isActive(snap) ? 'none': 'inline-block'}">Cancel</button>
+      <button mat-raised-button color="accent" (click)="task.resume()" [disabled]="!(snap?.state === 'paused')"
+        [ngStyle]="{display: !isActive(snap) ? 'none': 'inline-block'}">Resume</button>
+      <button mat-raised-button color="accent" (click)="removeFile()"
+        [ngStyle]="{display: isActive(snap) ? 'none': 'inline-block'}">Remove</button>
+    </div> -->
+  </mat-card-actions>
+</mat-card>

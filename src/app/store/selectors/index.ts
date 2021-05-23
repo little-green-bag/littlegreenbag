@@ -18,14 +18,34 @@ export const selectProducts = createSelector(_selectProducts, (state) => {
 });
 
 export const _selectSelectedProduct = (state: { app: AppState }) => {
-  console.log('state working with is ', state);
   return state.app.selectedProduct;
 };
 
 export const selectSelectedProduct = createSelector(
   _selectSelectedProduct,
   (state) => {
-    console.log('state here is ', state);
+    return state;
+  }
+);
+
+export const _selectLoading = (state: { app: AppState }) => {
+  return state.app.loading;
+};
+
+export const selectLoading = createSelector(
+  _selectLoading,
+  (state) => {
+    return state;
+  }
+);
+
+export const _selectSelectedProductImages = (state: { app: AppState }) => {
+  return state.app.selectedProduct.images;
+};
+
+export const selectSelectedProductImages = createSelector(
+  _selectSelectedProductImages,
+  (state) => {
     return state;
   }
 );

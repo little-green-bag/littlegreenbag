@@ -1,8 +1,4 @@
-<button
-  type="button"
-  class="social-button btn"
-  [ngClass]="class"
-  (click)="this.clicked.emit()"
->
-  {{ text }}
-</button>
+<div class="social-button-container">
+  <button (click)="this.clicked.emit()" mat-raised-button color="primary">
+    <img style="width: 30px;" src="../../../../../assets/social/google-logo.jpg" alt=""> {{ text }}</button>
+</div>

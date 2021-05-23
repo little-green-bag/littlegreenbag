@@ -1,71 +1,38 @@
-<div class="progress-loader" *ngIf="formSubmitted">
-  <mat-spinner style="margin: 0 auto"></mat-spinner>
-</div>
-
 <div class="form-container">
-  <form
-    action=""
-    (ngSubmit)="onSubmit(productForm.value)"
-    [formGroup]="productForm"
-    #f="ngForm"
-  >
+  <form action="" (ngSubmit)="onSubmit(productForm.value)" [formGroup]="productForm" #f="ngForm">
     <div class="group" formGroupName="product">
       <div class="inputs">
         <mat-form-field appearance="fill">
           <mat-label>Product Type</mat-label>
           <mat-select formControlName="category">
-            <mat-option
-              *ngFor="let category of categories"
-              [value]="category.value"
-            >
+            <mat-option (selectionChange)="updateObject()" *ngFor="let category of categories" [value]="category.value">
               {{ category.viewValue }}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field>
-          <input
-            #inputRef
-            formControlName="name"
-            matInput
-            placeholder="Name"
-            type="text"
-          />
+          <input (input)="updateObject()" #inputRef formControlName="name" matInput placeholder="Name" type="text" />
           <mat-error>
-            <app-validation-errors
-              [title]="'name'"
-              [errors]="productForm.get('product.name').errors"
-            ></app-validation-errors>
+            <app-validation-errors [title]="'name'" [errors]="productForm.get('product.name').errors">
+            </app-validation-errors>
           </mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <input
-            formControlName="price"
-            matInput
-            placeholder="Price"
-            type="number"
-          />
+          <input formControlName="price" matInput placeholder="Price" type="number" (input)="updateObject()" />
           <mat-error>
-            <app-validation-errors
-              [title]="'price'"
-              [errors]="productForm.get('product.price').errors"
-            ></app-validation-errors>
+            <app-validation-errors [title]="'price'" [errors]="productForm.get('product.price').errors">
+            </app-validation-errors>
           </mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <input
-            formControlName="description"
-            matInput
-            placeholder="Description"
-            type="text"
-          />
+          <input (input)="updateObject()" formControlName="description" matInput placeholder="Description"
+            type="text" />
           <mat-error>
-            <app-validation-errors
-              [title]="'f'"
-              [errors]="productForm.get('product.description').errors"
-            ></app-validation-errors>
+            <app-validation-errors [title]="'f'" [errors]="productForm.get('product.description').errors">
+            </app-validation-errors>
           </mat-error>
         </mat-form-field>
       </div>
@@ -81,12 +48,7 @@
           </mat-card-subtitle>
         </mat-card-header>
 
-        <img
-          (click)="fileInput.click()"
-          mat-card-image
-          [src]="currentImgSrc"
-          alt="Photo of a Shiba Inu"
-        />
+        <img (click)="fileInput.click()" mat-card-image [src]="currentImgSrc" [alt]="currentImgSrc" />
 
         <mat-card-content>
           <p>{{ productForm.get("product.description").value }}</p>
@@ -98,14 +60,13 @@
         </mat-card-actions>
       </mat-card>
 
-      <input
-        formControlName="imageUrl"
-        type="file"
-        placeholder="Choose Image"
-        (change)="onFileSelected($event)"
-        #fileInput
-        style="display: none"
-      />
+      <div *ngFor="let file of selectedFiles" class="files-selected-list">
+        <button mat-button>{{file.name}}</button>
+        <app-upload-task (complete)="onComplete($event)" [file]="file" (result)="onResult($event)"></app-upload-task>
+      </div>
+
+      <input formControlName="images" type="file" multiple placeholder="Choose Image" (change)="onFilesSelected($event)"
+        #fileInput style="display: none" />
     </div>
     <mat-divider></mat-divider>
   </form>

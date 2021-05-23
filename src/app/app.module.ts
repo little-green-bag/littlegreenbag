@@ -47,6 +47,8 @@ import { TableComponent } from '@components/shared/table/table.component';
 import { StoreModule } from '@ngrx/store';
 import { CartComponent } from '@components/body/pages/cart/cart.component';
 import { ProductComponent } from '@components/product/product.component';
+import { UploadTaskComponent } from './components/shared/upload-task/upload-task.component';
+import { AnimatedTextComponent } from './components/shared/animated-text/animated-text.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { ProductComponent } from '@components/product/product.component';
     CarouselComponent,
     CartComponent,
     ProductComponent,
+    UploadTaskComponent,
+    AnimatedTextComponent,
   ],
   imports: [
     BrowserModule,

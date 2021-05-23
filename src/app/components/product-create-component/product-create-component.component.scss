@@ -2,7 +2,7 @@
 
 .product-card {
   margin: 0 auto;
-  max-width: 200px;
+  max-width: $product-card-max-width;
 }
 
 .product-header-image {
@@ -13,12 +13,12 @@
 
 .inputs {
   display: grid;
-  justify-content: center;
-  grid-template-columns: auto auto;
-  grid-gap: 10px;
-  align-items: center;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    align-items: center;
 }
 
 .mat-raised-button {
   width: 100%;
 }
+

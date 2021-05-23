@@ -7,7 +7,7 @@ import { ProductModel } from '@models/index';
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent {
   action: string;
   local_data: any;
 
@@ -17,11 +17,6 @@ export class DialogComponent implements OnInit {
   ) {
     this.local_data = { ...data };
     this.action = this.local_data.action;
-  }
-
-  ngOnInit() {
-    console.log('this.data is ', this.data);
-    console.log('this.action is ', this.action);
   }
 
   doAction() {
