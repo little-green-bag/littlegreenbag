@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i");
-@import "variables";
+@import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
+@import 'variables';
 
 .container {
   width: 100%;
@@ -7,7 +7,7 @@
   font-weight: 900;
   text-transform: uppercase;
   text-align: center;
-  padding: 0 0 200px;
+  background-color: black;
 }
 
 .animate {
@@ -106,4 +106,3 @@
     color: $green;
   }
 }
-

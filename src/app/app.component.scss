@@ -1,16 +1,21 @@
-@import "variables";
-@import "spinner";
-@import "mixins";
+@import 'variables';
+@import 'spinner';
+@import 'mixins';
 
-.app-container{
-  .app-sidenav-content{
+.app-container {
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  top: 0px;
+  .app-sidenav-content {
     height: 100%;
   }
 }
 .outer-container {
   display: grid;
-    grid-template-rows: auto 1fr auto;
-    height: 100%;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
   .header {
     display: grid;
     mat-toolbar {
@@ -29,4 +34,3 @@
     background-color: $white;
   }
 }
-

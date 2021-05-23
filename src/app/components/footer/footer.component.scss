@@ -1,18 +1,29 @@
-.details {
+.footer-container {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  height: 100%;
-  a {
-    width: 4rem;
-    height: 4rem;
-    position: relative;
-    img {
-      position: absolute;
-      width: 100%;
-      height: 100%;
+  justify-items: center;
+  .login {
+    width: 100%;
+    padding: 0 10px;
+  }
+  .instagram {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 100%;
+    padding: 10px 0;
+    a {
+      width: 4rem;
+      height: 4rem;
+      position: relative;
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }

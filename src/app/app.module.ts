@@ -49,6 +49,7 @@ import { CartComponent } from '@components/body/pages/cart/cart.component';
 import { ProductComponent } from '@components/product/product.component';
 import { UploadTaskComponent } from './components/shared/upload-task/upload-task.component';
 import { AnimatedTextComponent } from './components/shared/animated-text/animated-text.component';
+import { GoogleLoginComponent } from './components/core/login/google-login/google-login.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { AnimatedTextComponent } from './components/shared/animated-text/animate
     ProductComponent,
     UploadTaskComponent,
     AnimatedTextComponent,
+    GoogleLoginComponent,
   ],
   imports: [
     BrowserModule,

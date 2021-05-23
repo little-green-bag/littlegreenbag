@@ -1,0 +1,10 @@
+<div *ngIf="auth.user$ | async as user; else login">
+  <app-social-button (clicked)="auth.signOut()" [text]="'Log Out'">
+  </app-social-button>
+</div>
+<ng-template #login>
+  <form class="form-signin">
+    <app-social-button (clicked)="auth.googleSignIn()" [text]="'Sign in with Google'">
+    </app-social-button>
+  </form>
+</ng-template>

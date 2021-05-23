@@ -13,7 +13,7 @@ import { selectLoading } from '@store/selectors';
 export class AppComponent implements AfterViewInit {
   @ViewChild('drawer') public drawer: MatDrawer;
 
-  loading$: Observable<boolean> = of(false);
+  loading$: Observable<boolean>;
   opened: boolean;
 
   constructor(private sidenavService: SidenavService, private store: Store) {

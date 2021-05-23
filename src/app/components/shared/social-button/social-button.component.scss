@@ -1,11 +1,10 @@
-@import "variables";
+@import 'variables';
 
-.social-button-container {
-
-}
-
-:host{
-  ::ng-deep{
+:host {
+  ::ng-deep {
+    .mat-raised-button {
+      width: 100%;
+    }
     span.mat-button-wrapper {
       display: grid;
       align-items: center;
