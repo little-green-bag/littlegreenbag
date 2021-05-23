@@ -1,24 +1,26 @@
-<ngu-carousel
-  #myCarousel
-  [inputs]="carouselConfig"
-  [dataSource]="carouselItems"
->
-  <div *nguCarouselDef="let item" class="item">
-    <div class="tile" [style.background]="'url(' + item.image_url + ')'"></div>
-  </div>
+<div *ngIf="dataSource$ |async as data">
 
-  <button *ngIf="config?.displayPoints" NguCarouselNext class="rightRs">
-    >
-  </button>
-  <button *ngIf="config?.displayPoints" NguCarouselPrev class="leftRs">
-    <
-  </button>
+  <ngu-carousel #myCarousel [inputs]="carouselConfig" [dataSource]="data">
 
-  <ul class="myPoint" NguCarouselPoint *ngIf="config?.displayPoints">
-    <li
-      *ngFor="let j of myCarousel.pointNumbers; let i = index"
-      [class.active]="j == myCarousel.activePoint"
-      (click)="myCarousel.moveTo(j)"
-    ></li>
-  </ul>
-</ngu-carousel>
+    <div *nguCarouselDef="let item;" class="item">
+      <div class="tile" [ngStyle]="{'background-image': 'url(' + item.imageUrl + ')'}">
+        {{item.name}}
+      </div>
+      <!-- <ng-template #noImage>
+        <div class="tile noImage"
+          [ngStyle]="{'background-image': 'https://firebasestorage.googleapis.com/v0/b/littlegreenbag-ecb99.appspot.com/o/products-0%2Fclick-here-to-upload_1620928912575?alt=media&token=d974ff59-7007-4ce7-97ac-feac006c4ad6'}">
+        </div>
+      </ng-template> -->
+
+
+    </div>
+
+    <!-- <button NguCarouselNext class="rightRs">></button>
+    <button NguCarouselPrev class="leftRs">
+      < </button>
+        <ul class="myPoint" NguCarouselPoint>
+          <li *ngFor="let j of myCarousel.pointNumbers; let i = index" [class.active]="j==myCarousel.activePoint"
+            (click)="moveTo(j)"></li>
+        </ul> -->
+  </ngu-carousel>
+</div>

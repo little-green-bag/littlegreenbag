@@ -4,6 +4,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { selectLoading } from '@store/selectors';
+import { loadProducts } from '@store/actions/products.actions';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.store.dispatch(loadProducts());
     this.sidenavService.setDrawer(this.drawer);
   }
 
