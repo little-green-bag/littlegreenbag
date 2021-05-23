@@ -17,7 +17,7 @@ import { SidenavService } from '@services/shared/sidenav/sidenav.service';
 import { RoutingService } from '@services/core/routing.service';
 
 // Swiper
-import { NguCarouselModule } from '@ngu/carousel';
+import { SwiperModule } from "swiper/angular";
 
 // Material
 import { MaterialModule } from './modules/material/material.module';
@@ -86,7 +86,7 @@ import { GoogleLoginComponent } from './components/core/login/google-login/googl
     MaterialModule,
     AngularFireAnalyticsModule,
     AngularFireAuthModule,
-    NguCarouselModule,
+    SwiperModule,
     StoreModule.forRoot({ app: appReducer }),
     EffectsModule.forRoot([ProductsEffects]),
     StoreDevtoolsModule.instrument({
@@ -97,4 +97,4 @@ import { GoogleLoginComponent } from './components/core/login/google-login/googl
   providers: [SidenavService, DialogComponent, RoutingService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
