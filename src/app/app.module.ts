@@ -15,6 +15,7 @@ import { ProductsEffects } from '@effects/products.effects';
 // Services
 import { SidenavService } from '@services/shared/sidenav/sidenav.service';
 import { RoutingService } from '@services/core/routing.service';
+import { ExcelService } from '@services/shared/excel.service';
 
 // Swiper
 import { SwiperModule } from "swiper/angular";
@@ -94,7 +95,7 @@ import { GoogleLoginComponent } from './components/core/login/google-login/googl
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
   ],
-  providers: [SidenavService, DialogComponent, RoutingService],
+  providers: [SidenavService, DialogComponent, RoutingService, ExcelService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

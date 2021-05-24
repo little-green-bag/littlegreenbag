@@ -2,9 +2,10 @@ import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { SidenavService } from './services/shared/sidenav/sidenav.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { selectLoading } from '@store/selectors';
 import { loadProducts } from '@store/actions/products.actions';
+import { ExcelService } from '@services/shared/excel.service';
 
 @Component({
   selector: 'app-root',
@@ -28,5 +29,6 @@ export class AppComponent implements AfterViewInit {
     this.store.dispatch(loadProducts());
     this.sidenavService.setDrawer(this.drawer);
   }
+
 
 }
