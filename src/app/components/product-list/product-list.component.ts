@@ -26,6 +26,5 @@ export class ProductListComponent implements OnInit {
     this.store.select(selectProducts).subscribe(res => {
       this.excelService.exportAsExcelFile(res, 'products');
     })
-
   }
 }
