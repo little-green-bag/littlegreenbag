@@ -10,6 +10,15 @@ import { Store } from '@ngrx/store';
 import { map, tap, mapTo } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
+interface Category {
+  value: string,
+  viewValue: string,
+}
+interface CategoryGroup {
+  name: string;
+  categories: Category[]
+}
+
 @Component({
   selector: 'app-product-create-component',
   templateUrl: './product-create-component.component.html',
@@ -26,11 +35,32 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
     'https://firebasestorage.googleapis.com/v0/b/littlegreenbag-ecb99.appspot.com/o/products-0%2Fclick-here-to-upload_1620928912575?alt=media&token=d974ff59-7007-4ce7-97ac-feac006c4ad6';
   currentImgSrc = "";
   formSubmitted = false;
-  categories: ProductGroupModel[] = [
-    { value: 'products', viewValue: 'Products' },
-    { value: 'bangers', viewValue: 'Bangers' },
-    { value: 'decoration', viewValue: 'Decoration' },
-    { value: 'rigs', viewValue: 'Rigs' },
+  categoryGroups: CategoryGroup[] = [
+    {
+      name: 'Glass Gallery',
+      categories: [
+        { value: 'rig-0', viewValue: 'Rig' },
+        { value: 'pendants-1', viewValue: 'Pendants' },
+        { value: 'dab-2', viewValue: 'Dab' },
+        { value: 'tools-3', viewValue: 'Tools' }
+      ]
+    },
+    {
+      name: 'Accessories',
+      categories: [
+        { value: 'cleaning-0', viewValue: 'Cleaning' },
+        { value: 'dab-mats-1', viewValue: 'Dab Mats' },
+      ]
+    },
+    {
+      name: 'Glass Essentials',
+      categories: [
+        { value: 'bangers-0', viewValue: 'Bangers' },
+        { value: 'slupers-1', viewValue: 'Slupers' },
+        { value: 'marbles-2', viewValue: 'Marbles' },
+        { value: 'carb-caps-3', viewValue: 'Carb-caps' }
+      ]
+    },
   ];
 
   constructor(

@@ -45,6 +45,15 @@ export class CarouselComponent implements OnInit {
     this.data$ = this.store.select(selectProducts);
   }
 
+  ngAfterViewInit() {
+
+  }
+
+  getImageString(item): string {
+    const imageUrl = `url(${item.imageUrl})`;
+    return imageUrl;
+  }
+
   thumbsSwiper: any;
   setThumbsSwiper(swiper) {
     this.thumbsSwiper = swiper;
@@ -56,9 +65,10 @@ export class CarouselComponent implements OnInit {
 
   indexNumber = 1;
   exampleConfig = {
-    slidesPerView: 3, autoplay: {
-      delay: 5000,
-    },
+    slidesPerView: 3,
+    // autoplay: {
+    // delay: 5000,
+    // },
   };
   slidesPerView: number = 4;
   pagination: any = false;

@@ -1,36 +1,22 @@
 import { Injectable } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Router, NavigationEnd, RouterEvent } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SidenavService {
-  constructor(private router: Router) { }
-
   private drawer: MatDrawer;
-
-  ngOnInit() {
+  constructor(private router: Router) {
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this.resetDrawer();
       }
     });
-
-    this.router.events.pipe(
-      filter((e: any) => e instanceof RouterEvent),
-      map(e => console.log('event is ', e))
-    )
-
-    // filter((e: Event): e is RouterEvent => e instanceof RouterEvent)
-
-    // .subscribe((e: RouterEvent) => {
-    //   console.log(e.id, e.url);
-    // });
   }
 
   setDrawer(drawer: MatDrawer) {
+    console.log('setting drawer')
     this.drawer = drawer;
   }
 

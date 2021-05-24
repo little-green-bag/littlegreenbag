@@ -2,7 +2,7 @@
   <swiper [config]="exampleConfig" [slidesPerView]="1" [spaceBetween]="50" [pagination]="{ type: 'fraction' }"
     [navigation]="true">
     <ng-template swiperSlide *ngFor="let item of (data$ | async)" swiperSlide>
-      <div class="image" [ngStyle]="{'background-image': 'url(' + item.imageUrl + ')'}"></div>
+      <div class="image" [ngStyle]="{'background-image': getImageString(item)}"></div>
     </ng-template>
     <!-- <ng-template swiperSlide class="custom-class" swiperSlide>
     </ng-template> -->

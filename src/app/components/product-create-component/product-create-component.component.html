@@ -3,11 +3,13 @@
     <div class="group" formGroupName="product">
       <div class="inputs">
         <mat-form-field appearance="fill">
-          <mat-label>Product Type</mat-label>
+          <mat-label>Category</mat-label>
           <mat-select formControlName="category">
-            <mat-option (selectionChange)="updateObject()" *ngFor="let category of categories" [value]="category.value">
-              {{ category.viewValue }}
-            </mat-option>
+            <mat-optgroup *ngFor="let group of categoryGroups" [label]="group.name" [disabled]="group.disabled">
+              <mat-option *ngFor="let category of group.categories" [value]="category.value">
+                {{category.viewValue}}
+              </mat-option>
+            </mat-optgroup>
           </mat-select>
         </mat-form-field>
 

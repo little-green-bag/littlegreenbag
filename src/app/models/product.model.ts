@@ -5,6 +5,7 @@ export class ProductModel {
   category: string;
   images?: string[];
   price: number;
+  stock?: number;
 
   constructor(product) {
     {
@@ -12,7 +13,8 @@ export class ProductModel {
       this.name = product.name || '';
       this.description = product.description || '';
       this.images = product.images || [];
-      this.price = product.price || null;
+      this.price = product.price || 0;
+      this.stock = product.stock || 0;
     }
   }
 }
