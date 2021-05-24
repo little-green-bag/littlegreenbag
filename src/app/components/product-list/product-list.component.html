@@ -1,2 +1,5 @@
-<button mat-raised-button color="primary" (click)="downloadLatestProductsList()">Download Latest Products List</button>
+<div>
+  <button mat-raised-button color="primary" (click)="downloadLatestProductsList()">Download Latest Products
+    List</button>
+</div>
 <app-table color="primary" [data]="data$ | async"> </app-table>

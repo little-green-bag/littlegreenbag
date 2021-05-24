@@ -11,7 +11,7 @@ import { ProductCreateComponentComponent } from '@components/product-create-comp
 import { NoAccessComponent } from '@components/shared/no-access/no-access.component';
 import { ShopComponent } from '@components/body/pages/shop/shop.component';
 import { CartComponent } from '@components/body/pages/cart/cart.component';
-import { ProductComponent } from '@components/product/product.component';
+import { InspectionComponent } from '@components/body/pages/inspection/inspection.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,7 +22,7 @@ const routes: Routes = [
     component: ProductListComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'product/:id', component: ProductComponent },
+  { path: 'product/:id', component: InspectionComponent },
   {
     path: 'create',
     component: ProductCreateComponentComponent,
@@ -36,4 +36,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

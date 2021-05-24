@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewChild, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, ViewChild, OnInit, Input } from "@angular/core";
 import { SwiperComponent } from "swiper/angular";
 
 // import Swiper core and required components
@@ -34,20 +34,13 @@ SwiperCore.use([
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
 })
-export class CarouselComponent implements OnInit {
+export class CarouselComponent {
   @ViewChild("swiperRef", { static: false }) swiperRef?: SwiperComponent;
+  @Input() data;
 
   show: boolean;
   thumbs: any;
-  data$;
   constructor(private cd: ChangeDetectorRef, private store: Store) { }
-  ngOnInit() {
-    this.data$ = this.store.select(selectProducts);
-  }
-
-  ngAfterViewInit() {
-
-  }
 
   getImageString(item): string {
     const imageUrl = `url(${item.imageUrl})`;

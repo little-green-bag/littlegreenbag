@@ -15,6 +15,7 @@ const _appReducer = createReducer(
     return { ...state, products };
   }),
   on(getProductSuccess, (state, { product }) => {
+    console.log('product is ', product);
     return { ...state, selectedProduct: product };
   }),
   on(addProductImage, (state, { url }) => {

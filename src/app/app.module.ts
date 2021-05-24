@@ -51,6 +51,7 @@ import { ProductComponent } from '@components/product/product.component';
 import { UploadTaskComponent } from './components/shared/upload-task/upload-task.component';
 import { AnimatedTextComponent } from './components/shared/animated-text/animated-text.component';
 import { GoogleLoginComponent } from './components/core/login/google-login/google-login.component';
+import { InspectionComponent } from './components/body/pages/inspection/inspection.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { GoogleLoginComponent } from './components/core/login/google-login/googl
     UploadTaskComponent,
     AnimatedTextComponent,
     GoogleLoginComponent,
+    InspectionComponent,
   ],
   imports: [
     BrowserModule,
