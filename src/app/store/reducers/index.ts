@@ -19,8 +19,8 @@ const _appReducer = createReducer(
     return { ...state, selectedProduct: product };
   }),
   on(addProductImage, (state, { url }) => {
-    const selectedProduct = { ...state.selectedProduct, images: [...state.selectedProduct.images, url] };
-    return { ...state, selectedProduct };
+    const currentImages = state.selectedProduct.images;
+    return { ...state, selectedProduct: { ...state.selectedProduct, images: [...currentImages, url] } }
   }),
   on(startSpinner, (state) => {
     return { ...state, loading: true }

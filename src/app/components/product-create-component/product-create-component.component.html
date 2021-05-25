@@ -4,9 +4,9 @@
       <div class="inputs">
         <mat-form-field appearance="fill">
           <mat-label>Category</mat-label>
-          <mat-select formControlName="category">
+          <mat-select (selectionChange)="updateObject()" formControlName="category">
             <mat-optgroup *ngFor="let group of categoryGroups" [label]="group.name" [disabled]="group.disabled">
-              <mat-option *ngFor="let category of group.categories" [value]="category.value">
+              <mat-option *ngFor="let category of group.categories" [value]="category.viewValue">
                 {{category.viewValue}}
               </mat-option>
             </mat-optgroup>
@@ -50,7 +50,7 @@
           </mat-card-subtitle>
         </mat-card-header>
 
-        <img (click)="fileInput.click()" mat-card-image [src]="currentImgSrc" [alt]="currentImgSrc" />
+        <img (click)="fileInput.click()" mat-card-image [src]="defaultImageSrc" [alt]="currentImgSrc" />
 
         <mat-card-content>
           <p>{{ productForm.get("product.description").value }}</p>
@@ -63,8 +63,8 @@
       </mat-card>
 
       <div *ngFor="let file of selectedFiles" class="files-selected-list">
-        <button mat-button>{{file.name}}</button>
-        <app-upload-task (complete)="onComplete($event)" [file]="file" (result)="onResult($event)"></app-upload-task>
+        <button appClickStopPropogation mat-button>{{file.name}}</button>
+        <app-upload-task [file]="file" (result)="onResult($event)"></app-upload-task>
       </div>
 
       <input formControlName="images" type="file" multiple placeholder="Choose Image" (change)="onFilesSelected($event)"

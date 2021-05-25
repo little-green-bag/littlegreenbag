@@ -10,14 +10,13 @@ import { DialogComponent } from '@components/shared/dialog/dialog.component';
   providedIn: 'root',
 })
 export class DialogService {
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
   openDialog(data?): MatDialogRef<DialogComponent> {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = data;
-    console.log('dialogConfig is ', dialogConfig);
     const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     return dialogRef;
   }

@@ -16,12 +16,10 @@ export class SidenavService {
   }
 
   setDrawer(drawer: MatDrawer) {
-    console.log('setting drawer')
     this.drawer = drawer;
   }
 
   resetDrawer(): void {
-    console.log('this.resetting');
     this.drawer.close();
   }
 

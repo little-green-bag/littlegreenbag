@@ -52,6 +52,7 @@ import { UploadTaskComponent } from './components/shared/upload-task/upload-task
 import { AnimatedTextComponent } from './components/shared/animated-text/animated-text.component';
 import { GoogleLoginComponent } from './components/core/login/google-login/google-login.component';
 import { InspectionComponent } from './components/body/pages/inspection/inspection.component';
+import { ClickStopPropogationDirective } from './directives/click-stop-propogation.directive';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { InspectionComponent } from './components/body/pages/inspection/inspecti
     AnimatedTextComponent,
     GoogleLoginComponent,
     InspectionComponent,
+    ClickStopPropogationDirective,
   ],
   imports: [
     BrowserModule,
