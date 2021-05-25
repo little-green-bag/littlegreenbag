@@ -1,3 +1,4 @@
 <!-- <app-animated-text></app-animated-text>
 <app-carousel [data]="data$ | async"></app-carousel>
 <app-product [productData$]="productData$"></app-product> -->
+<app-light-gallery [data]="data$ | async" *ngIf="(data$ | async).length"></app-light-gallery>

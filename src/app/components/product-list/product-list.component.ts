@@ -18,7 +18,6 @@ export class ProductListComponent implements OnInit {
   constructor(private store: Store<{ app: AppState }>, private excelService: ExcelService) { }
 
   ngOnInit(): void {
-    this.store.dispatch(loadProducts());
     this.data$ = this.store.select(selectProducts);
   }
 

@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '@environments/environment';
+import { LightgalleryModule } from 'lightgallery/angular';
 
 // Store
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -53,6 +54,7 @@ import { AnimatedTextComponent } from './components/shared/animated-text/animate
 import { GoogleLoginComponent } from './components/core/login/google-login/google-login.component';
 import { InspectionComponent } from './components/body/pages/inspection/inspection.component';
 import { ClickStopPropogationDirective } from './directives/click-stop-propogation.directive';
+import { LightGalleryComponent } from './components/shared/light-gallery/light-gallery.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,7 @@ import { ClickStopPropogationDirective } from './directives/click-stop-propogati
     GoogleLoginComponent,
     InspectionComponent,
     ClickStopPropogationDirective,
+    LightGalleryComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +94,7 @@ import { ClickStopPropogationDirective } from './directives/click-stop-propogati
     MaterialModule,
     AngularFireAnalyticsModule,
     AngularFireAuthModule,
+    LightgalleryModule,
     SwiperModule,
     StoreModule.forRoot({ app: appReducer }),
     EffectsModule.forRoot([ProductsEffects]),
@@ -99,7 +103,7 @@ import { ClickStopPropogationDirective } from './directives/click-stop-propogati
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
   ],
-  providers: [SidenavService, DialogComponent, RoutingService, ExcelService],
+  providers: [SidenavService, DialogComponent, RoutingService, ExcelService,],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
