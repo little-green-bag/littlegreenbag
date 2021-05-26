@@ -56,6 +56,7 @@ import { InspectionComponent } from './components/body/pages/inspection/inspecti
 import { ClickStopPropogationDirective } from './directives/click-stop-propogation.directive';
 import { LightGalleryComponent } from './components/shared/light-gallery/light-gallery.component';
 import { DisplayCardComponent } from './components/shared/display-card/display-card.component';
+import { AnimatedLineComponent } from './components/shared/animated-line/animated-line.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { DisplayCardComponent } from './components/shared/display-card/display-c
     ClickStopPropogationDirective,
     LightGalleryComponent,
     DisplayCardComponent,
+    AnimatedLineComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,19 @@
+@import 'variables';
+
+:host {
+  ::ng-deep {
+    .mat-raised-button {
+      padding: 0;
+      border: 1px solid $primary;
+    }
+  }
+}
+@keyframes descend {
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: 100%;
+  }
+}

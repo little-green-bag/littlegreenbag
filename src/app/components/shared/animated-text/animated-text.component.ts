@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-animated-text',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./animated-text.component.scss']
 })
 export class AnimatedTextComponent implements OnInit {
-
+  @Input() text: string = "";
   constructor() { }
 
   ngOnInit(): void {

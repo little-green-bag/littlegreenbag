@@ -1,0 +1,33 @@
+@import 'variables';
+
+.master-container {
+  display: grid;
+  grid-auto-flow: column;
+  .green-line--inner-container {
+    height: 2rem;
+    background: black;
+    position: relative;
+    overflow: hidden;
+    .green-line {
+      border: 1px solid $primary;
+      width: 1px;
+      margin: 0 auto;
+      height: 100%;
+    }
+    .moving-box-top-to-bottom {
+      width: 2rem;
+      height: 100%;
+      background: black;
+      position: absolute;
+      margin: 0 auto;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%);
+      animation-name: descend;
+      animation-timing-function: cubic-bezier(0.51, 0.92, 0.24, 1.15);
+      animation-duration: 0.5s;
+      animation-delay: 0.8s;
+      animation-fill-mode: forwards;
+    }
+  }
+}

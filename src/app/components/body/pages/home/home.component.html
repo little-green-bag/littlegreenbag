@@ -1,4 +1,18 @@
-<app-animated-text></app-animated-text>
+<div style="display: grid;">
+  <app-animated-line></app-animated-line>
+  <button mat-raised-button>
+    <app-animated-text [text]="'Rigs'"></app-animated-text>
+  </button>
+  <app-animated-line></app-animated-line>
+  <button mat-raised-button>
+    <app-animated-text [text]="'Bangers'"></app-animated-text>
+  </button>
+  <app-animated-line></app-animated-line>
+  <button mat-raised-button>
+    <app-animated-text [text]="'Accessories'"></app-animated-text>
+  </button>
+  <app-animated-line></app-animated-line>
+</div>
 <ul>
   <li *ngFor="let data of (data$ | async)">
     <app-product [data]="data"></app-product>
