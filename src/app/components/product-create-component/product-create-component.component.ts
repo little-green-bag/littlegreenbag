@@ -7,9 +7,9 @@ import { selectSelectedProduct, selectSelectedProductImages } from '@store/selec
 import { startSpinner, stopSpinner } from '@actions/spinner.actions';
 import { updateProductCreateObject } from '@actions/create-product.actions';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
+import { defaultImageSrc } from '@config/index';
 interface Category {
   value: string,
   viewValue: string,
@@ -27,12 +27,11 @@ interface CategoryGroup {
 export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
   @ViewChild('f') myNgForm;
   @ViewChild('inputRef') inputRef;
-  images: Observable<any>;
+  selectedProduct: Observable<ProductModel>;
   selectedFiles = [];
   files = [];
   productForm: FormGroup;
-  defaultImageSrc =
-    'https://firebasestorage.googleapis.com/v0/b/littlegreenbag-ecb99.appspot.com/o/products-0%2Fclick-here-to-upload_1620928912575?alt=media&token=d974ff59-7007-4ce7-97ac-feac006c4ad6';
+  coverImageSrc = '';
   currentImgSrc = "";
   formSubmitted = false;
   categoryGroups: CategoryGroup[] = [
@@ -71,12 +70,16 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.images = this.store.select(selectSelectedProductImages);
     this.buildForm();
+    this.selectedProduct = this.store.select(selectSelectedProduct);
+    this.selectedProduct.pipe(map(
+      res => {
+        this.coverImageSrc = res.images.length ? res.images[0] : defaultImageSrc;
+      }
+    ))
   }
 
   ngAfterViewInit(): void {
-
   }
 
   buildForm() {
@@ -91,31 +94,33 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
     });
   }
 
-  async create(product: ProductModel) {
-    const { name, description, price, category } = product;
-    const filePath = `${product.category}/${name
-      .split('.')
-      .slice(0, -1)
-      .join('.')}_${new Date().getTime()}`;
-    const result = this.store.select(selectSelectedProduct).pipe(
-      map(res => {
-        return {
-          ...res,
-          name, description, price, category
-        }
-      })
-    );
-    result.subscribe(res => {
-      // this.productService.createProduct(product, 'products');
-      //         this._notificationService.openSnackBar(
-      //           'Product successfully created',
-      //           'PRODUCTS',
-      //           'green-snackbar'
-      //         );
-      //         this.resetForm();
-    });
+  async uploadProduct() {
+    this.selectedProduct.subscribe(res => {
+      console.log('res is ', res);
+      this.productService.createProduct(res, 'latestTest');
+      this.store.dispatch(stopSpinner());
+      this.reset();
 
+    })
+    // this.selectedProduct.pipe(map(product => {
+    //   // const { name, description, price, category } = product;
+    //   //   const filePath = `${product.category}/${name
+    //   //     .split('.')
+    //   //     .slice(0, -1)
+    //   //     .join('.')}_${new Date().getTime()}`;
+    //   // }))
+    //   console.log('inside upload product with ', product);
+    //   // result.subscribe(res => {
+    //   this.productService.createProduct(product, 'latestTest');
+    //   //         this._notificationService.openSnackBar(
+    //   //           'Product successfully created',
+    //   //           'PRODUCTS',
+    //   //           'green-snackbar'
+    //   //         );
+    //   //         this.resetForm();
+    //   // });
 
+    // }));
   }
 
   updateObject() {
@@ -127,7 +132,7 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
     this.productForm.reset();
     this.productForm.markAsPristine();
     this.productForm.markAsUntouched();
-    this.currentImgSrc = this.defaultImageSrc;
+    this.currentImgSrc = this.coverImageSrc;
     this.myNgForm.resetForm();
     this.formSubmitted = false;
   }
@@ -159,11 +164,11 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
     );
   }
 
-  onSubmit(f) {
+  onSubmit() {
     if (this.productForm.valid) {
       this.formSubmitted = true;
       this.store.dispatch(startSpinner());
-      this.create(f.product);
+      this.uploadProduct();
     } else {
       this._notificationService.warningAlert(`INVALID FORM - check errors`);
     }

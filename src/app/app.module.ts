@@ -55,6 +55,7 @@ import { GoogleLoginComponent } from './components/core/login/google-login/googl
 import { InspectionComponent } from './components/body/pages/inspection/inspection.component';
 import { ClickStopPropogationDirective } from './directives/click-stop-propogation.directive';
 import { LightGalleryComponent } from './components/shared/light-gallery/light-gallery.component';
+import { DisplayCardComponent } from './components/shared/display-card/display-card.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { LightGalleryComponent } from './components/shared/light-gallery/light-g
     InspectionComponent,
     ClickStopPropogationDirective,
     LightGalleryComponent,
+    DisplayCardComponent,
   ],
   imports: [
     BrowserModule,

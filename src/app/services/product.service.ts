@@ -38,10 +38,11 @@ export class ProductService {
     this.firestore
       .collection(collection)
       .add(product)
-      .catch((err) => console.log('error creating product', err)).then(() =>
+      .catch((err) => console.log('error creating product', err)).then(() => {
         this.notificationsService.successAlert(
           `${product.name} successfully created`
-        ))
+        )
+      })
   }
 
   updateProduct(product: ProductModel, collection: string): void {

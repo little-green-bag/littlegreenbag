@@ -24,14 +24,14 @@ export class TableComponent {
   constructor(
     private productService: ProductService,
     private routerService: RoutingService
-  ) {}
+  ) { }
 
   onRowClicked(r) {
     console.log('r is ', r);
   }
 
   delete(e) {
-    this.productService.deleteProduct(e, 'products');
+    // this.productService.deleteProduct(e, 'products');
   }
 
   edit(obj): void {

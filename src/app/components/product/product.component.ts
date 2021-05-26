@@ -9,7 +9,7 @@ import { ProductModel } from '@models/index';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent {
-  @Input() productData$: ProductModel;
+  @Input() data: ProductModel;
   constructor(private store: Store<any>) { }
 
 

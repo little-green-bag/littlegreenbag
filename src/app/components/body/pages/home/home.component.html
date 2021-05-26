@@ -1,4 +1,9 @@
-<!-- <app-animated-text></app-animated-text>
-<app-carousel [data]="data$ | async"></app-carousel>
+<app-animated-text></app-animated-text>
+<ul>
+  <li *ngFor="let data of (data$ | async)">
+    <app-product [data]="data"></app-product>
+  </li>
+</ul>
+<!-- <app-carousel [data]="data$ | async"></app-carousel>
 <app-product [productData$]="productData$"></app-product> -->
-<app-light-gallery [data]="data$ | async" *ngIf="(data$ | async).length"></app-light-gallery>
+<!-- <app-light-gallery [data]="data$ | async" *ngIf="(data$ | async).length"></app-light-gallery> -->
