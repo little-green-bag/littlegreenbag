@@ -22,7 +22,7 @@ export class LightGalleryComponent implements OnInit, AfterViewInit {
     counter: false,
     mode: 'lg-slide',
     plugins: [lgThumbnail, lgZoom],
-
+    easing: 'cubic-bezier(0.51, 0.92, 0.24, 1.15)',
   };
 
   constructor() { }

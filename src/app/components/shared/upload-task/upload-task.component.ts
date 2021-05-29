@@ -1,13 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFireUploadTask, AngularFireStorage } from '@angular/fire/storage';
-import { Observable, of } from 'rxjs';
-import { finalize, catchError, tap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { finalize, map, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { addProductImage } from '@store/actions/products.actions';
-import { startSpinner, stopSpinner } from '@store/actions/spinner.actions';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { NotificationsService } from '@services/shared/notifications/notifications.service';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { startSpinner, stopSpinner } from '@store/actions/spinner.actions';
 
 @Component({
   selector: 'app-upload-task',
@@ -16,6 +16,8 @@ import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/fire
 })
 export class UploadTaskComponent implements OnInit {
   @Input() file: File;
+  @Output() complete = new EventEmitter();
+
   testCollection: AngularFirestoreCollection<any>;
   task: AngularFireUploadTask;
   percentage: Observable<number>;
@@ -26,15 +28,28 @@ export class UploadTaskComponent implements OnInit {
 
   ngOnInit() {
     this.startUpload();
+
+  }
+
+  onAnimationEnd(value) {
+    console.log('value is ', value);
+    console.log('this.downloadURL is ', this.downloadURL);
+    if (value === 100) {
+      this.complete.emit(this.downloadURL);
+      console.log('file uploaded', this.downloadURL);
+      this.store.dispatch(stopSpinner());
+
+    }
   }
 
   startUpload() {
     // The storage path
-    const path = `test/${this.file.name}`;
+    this.store.dispatch(startSpinner());
+    const fileName = this.cleanFileName(this.file.name);
+    const path = `test/${fileName}`;
 
     // Reference to storage bucket
     const ref = this.storage.ref(path);
-    const fileName = this.cleanFileName(this.file.name);
 
     // The main task
     this.task = this.storage.upload(path, this.file);
@@ -43,12 +58,10 @@ export class UploadTaskComponent implements OnInit {
     this.percentage = this.task.percentageChanges();
 
     this.snapshot = this.task.snapshotChanges().pipe(
-      // tap(console.log),
-      // The file's download URL
       finalize(async () => {
         this.downloadURL = await ref.getDownloadURL().toPromise();
-        await this.store.dispatch(addProductImage({ url: this.downloadURL }));
-        // this.db.collection('files').add({ downloadURL: this.downloadURL, path });
+        this.complete.emit({ url: this.downloadURL })
+        // await this.store.dispatch(addProductImage({ url: this.downloadURL }));
       }),
     );
   }

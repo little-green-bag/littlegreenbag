@@ -2,7 +2,81 @@
   <strong>{{ action }}</strong>
 </h1>
 <div mat-dialog-content>
-  <mat-form-field *ngIf="action != 'Delete'">
+  <div class="form-container">
+    <form [formGroup]="productForm" #f="ngForm">
+      <div class="group" formGroupName="product">
+        <div class="inputs">
+          <mat-form-field appearance="fill">
+            <mat-label>Category</mat-label>
+            <mat-select [value]="selectedCategory" (selectionChange)="updateObject($event)" formControlName="category">
+              <mat-optgroup *ngFor="let group of categoryGroups" [label]="group.name" [disabled]="group.disabled">
+                <mat-option *ngFor="let category of group.categories" [value]="category.viewValue">
+                  {{category.viewValue}}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input (input)="updateObject($event)" #inputRef formControlName="name" matInput placeholder="Name"
+              type="text" />
+            <mat-error>
+              <app-validation-errors [title]="'name'" [errors]="productForm.get('product.name').errors">
+              </app-validation-errors>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input formControlName="price" matInput placeholder="Price" type="number" (input)="updateObject($event)" />
+            <mat-error>
+              <app-validation-errors [title]="'price'" [errors]="productForm.get('product.price').errors">
+              </app-validation-errors>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input (input)="updateObject($event)" formControlName="description" matInput placeholder="Description"
+              type="text" />
+            <mat-error>
+              <app-validation-errors [title]="'f'" [errors]="productForm.get('product.description').errors">
+              </app-validation-errors>
+            </mat-error>
+          </mat-form-field>
+
+          <ul>
+            <li *ngFor="let image of (product$ | async)?.images">
+              <img [src]="image" [alt]="image">
+              <button appClickStopPropogation mat-raised-button color="primary" (click)="onRemove(image)">
+                Remove
+              </button>
+            </li>
+          </ul>
+
+          <button appClickStopPropogation mat-raised-button color="primary" (click)="fileInput.click()">
+            Edit Images
+          </button>
+
+          <div class="files">
+            <div *ngFor="let file of selectedFiles" class="files-selected-list">
+              {{file.name}} <button appClickStopPropogation mat-button></button>
+              <app-upload-task (complete)="onComplete($event)" [file]="file"></app-upload-task>
+            </div>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!f.valid">
+          Submit
+        </button>
+        <input formControlName="images" type="file" multiple placeholder="Choose Image"
+          (change)="onFilesSelected($event); updateObject($event)" #fileInput style="display: none" />
+      </div>
+    </form>
+  </div>
+
+</div>
+
+
+
+<!-- <mat-form-field *ngIf="action != 'Delete'">
     <input placeholder="{{ action }} Name" matInput [(ngModel)]="local_data.name" />
   </mat-form-field>
   <mat-form-field *ngIf="action != 'Delete'">
@@ -11,9 +85,7 @@
   <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
     <input placeholder="{{ action }} Price" matInput [(ngModel)]="local_data.price" />
   </mat-form-field>
-  <mat-form-field>
-    <img (click)="fileInput.click()" mat-card-image [src]="coverImageSrc" [alt]="coverImageSrc" />
-  </mat-form-field>
+  <img (click)="fileInput.click()" mat-card-image [src]="coverImageSrc" [alt]="coverImageSrc" />
   <div *ngFor="let file of selectedFiles" class="files-selected-list">
     <button appClickStopPropogation mat-button>{{file.name}}</button>
     <app-upload-task [file]="file"></app-upload-task>
@@ -27,5 +99,4 @@
   <button mat-button (click)="doAction()">{{ action }}</button>
   <button mat-button (click)="closeDialog()" mat-flat-button color="warn">
     Cancel
-  </button>
-</div>
+  </button> -->

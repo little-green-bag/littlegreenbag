@@ -9,6 +9,7 @@ export const enum ProductActionTypes {
   GET_PRODUCT = '[Products] Get Product',
   GET_PRODUCT_SUCCESS = '[Products] Get Product Success',
   ADD_PRODUCT_IMAGE = '[Products] Add Product Image',
+  REMOVE_PRODUCT_IMAGE = '[Proucts] Remove Product Image'
 }
 
 export const loadProducts = createAction(ProductActionTypes.LOAD_PRODUCTS);
@@ -26,5 +27,9 @@ export const getProductSuccess = createAction(
 );
 export const addProductImage = createAction(
   ProductActionTypes.ADD_PRODUCT_IMAGE,
+  props<{ url: string }>()
+)
+export const removeProductImage = createAction(
+  ProductActionTypes.REMOVE_PRODUCT_IMAGE,
   props<{ url: string }>()
 )

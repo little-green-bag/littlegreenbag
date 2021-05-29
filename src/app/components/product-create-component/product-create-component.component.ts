@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ProductService } from '@services/product.service';
 import { NotificationsService } from '@services/shared/notifications/notifications.service';
 import { ProductModel } from '@models/index';
@@ -9,24 +9,19 @@ import { updateProductCreateObject } from '@actions/create-product.actions';
 import { Store } from '@ngrx/store';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { defaultImageSrc } from '@config/index';
-interface Category {
-  value: string,
-  viewValue: string,
-}
-interface CategoryGroup {
-  name: string;
-  categories: Category[]
-}
+import { CategoryGroups, defaultImageSrc } from '@config/index';
+import { addProductImage } from '@store/actions/products.actions';
 
 @Component({
   selector: 'app-product-create-component',
   templateUrl: './product-create-component.component.html',
   styleUrls: ['./product-create-component.component.scss'],
 })
-export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
+export class ProductCreateComponentComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('f') myNgForm;
   @ViewChild('inputRef') inputRef;
+  @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
+
   selectedProduct: Observable<ProductModel>;
   selectedFiles = [];
   files = [];
@@ -34,33 +29,7 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
   coverImageSrc = '';
   currentImgSrc = "";
   formSubmitted = false;
-  categoryGroups: CategoryGroup[] = [
-    {
-      name: 'Glass Gallery',
-      categories: [
-        { value: 'rig-0', viewValue: 'Rig' },
-        { value: 'pendants-1', viewValue: 'Pendants' },
-        { value: 'dab-2', viewValue: 'Dab' },
-        { value: 'tools-3', viewValue: 'Tools' }
-      ]
-    },
-    {
-      name: 'Accessories',
-      categories: [
-        { value: 'cleaning-0', viewValue: 'Cleaning' },
-        { value: 'dab-mats-1', viewValue: 'Dab Mats' },
-      ]
-    },
-    {
-      name: 'Glass Essentials',
-      categories: [
-        { value: 'bangers-0', viewValue: 'Bangers' },
-        { value: 'slupers-1', viewValue: 'Slupers' },
-        { value: 'marbles-2', viewValue: 'Marbles' },
-        { value: 'carb-caps-3', viewValue: 'Carb-caps' }
-      ]
-    },
-  ];
+  categoryGroups = CategoryGroups;
 
   constructor(
     private _fb: FormBuilder,
@@ -72,14 +41,21 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.buildForm();
     this.selectedProduct = this.store.select(selectSelectedProduct);
-    this.selectedProduct.pipe(map(
-      res => {
-        this.coverImageSrc = res.images.length ? res.images[0] : defaultImageSrc;
-      }
-    ))
+    this.coverImageSrc = defaultImageSrc;
   }
 
   ngAfterViewInit(): void {
+  }
+
+  updateObject(key, value): void {
+    console.log('key is ', key);
+    console.log('value is ', value);
+    this.store.dispatch(updateProductCreateObject({ key, value }));
+  }
+
+  onRemove(e): void {
+    this.selectedFiles = this.selectedFiles.filter(f => f.name !== e.name);
+
   }
 
   buildForm() {
@@ -88,10 +64,15 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
         name: ['', Validators.required],
         description: ['', Validators.required],
         price: ['', Validators.required],
-        images: [''],
+        images: [[], Validators.required],
         category: ['', Validators.required],
+        stockCount: [0, Validators.required],
       }),
     });
+  }
+
+  onComplete(e): any {
+    this.store.dispatch(addProductImage(e.url));
   }
 
   async uploadProduct() {
@@ -100,7 +81,6 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
       this.productService.createProduct(res, 'latestTest');
       this.store.dispatch(stopSpinner());
       this.reset();
-
     })
     // this.selectedProduct.pipe(map(product => {
     //   // const { name, description, price, category } = product;
@@ -123,18 +103,15 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
     // }));
   }
 
-  updateObject() {
-    const form = this.productForm.value;
-    this.store.dispatch(updateProductCreateObject(this.productForm.value));
-  }
-
   reset() {
     this.productForm.reset();
     this.productForm.markAsPristine();
     this.productForm.markAsUntouched();
+    this.selectedFiles = [];
     this.currentImgSrc = this.coverImageSrc;
     this.myNgForm.resetForm();
     this.formSubmitted = false;
+    this.formDirective.resetForm();
   }
 
   onFilesSelected(event: any) {
@@ -172,5 +149,9 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit {
     } else {
       this._notificationService.warningAlert(`INVALID FORM - check errors`);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.reset();
   }
 }

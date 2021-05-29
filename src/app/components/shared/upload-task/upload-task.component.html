@@ -1,10 +1,10 @@
 <div *ngIf="percentage | async as pct">
-  <mat-progress-bar [value]="pct" max="100"></mat-progress-bar>
+  <mat-progress-bar (animationEnd)="onAnimationEnd(pct)" [value]="pct" max="100"></mat-progress-bar>
   {{ pct | number }}%
 </div>
 
 
-
+<!-- You must keep this snapshot either here or subscribed otherwise the finalize will not run and update spinner etc.. -->
 <div *ngIf="snapshot | async as snap">
   {{ snap.bytesTransferred }} of {{ snap.totalBytes }}
 </div>

@@ -1,27 +1,16 @@
 <mat-toolbar>
-  <button
-    mat-icon-button
-    color="accent"
-    (click)="toggleSidenav()"
-    class="icon--mobile"
-  >
+  <button mat-icon-button color="accent" (click)="toggleSidenav()" class="icon--mobile">
     <mat-icon>menu</mat-icon>
   </button>
   <span class="spacer"></span>
 
   <a routerLink="/home" class="logo">
-    <img src="../../../assets/images/little-green-bag-logo.png" alt="" />
+    <img src="../../../../assets/images/little-green-bag-logo.png" alt="" />
   </a>
 
   <span class="spacer"></span>
   <a mat-raised-button [routerLink]="routes?.CART" class="icon--basket">
-    <mat-icon
-      *ngIf="cart$ | async"
-      matBadgeSize="small"
-      [matBadge]="(cart$ | async).length"
-      [matBadgeHidden]="(cart$ | async).length === 0"
-      [matBadgeColor]="'warn'"
-      >shopping_basket</mat-icon
-    >
+    <mat-icon *ngIf="cart$ | async" matBadgeSize="small" [matBadge]="(cart$ | async).length"
+      [matBadgeHidden]="(cart$ | async).length === 0" [matBadgeColor]="'warn'">shopping_basket</mat-icon>
   </a>
 </mat-toolbar>

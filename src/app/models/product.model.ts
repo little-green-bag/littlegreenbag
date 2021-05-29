@@ -4,8 +4,10 @@ export class ProductModel {
   description: string;
   category: string;
   images?: string[];
+  // remove bottom and change for cover image
+  imageUrl?: string[];
   price: number;
-  stock?: number;
+  stockCount?: number;
 
   constructor(product) {
     {
@@ -14,7 +16,7 @@ export class ProductModel {
       this.description = product.description || '';
       this.images = product.images || [];
       this.price = product.price || 0;
-      this.stock = product.stock || 0;
+      this.stockCount = product.stockCount || 0;
       this.category = product.category || '';
     }
   }

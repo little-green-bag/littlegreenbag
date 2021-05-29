@@ -11,5 +11,5 @@ export const initialAppState: AppState = {
   products: [],
   selectedProduct: new ProductModel({}),
   cart: [],
-  loading: false
+  loading: null
 };

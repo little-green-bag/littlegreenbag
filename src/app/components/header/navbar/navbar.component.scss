@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 :host {
   mat-toolbar {
@@ -17,7 +17,7 @@
   }
 
   button.logo {
-    background-image: url("../../../../assets/images/little-green-bag-logo.png") !important;
+    background-image: url('../../../../assets/images/little-green-bag-logo.png') !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

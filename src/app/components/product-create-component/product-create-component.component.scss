@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 .product-card {
   margin: 0 auto;
@@ -7,18 +7,17 @@
 
 .product-header-image {
   background-position: center;
-  background-image: url("../../../assets/images/little-green-bag-logo.png");
+  background-image: url('../../../assets/images/little-green-bag-logo.png');
   background-size: cover;
 }
 
 .inputs {
   display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: 10px;
-    align-items: center;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+  align-items: center;
 }
 
 .mat-raised-button {
   width: 100%;
 }
-

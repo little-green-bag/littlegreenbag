@@ -9,5 +9,5 @@ export const enum ProductCreateTypes {
 
 export const updateProductCreateObject = createAction(
   ProductCreateTypes.UPDATE_PRODUCT_CREATE_OBJECT,
-  props<{ product: ProductModel }>()
+  props<{ key: string, value: string | number | string[] }>()
 )

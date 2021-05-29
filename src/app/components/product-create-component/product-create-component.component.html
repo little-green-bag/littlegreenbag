@@ -2,9 +2,19 @@
   <form [formGroup]="productForm" #f="ngForm">
     <div class="group" formGroupName="product">
       <div class="inputs">
+        <mat-form-field>
+          <input (input)="updateObject('stockCount', productForm.get('product.stockCount').value)" #inputRef
+            formControlName="stockCount" matInput placeholder="Stock Count" type="number" />
+          <mat-error>
+            <app-validation-errors [title]="'stockCount'" [errors]="productForm.get('product.stockCount').errors">
+            </app-validation-errors>
+          </mat-error>
+        </mat-form-field>
+
         <mat-form-field appearance="fill">
           <mat-label>Category</mat-label>
-          <mat-select (selectionChange)="updateObject()" formControlName="category">
+          <mat-select (selectionChange)="updateObject('category', this.productForm.get('product.category').value)"
+            formControlName="category">
             <mat-optgroup *ngFor="let group of categoryGroups" [label]="group.name" [disabled]="group.disabled">
               <mat-option *ngFor="let category of group.categories" [value]="category.viewValue">
                 {{category.viewValue}}
@@ -14,7 +24,8 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input (input)="updateObject()" #inputRef formControlName="name" matInput placeholder="Name" type="text" />
+          <input (input)="updateObject('name', productForm.get('product.name').value)" #inputRef formControlName="name"
+            matInput placeholder="Name" type="text" />
           <mat-error>
             <app-validation-errors [title]="'name'" [errors]="productForm.get('product.name').errors">
             </app-validation-errors>
@@ -22,7 +33,8 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input formControlName="price" matInput placeholder="Price" type="number" (input)="updateObject()" />
+          <input formControlName="price" matInput placeholder="Price" type="number"
+            (input)="updateObject('price',productForm.get('product.price').value)" />
           <mat-error>
             <app-validation-errors [title]="'price'" [errors]="productForm.get('product.price').errors">
             </app-validation-errors>
@@ -30,8 +42,8 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input (input)="updateObject()" formControlName="description" matInput placeholder="Description"
-            type="text" />
+          <input (input)="updateObject('description',productForm.get('product.description').value)"
+            formControlName="description" matInput placeholder="Description" type="text" />
           <mat-error>
             <app-validation-errors [title]="'f'" [errors]="productForm.get('product.description').errors">
             </app-validation-errors>
@@ -56,22 +68,27 @@
           <p>{{ productForm.get("product.description").value }}</p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button color="primary" (click)="onSubmit()">
+          <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!f.valid">
             Submit
           </button>
         </mat-card-actions>
       </mat-card>
 
-      <div *ngFor="let file of selectedFiles" class="files-selected-list">
-        <button appClickStopPropogation mat-button>{{file.name}}</button>
-        <app-upload-task [file]="file"></app-upload-task>
+      <div class="files">
+        <div *ngFor="let file of selectedFiles" class="files-selected-list">
+          <app-upload-task (complete)="onComplete($event)" [file]="file"></app-upload-task>
+          <button appClickStopPropogation mat-raised-button color="warn" (click)="onRemove(file)">
+            Remove
+          </button>
+        </div>
       </div>
 
-      <input formControlName="images" type="file" multiple placeholder="Choose Image" (change)="onFilesSelected($event)"
-        #fileInput style="display: none" />
+      <input type="file" multiple placeholder="Choose Image" (change)="onFilesSelected($event)" #fileInput
+        style="display: none" />
     </div>
     <mat-divider></mat-divider>
   </form>
 </div>
+
 
 <app-product-list></app-product-list>

@@ -35,6 +35,8 @@ export class ProductService {
   }
 
   createProduct(product: ProductModel, collection: string): void {
+    const usersRef = this.firestore.collection(collection).doc('id')
+    console.log('usersRef is ', usersRef);
     this.firestore
       .collection(collection)
       .add(product)

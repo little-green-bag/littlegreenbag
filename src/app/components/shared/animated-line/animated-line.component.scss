@@ -24,7 +24,7 @@
       left: 50%;
       transform: translate(-50%);
       animation-name: descend;
-      animation-timing-function: cubic-bezier(0.51, 0.92, 0.24, 1.15);
+      animation-timing-function: $default-transition;
       animation-duration: 0.5s;
       animation-delay: 0.8s;
       animation-fill-mode: forwards;

@@ -3,6 +3,7 @@ import {
   loadProductsSuccess,
   getProductSuccess,
   addProductImage,
+  removeProductImage
 } from '../actions/products.actions';
 import { initialAppState } from './../states/products.state';
 import { state } from '@angular/animations';
@@ -19,8 +20,15 @@ const _appReducer = createReducer(
     return { ...state, selectedProduct: product };
   }),
   on(addProductImage, (state, { url }) => {
+    console.log('received url ', url);
     const currentImages = state.selectedProduct.images;
     return { ...state, selectedProduct: { ...state.selectedProduct, images: [...currentImages, url] } }
+  }),
+  on(removeProductImage, (state, { url }) => {
+    console.log('received url ', url);
+    const currentImages = state.selectedProduct.images;
+    const newImages = currentImages.filter(i => i !== url);
+    return { ...state, selectedProduct: { ...state.selectedProduct, images: [...newImages] } }
   }),
   on(startSpinner, (state) => {
     return { ...state, loading: true }
@@ -28,9 +36,10 @@ const _appReducer = createReducer(
   on(stopSpinner, (state) => {
     return { ...state, loading: false }
   }),
-  on(updateProductCreateObject, (state, { product }) => {
-    console.log('state to work with is', state);
-    return { ...state, selectedProduct: product };
+  on(updateProductCreateObject, (state, { key, value }) => {
+    let newState = { ...state.selectedProduct };
+    newState[key] = value;
+    return { ...state, selectedProduct: newState };
   })
 );
 
