@@ -32,14 +32,14 @@ export class UploadTaskComponent implements OnInit {
   }
 
   onAnimationEnd(value) {
-    console.log('value is ', value);
-    console.log('this.downloadURL is ', this.downloadURL);
-    if (value === 100) {
-      this.complete.emit(this.downloadURL);
-      console.log('file uploaded', this.downloadURL);
-      this.store.dispatch(stopSpinner());
+    // console.log('value is ', value);
+    // console.log('this.downloadURL is ', this.downloadURL);
+    // if (value === 100) {
+    //   this.complete.emit(this.downloadURL);
+    //   console.log('file uploaded', this.downloadURL);
+    //   this.store.dispatch(stopSpinner());
 
-    }
+    // }
   }
 
   startUpload() {
@@ -60,8 +60,9 @@ export class UploadTaskComponent implements OnInit {
     this.snapshot = this.task.snapshotChanges().pipe(
       finalize(async () => {
         this.downloadURL = await ref.getDownloadURL().toPromise();
-        this.complete.emit({ url: this.downloadURL })
-        // await this.store.dispatch(addProductImage({ url: this.downloadURL }));
+        const createdImage = { name: this.file.name, url: this.downloadURL };
+        this.complete.emit(createdImage)
+        this.store.dispatch(stopSpinner());
       }),
     );
   }

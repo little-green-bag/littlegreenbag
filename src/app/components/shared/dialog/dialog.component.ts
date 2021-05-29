@@ -59,7 +59,7 @@ export class DialogComponent implements AfterViewInit {
     console.log('complete', e);
     if (e && e.url) {
       // this.images.push(e.url);
-      this.store.dispatch(addProductImage(e.url));
+      // this.store.dispatch(addProductImage({}));
     }
   }
 

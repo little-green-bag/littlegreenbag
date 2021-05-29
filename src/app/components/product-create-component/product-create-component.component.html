@@ -62,13 +62,13 @@
           </mat-card-subtitle>
         </mat-card-header>
 
-        <img (click)="fileInput.click()" mat-card-image [src]="coverImageSrc" [alt]="currentImgSrc" />
+        <img (click)="fileInput.click()" mat-card-image [src]="defaultImageSrc" [alt]="defaultImageSrc" />
 
         <mat-card-content>
           <p>{{ productForm.get("product.description").value }}</p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!f.valid">
+          <button appClickStopPropogation mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!f.valid">
             Submit
           </button>
         </mat-card-actions>
@@ -76,9 +76,9 @@
 
       <div class="files">
         <div *ngFor="let file of selectedFiles" class="files-selected-list">
-          <app-upload-task (complete)="onComplete($event)" [file]="file"></app-upload-task>
+          <app-upload-task (complete)="onFileUploadComplete($event)" [file]="file"></app-upload-task>
           <button appClickStopPropogation mat-raised-button color="warn" (click)="onRemove(file)">
-            Remove
+            Remove {{file.name}}
           </button>
         </div>
       </div>

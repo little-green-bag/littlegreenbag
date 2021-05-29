@@ -13,10 +13,8 @@ export class HomeComponent implements OnInit {
   productData$
   constructor(private store: Store) {
     this.data$ = this.store.select(selectProducts);
-    this.productData$ = this.store.select(selectSelectedProduct);
   }
 
   ngOnInit() {
-    this.data$.subscribe(res => console.log('this.data is ', res));
   }
 }

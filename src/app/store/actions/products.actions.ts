@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ProductModel } from '@models/index';
+import { ImageModel, ProductModel } from '@models/index';
 
 export const enum ProductActionTypes {
   LOAD_PRODUCTS = '[Products] Load Products',
@@ -9,7 +9,7 @@ export const enum ProductActionTypes {
   GET_PRODUCT = '[Products] Get Product',
   GET_PRODUCT_SUCCESS = '[Products] Get Product Success',
   ADD_PRODUCT_IMAGE = '[Products] Add Product Image',
-  REMOVE_PRODUCT_IMAGE = '[Proucts] Remove Product Image'
+  REMOVE_PRODUCT_IMAGE = '[Products] Remove Product Image'
 }
 
 export const loadProducts = createAction(ProductActionTypes.LOAD_PRODUCTS);
@@ -27,9 +27,9 @@ export const getProductSuccess = createAction(
 );
 export const addProductImage = createAction(
   ProductActionTypes.ADD_PRODUCT_IMAGE,
-  props<{ url: string }>()
+  props<any>()
 )
 export const removeProductImage = createAction(
   ProductActionTypes.REMOVE_PRODUCT_IMAGE,
-  props<{ url: string }>()
+  props<{ name: string }>()
 )

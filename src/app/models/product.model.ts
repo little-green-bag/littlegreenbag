@@ -1,9 +1,20 @@
+export class ImageModel {
+  name: string;
+  url: string;
+  constructor(image) {
+    {
+      this.name = image.name || '';
+      this.url = image.url || '';
+    }
+  }
+}
+
 export class ProductModel {
   id: string;
   name: string;
   description: string;
   category: string;
-  images?: string[];
+  images?: ImageModel[];
   // remove bottom and change for cover image
   imageUrl?: string[];
   price: number;

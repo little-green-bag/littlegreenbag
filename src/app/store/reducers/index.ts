@@ -8,7 +8,7 @@ import {
 import { initialAppState } from './../states/products.state';
 import { state } from '@angular/animations';
 import { startSpinner, stopSpinner } from '@store/actions/spinner.actions';
-import { updateProductCreateObject } from '@store/actions/create-product.actions';
+import { resetProductCreateObject, updateProductCreateObject } from '@store/actions/create-product.actions';
 
 const _appReducer = createReducer(
   initialAppState,
@@ -19,15 +19,15 @@ const _appReducer = createReducer(
     console.log('product is ', product);
     return { ...state, selectedProduct: product };
   }),
-  on(addProductImage, (state, { url }) => {
-    console.log('received url ', url);
+  on(addProductImage, (state, { image }) => {
     const currentImages = state.selectedProduct.images;
-    return { ...state, selectedProduct: { ...state.selectedProduct, images: [...currentImages, url] } }
+    return { ...state, selectedProduct: { ...state.selectedProduct, images: [...currentImages, image] } }
   }),
-  on(removeProductImage, (state, { url }) => {
-    console.log('received url ', url);
+  on(removeProductImage, (state, { name }) => {
     const currentImages = state.selectedProduct.images;
-    const newImages = currentImages.filter(i => i !== url);
+    console.log('name to check is ', name);
+    console.log('currentImages is ', currentImages);
+    const newImages = currentImages.filter(i => i.name !== name);
     return { ...state, selectedProduct: { ...state.selectedProduct, images: [...newImages] } }
   }),
   on(startSpinner, (state) => {
@@ -40,6 +40,9 @@ const _appReducer = createReducer(
     let newState = { ...state.selectedProduct };
     newState[key] = value;
     return { ...state, selectedProduct: newState };
+  }),
+  on(resetProductCreateObject, (state) => {
+    return { ...state, selectedProduct: initialAppState.selectedProduct };
   })
 );
 

@@ -5,12 +5,12 @@ import { NotificationsService } from '@services/shared/notifications/notificatio
 import { ProductModel } from '@models/index';
 import { selectSelectedProduct, selectSelectedProductImages } from '@store/selectors';
 import { startSpinner, stopSpinner } from '@actions/spinner.actions';
-import { updateProductCreateObject } from '@actions/create-product.actions';
+import { resetProductCreateObject, updateProductCreateObject } from '@actions/create-product.actions';
 import { Store } from '@ngrx/store';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { CategoryGroups, defaultImageSrc } from '@config/index';
-import { addProductImage } from '@store/actions/products.actions';
+import { addProductImage, removeProductImage } from '@store/actions/products.actions';
 
 @Component({
   selector: 'app-product-create-component',
@@ -26,8 +26,7 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit, O
   selectedFiles = [];
   files = [];
   productForm: FormGroup;
-  coverImageSrc = '';
-  currentImgSrc = "";
+  defaultImageSrc = defaultImageSrc;
   formSubmitted = false;
   categoryGroups = CategoryGroups;
 
@@ -41,21 +40,18 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit, O
   ngOnInit(): void {
     this.buildForm();
     this.selectedProduct = this.store.select(selectSelectedProduct);
-    this.coverImageSrc = defaultImageSrc;
   }
 
   ngAfterViewInit(): void {
   }
 
   updateObject(key, value): void {
-    console.log('key is ', key);
-    console.log('value is ', value);
     this.store.dispatch(updateProductCreateObject({ key, value }));
   }
 
-  onRemove(e): void {
-    this.selectedFiles = this.selectedFiles.filter(f => f.name !== e.name);
-
+  onRemove({ name }): void {
+    this.selectedFiles = this.selectedFiles.filter(f => f.name !== name);
+    this.store.dispatch(removeProductImage({ name }))
   }
 
   buildForm() {
@@ -64,26 +60,26 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit, O
         name: ['', Validators.required],
         description: ['', Validators.required],
         price: ['', Validators.required],
-        images: [[], Validators.required],
         category: ['', Validators.required],
         stockCount: [0, Validators.required],
       }),
     });
   }
 
-  onComplete(e): any {
-    this.store.dispatch(addProductImage(e.url));
+  onFileUploadComplete(image): any {
+    if (image.url) {
+      this.store.dispatch(addProductImage({ image }));
+    }
   }
 
   async uploadProduct() {
     this.selectedProduct.subscribe(res => {
-      console.log('res is ', res);
       this.productService.createProduct(res, 'latestTest');
       this.store.dispatch(stopSpinner());
       this.reset();
     })
     // this.selectedProduct.pipe(map(product => {
-    //   // const { name, description, price, category } = product;
+    //   // const { name, description, price, category } = product; 
     //   //   const filePath = `${product.category}/${name
     //   //     .split('.')
     //   //     .slice(0, -1)
@@ -104,14 +100,14 @@ export class ProductCreateComponentComponent implements OnInit, AfterViewInit, O
   }
 
   reset() {
+    this.store.dispatch(resetProductCreateObject());
+    this.selectedFiles = [];
+    this.formDirective.resetForm();
+    this.myNgForm.resetForm();
     this.productForm.reset();
     this.productForm.markAsPristine();
     this.productForm.markAsUntouched();
-    this.selectedFiles = [];
-    this.currentImgSrc = this.coverImageSrc;
-    this.myNgForm.resetForm();
     this.formSubmitted = false;
-    this.formDirective.resetForm();
   }
 
   onFilesSelected(event: any) {

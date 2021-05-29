@@ -35,16 +35,16 @@ export class ProductService {
   }
 
   createProduct(product: ProductModel, collection: string): void {
-    const usersRef = this.firestore.collection(collection).doc('id')
+    const usersRef = this.firestore.collection(collection).doc('id');
     console.log('usersRef is ', usersRef);
-    this.firestore
-      .collection(collection)
-      .add(product)
-      .catch((err) => console.log('error creating product', err)).then(() => {
-        this.notificationsService.successAlert(
-          `${product.name} successfully created`
-        )
-      })
+    // this.firestore
+    //   .collection(collection)
+    //   .add(product)
+    //   .catch((err) => console.log('error creating product', err)).then(() => {
+    //     this.notificationsService.successAlert(
+    //       `${product.name} successfully created`
+    //     )
+    //   })
   }
 
   updateProduct(product: ProductModel, collection: string): void {
