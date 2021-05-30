@@ -27,9 +27,9 @@ export const getProductSuccess = createAction(
 );
 export const addProductImage = createAction(
   ProductActionTypes.ADD_PRODUCT_IMAGE,
-  props<any>()
+  props<{ image: any }>()
 )
 export const removeProductImage = createAction(
   ProductActionTypes.REMOVE_PRODUCT_IMAGE,
-  props<{ name: string }>()
+  props<{ image: any }>()
 )

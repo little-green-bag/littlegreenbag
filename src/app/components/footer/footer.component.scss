@@ -1,8 +1,12 @@
+@import 'variables';
+
 .footer-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   justify-items: center;
+  background-color: $black;
+
   .login {
     width: 100%;
     padding: 0 10px;

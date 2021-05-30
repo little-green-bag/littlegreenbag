@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AddProduct } from '@actions/cart.actions';
 import { ProductModel } from '@models/index';
 
 @Component({
@@ -14,6 +13,6 @@ export class ProductComponent {
 
 
   addToCart(product) {
-    this.store.dispatch(new AddProduct(product));
+    // this.store.dispatch(new AddProduct(product));
   }
 }

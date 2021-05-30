@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ProductModel } from '@models/index';
 import { Collections } from '@config/index';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -34,17 +35,12 @@ export class ProductService {
       .snapshotChanges();
   }
 
-  createProduct(product: ProductModel, collection: string): void {
-    const usersRef = this.firestore.collection(collection).doc('id');
-    console.log('usersRef is ', usersRef);
-    // this.firestore
-    //   .collection(collection)
-    //   .add(product)
-    //   .catch((err) => console.log('error creating product', err)).then(() => {
-    //     this.notificationsService.successAlert(
-    //       `${product.name} successfully created`
-    //     )
-    //   })
+  createProduct(product: ProductModel, collection: string): Promise<any> {
+    console.log('product is ', product);
+    return this.firestore
+      .collection(collection)
+      .add({ ...product })
+      .catch((err) => console.log('error creating product', err))
   }
 
   updateProduct(product: ProductModel, collection: string): void {

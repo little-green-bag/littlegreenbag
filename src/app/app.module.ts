@@ -107,7 +107,7 @@ import { AnimatedLineComponent } from './components/shared/animated-line/animate
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
   ],
-  providers: [SidenavService, DialogComponent, RoutingService, ExcelService,],
+  providers: [SidenavService, DialogComponent, RoutingService, ExcelService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

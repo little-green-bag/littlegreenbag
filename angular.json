@@ -30,8 +30,7 @@
             ],
             "stylePreprocessorOptions": {
               "includePaths": ["src/styles"]
-            },
-            "scripts": ["../src/assets/js/lightgallery.min.js"]
+            }
           },
           "configurations": {
             "production": {

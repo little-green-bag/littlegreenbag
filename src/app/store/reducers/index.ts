@@ -9,6 +9,7 @@ import { initialAppState } from './../states/products.state';
 import { state } from '@angular/animations';
 import { startSpinner, stopSpinner } from '@store/actions/spinner.actions';
 import { resetProductCreateObject, updateProductCreateObject } from '@store/actions/create-product.actions';
+import { updateUpload } from '@actions/upload.actions';
 
 const _appReducer = createReducer(
   initialAppState,
@@ -16,19 +17,21 @@ const _appReducer = createReducer(
     return { ...state, products };
   }),
   on(getProductSuccess, (state, { product }) => {
-    console.log('product is ', product);
     return { ...state, selectedProduct: product };
   }),
   on(addProductImage, (state, { image }) => {
     const currentImages = state.selectedProduct.images;
-    return { ...state, selectedProduct: { ...state.selectedProduct, images: [...currentImages, image] } }
+    const updatedImages = [...currentImages, image];
+    return { ...state, selectedProduct: { ...state.selectedProduct, images: updatedImages } }
   }),
-  on(removeProductImage, (state, { name }) => {
+  on(removeProductImage, (state, { image }) => {
     const currentImages = state.selectedProduct.images;
-    console.log('name to check is ', name);
-    console.log('currentImages is ', currentImages);
-    const newImages = currentImages.filter(i => i.name !== name);
-    return { ...state, selectedProduct: { ...state.selectedProduct, images: [...newImages] } }
+    if (image) {
+      const newImages = currentImages.filter(i => i.url !== image.url);
+      return { ...state, selectedProduct: { ...state.selectedProduct, images: [...newImages] } }
+    } else {
+      return { ...state };
+    }
   }),
   on(startSpinner, (state) => {
     return { ...state, loading: true }

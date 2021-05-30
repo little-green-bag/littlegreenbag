@@ -2,14 +2,7 @@
   <form [formGroup]="productForm" #f="ngForm">
     <div class="group" formGroupName="product">
       <div class="inputs">
-        <mat-form-field>
-          <input (input)="updateObject('stockCount', productForm.get('product.stockCount').value)" #inputRef
-            formControlName="stockCount" matInput placeholder="Stock Count" type="number" />
-          <mat-error>
-            <app-validation-errors [title]="'stockCount'" [errors]="productForm.get('product.stockCount').errors">
-            </app-validation-errors>
-          </mat-error>
-        </mat-form-field>
+
 
         <mat-form-field appearance="fill">
           <mat-label>Category</mat-label>
@@ -45,7 +38,15 @@
           <input (input)="updateObject('description',productForm.get('product.description').value)"
             formControlName="description" matInput placeholder="Description" type="text" />
           <mat-error>
-            <app-validation-errors [title]="'f'" [errors]="productForm.get('product.description').errors">
+            <app-validation-errors [title]="'description'" [errors]="productForm.get('product.description').errors">
+            </app-validation-errors>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input (input)="updateObject('stockCount', productForm.get('product.stockCount').value)" #inputRef
+            formControlName="stockCount" matInput placeholder="Stock Count" type="number" />
+          <mat-error>
+            <app-validation-errors [title]="'stockCount'" [errors]="productForm.get('product.stockCount').errors">
             </app-validation-errors>
           </mat-error>
         </mat-form-field>
@@ -76,10 +77,8 @@
 
       <div class="files">
         <div *ngFor="let file of selectedFiles" class="files-selected-list">
-          <app-upload-task (complete)="onFileUploadComplete($event)" [file]="file"></app-upload-task>
-          <button appClickStopPropogation mat-raised-button color="warn" (click)="onRemove(file)">
-            Remove {{file.name}}
-          </button>
+          <app-upload-task (onRemove)="onRemove($event)" (complete)="onComplete($event)" [file]="file">
+          </app-upload-task>
         </div>
       </div>
 
@@ -89,6 +88,3 @@
     <mat-divider></mat-divider>
   </form>
 </div>
-
-
-<app-product-list></app-product-list>
