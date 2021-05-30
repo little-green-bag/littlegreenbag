@@ -9,7 +9,8 @@ import { resetProductCreateObject, updateProductCreateObject } from '@actions/cr
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CategoryGroups, defaultImageSrc } from '@config/index';
-import { addProductImage, removeProductImage } from '@store/actions/products.actions';
+import { addProductImage, getProduct, removeProductImage } from '@store/actions/products.actions';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-create-component',
@@ -28,15 +29,33 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
   formSubmitted = false;
   categoryGroups = CategoryGroups;
   createdImages = [];
+  // editObjectId = null;
 
   constructor(
     private _fb: FormBuilder,
     private productService: ProductService,
     private _notificationService: NotificationsService,
     private store: Store,
-  ) { }
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    // this.route.params.subscribe((params) => {
+    //   const { id } = params;
+    //   console.log('received id is ', id);
+    //   if (id) {
+    //     this.editObjectId = id;
+    //   }
+    // });
+  }
+
+  extractItemToEdit(id) {
+
+  }
 
   ngOnInit(): void {
+    // if (this.editObjectId) {
+    //   this.store.dispatch(getProduct({ id: this.editObjectId }));
+    // }
     this.buildForm();
     this.selectedProduct = this.store.select(selectSelectedProduct);
   }

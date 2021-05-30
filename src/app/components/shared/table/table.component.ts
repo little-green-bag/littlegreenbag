@@ -1,6 +1,8 @@
 import { RoutingService } from '@services/core/routing.service';
 import { ProductService } from '@services/product.service';
 import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { DialogService } from '@services/shared/dialog/dialog.service';
+import { ProductModel } from '@models/product.model';
 
 @Component({
   selector: 'app-table',
@@ -16,14 +18,15 @@ export class TableComponent {
     'description',
     'productGroup',
     'edit',
-    'delete',
+    // 'delete',
     'inspect',
     'image',
   ];
 
   constructor(
     private productService: ProductService,
-    private routerService: RoutingService
+    private routerService: RoutingService,
+    private dialogService: DialogService
   ) { }
 
   onRowClicked(r) {
@@ -34,8 +37,16 @@ export class TableComponent {
     // this.productService.deleteProduct(e, 'products');
   }
 
-  edit(obj): void {
-    this.productService.updateProduct(obj, 'products');
+  edit(product: ProductModel): void {
+    this.dialogService.openDialog({ ...product, action: 'Update' })
+      .afterClosed()
+      .subscribe((res) => {
+        console.log('updated res is ', res);
+        if (res.event !== 'Cancel') {
+          console.log('should send to product service now', res);
+          // this.productService.updateProduct(res.data, 'edited-products');
+        }
+      });
   }
 
   inspect(e): void {

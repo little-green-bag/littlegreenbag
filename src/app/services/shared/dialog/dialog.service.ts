@@ -20,4 +20,5 @@ export class DialogService {
     const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     return dialogRef;
   }
+
 }

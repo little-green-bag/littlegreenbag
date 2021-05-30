@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ProductModel } from '@models/index';
 import { Collections } from '@config/index';
-import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +28,7 @@ export class ProductService {
     return this.firestore.collection(Collections.PRODUCTS).snapshotChanges();
   }
 
-  getProduct(id: string = 'PmLoHqnQV5xS0GtbIhXo') {
+  getProduct(id: string = '') {
     return this.firestore
       .doc(`${Collections.PRODUCTS}/${id}`)
       .snapshotChanges();
@@ -44,20 +43,14 @@ export class ProductService {
   }
 
   updateProduct(product: ProductModel, collection: string): void {
-    this.dialogService
-      .openDialog({ ...product, action: 'Update' })
-      .afterClosed()
-      .subscribe((res) => {
-        if (res.event !== 'Cancel') {
-          this.firestore
-            .doc(`${collection}/${product.id}`)
-            .update(res.data)
-            .catch((err) => console.log('error updating product', err));
-          this.notificationsService.successAlert(
-            `${product.name} successfully updated`
-          );
-        }
-      });
+    this.firestore
+      .doc(`${collection}/${product.id}`)
+      .update(product)
+      .catch((err) => console.log('error updating product', err));
+    this.notificationsService.successAlert(
+      `${product.name} successfully updated`
+    );
+
   }
 
   deleteProduct(product: ProductModel, collection: string): void {

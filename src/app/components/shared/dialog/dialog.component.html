@@ -13,7 +13,7 @@
             <mat-label>Category</mat-label>
             <mat-select [value]="selectedCategory" (selectionChange)="updateObject($event)" formControlName="category">
               <mat-optgroup *ngFor="let group of categoryGroups" [label]="group.name" [disabled]="group.disabled">
-                <mat-option *ngFor="let category of group.categories" [value]="category.viewValue">
+                <mat-option *ngFor="let category of group.categories" [value]="category.viewValue" #category>
                   {{category.viewValue}}
                 </mat-option>
               </mat-optgroup>
@@ -61,7 +61,7 @@
 
           <div class="files">
             <div *ngFor="let file of selectedFiles" class="files-selected-list">
-              {{file.name}} <button appClickStopPropogation mat-button></button>
+              {{file?.name}} <button appClickStopPropogation mat-button></button>
               <app-upload-task (complete)="onComplete($event)" [file]="file"></app-upload-task>
             </div>
           </div>

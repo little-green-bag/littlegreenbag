@@ -22,7 +22,7 @@ const routes: Routes = [
     component: ProductListComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'product/:id', component: InspectionComponent },
+  { path: 'create/:id', component: ProductCreateComponentComponent },
   {
     path: 'create',
     component: ProductCreateComponentComponent,

@@ -20,8 +20,11 @@ export class DialogComponent implements AfterViewInit {
   @ViewChild('f') myNgForm;
   @ViewChild('inputRef') inputRef;
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
+  @ViewChild('category') category;
+
   product$: Observable<ProductModel>;
   selectedProduct: Observable<ProductModel>;
+
   selectedFiles = [];
   files = [];
   images = [];
@@ -43,7 +46,6 @@ export class DialogComponent implements AfterViewInit {
 
 
   ) {
-    console.log('local_data is ', this.local_data);
     this.local_data = { ...data };
     this.action = this.local_data.action;
     this.buildForm();
@@ -51,7 +53,15 @@ export class DialogComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const images = this.local_data.imageUrl;
+    console.log('this.local_data is ', this.local_data);
+    console.log('this.productForm.value is ', this.productForm.value);
+    console.log('this.productForm.value is ', this.productForm.value);
+
+    // this.productForm.patchValue({ product: { category: this.local_data.category } })
+    // this.store.dispatch(updateProductCreateObject(this.productForm.value))
+
+    // const images = this.local_data.imageUrl;
+    // 
     // this.images.push(images);
   }
 
@@ -64,9 +74,46 @@ export class DialogComponent implements AfterViewInit {
   }
 
   updateObject(e) {
+    console.log('e is ', e);
     // const form = this.productForm.value;
     // console.log('form now reads ', form);
     // this.store.dispatch(updateProductCreateObject(form));
+  }
+
+  getCategory() {
+    const currentCat = this.local_data.category;
+    let match = null;
+    this.categoryGroups.forEach(group => {
+      group.categories.filter(cat => {
+        if (cat.value.toLocaleLowerCase().trim().includes(currentCat.toLocaleLowerCase().trim())) {
+          console.log('match is ', cat);
+          match = cat;
+        }
+      });
+      if (match) {
+        this.productForm.patchValue({ product: { category: match } });
+      }
+    })
+  }
+
+  fetchCategory(): string {
+    let result = '';
+    const searchString = this.local_data.category.toLocaleLowerCase().trim();
+    CategoryGroups.forEach(group => {
+      group.categories.forEach(cat => {
+        const value1 = cat.value.toLocaleLowerCase().trim();
+
+        const value2 = cat.viewValue.toLocaleLowerCase().trim();
+        const fullValue = `${value1}${value2}`;
+        console.log('fullValue is ', fullValue);
+
+        const match = fullValue.search(searchString);
+        if (match > -1) {
+          result = cat.viewValue;
+        }
+      })
+    })
+    return result;
   }
 
   buildForm(): void {
@@ -76,11 +123,12 @@ export class DialogComponent implements AfterViewInit {
         name: [this.local_data.name, Validators.required],
         description: [this.local_data.description, Validators.required],
         price: [this.local_data.price, Validators.required],
-        images: [this.images],
-        category: [this.local_data.category, Validators.required],
+        images: [[]],
+        category: [this.fetchCategory(), Validators.required],
       }),
     });
-    this.store.dispatch(updateProductCreateObject(this.productForm.value))
+
+    console.log('this.category is ', this.category);
   }
 
   onFilesSelected(event: any) {
