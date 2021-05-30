@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>
   <strong>{{ action }}</strong>
-  <button mat-raised-button color="primary" (click)="closeDialog()">
+  <button mat-raised-button color="primary" (click)="onCancel()">
     Close
   </button>
 </h1>
@@ -11,7 +11,9 @@
         <div class="inputs">
           <mat-form-field appearance="fill">
             <mat-label>Category</mat-label>
-            <mat-select [value]="selectedCategory" (selectionChange)="updateObject($event)" formControlName="category">
+            <mat-select [value]="selectedCategory"
+              (selectionChange)="updateObject('category', this.productForm.get('product.category').value)"
+              formControlName="category">
               <mat-optgroup *ngFor="let group of categoryGroups" [label]="group.name" [disabled]="group.disabled">
                 <mat-option *ngFor="let category of group.categories" [value]="category.viewValue" #category>
                   {{category.viewValue}}
@@ -21,8 +23,8 @@
           </mat-form-field>
 
           <mat-form-field>
-            <input (input)="updateObject($event)" #inputRef formControlName="name" matInput placeholder="Name"
-              type="text" />
+            <input (input)="updateObject('name', productForm.get('product.name').value)" #inputRef
+              formControlName="name" matInput placeholder="Name" type="text" />
             <mat-error>
               <app-validation-errors [title]="'name'" [errors]="productForm.get('product.name').errors">
               </app-validation-errors>
@@ -30,7 +32,8 @@
           </mat-form-field>
 
           <mat-form-field>
-            <input formControlName="price" matInput placeholder="Price" type="number" (input)="updateObject($event)" />
+            <input formControlName="price" matInput placeholder="Price" type="number"
+              (input)="updateObject('price',productForm.get('product.price').value)" />
             <mat-error>
               <app-validation-errors [title]="'price'" [errors]="productForm.get('product.price').errors">
               </app-validation-errors>
@@ -38,39 +41,47 @@
           </mat-form-field>
 
           <mat-form-field>
-            <input (input)="updateObject($event)" formControlName="description" matInput placeholder="Description"
-              type="text" />
+            <input (input)="updateObject('description',productForm.get('product.description').value)"
+              formControlName="description" matInput placeholder="Description" type="text" />
             <mat-error>
               <app-validation-errors [title]="'f'" [errors]="productForm.get('product.description').errors">
               </app-validation-errors>
             </mat-error>
           </mat-form-field>
 
-          <ul>
-            <li *ngFor="let image of (product$ | async)?.images">
-              <img [src]="image" [alt]="image">
-              <button appClickStopPropogation mat-raised-button color="primary" (click)="onRemove(image)">
-                Remove
-              </button>
-            </li>
-          </ul>
+          <mat-form-field>
+            <input (input)="updateObject('stockCount', productForm.get('product.stockCount').value)" #inputRef
+              formControlName="stockCount" matInput placeholder="Stock Count" type="number" />
+            <mat-error>
+              <app-validation-errors [title]="'stockCount'" [errors]="productForm.get('product.stockCount').errors">
+              </app-validation-errors>
+            </mat-error>
+          </mat-form-field>
 
           <button appClickStopPropogation mat-raised-button color="primary" (click)="fileInput.click()">
-            Edit Images
+            Add Images
           </button>
+
+          <div class="images" *ngFor="let image of productForm.get('product.images').value">
+            <p> {{image.name}}</p>
+            <img [src]="(image.url)" alt="">
+            <button appClickStopPropogation mat-raised-button color="primary" (click)="onDelete(image)">
+              Delete
+            </button>
+          </div>
 
           <div class="files">
             <div *ngFor="let file of selectedFiles" class="files-selected-list">
-              {{file?.name}} <button appClickStopPropogation mat-button></button>
-              <app-upload-task (complete)="onComplete($event)" [file]="file"></app-upload-task>
+              <app-upload-task (onRemove)="onRemove($event)" (complete)="onComplete($event)" [file]="file">
+              </app-upload-task>
             </div>
           </div>
         </div>
         <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!f.valid">
           Submit
         </button>
-        <input formControlName="images" type="file" multiple placeholder="Choose Image"
-          (change)="onFilesSelected($event); updateObject($event)" #fileInput style="display: none" />
+        <input type="file" multiple placeholder="Choose Image" (change)="onFilesSelected($event)" #fileInput
+          style="display: none" />
       </div>
     </form>
   </div>

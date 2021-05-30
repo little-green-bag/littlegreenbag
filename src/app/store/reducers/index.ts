@@ -8,7 +8,7 @@ import {
 import { initialAppState } from './../states/products.state';
 import { state } from '@angular/animations';
 import { startSpinner, stopSpinner } from '@store/actions/spinner.actions';
-import { resetProductCreateObject, updateProductCreateObject } from '@store/actions/create-product.actions';
+import { resetProductCreateObject, setProductCreateObject, updateProductCreateObject } from '@store/actions/create-product.actions';
 import { updateUpload } from '@actions/upload.actions';
 
 const _appReducer = createReducer(
@@ -24,7 +24,7 @@ const _appReducer = createReducer(
     const updatedImages = [...currentImages, image];
     return { ...state, selectedProduct: { ...state.selectedProduct, images: updatedImages } }
   }),
-  on(removeProductImage, (state, { image }) => {
+  on(removeProductImage, (state, image) => {
     const currentImages = state.selectedProduct.images;
     if (image) {
       const newImages = currentImages.filter(i => i.url !== image.url);
@@ -46,6 +46,9 @@ const _appReducer = createReducer(
   }),
   on(resetProductCreateObject, (state) => {
     return { ...state, selectedProduct: initialAppState.selectedProduct };
+  }),
+  on(setProductCreateObject, (state, props) => {
+    return { ...state, selectedProduct: props }
   })
 );
 

@@ -1,3 +1,3 @@
 export enum Collections {
-  PRODUCTS = 'products',
+  PRODUCTS = 'latest-products',
 }

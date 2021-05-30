@@ -31,5 +31,5 @@ export const addProductImage = createAction(
 )
 export const removeProductImage = createAction(
   ProductActionTypes.REMOVE_PRODUCT_IMAGE,
-  props<{ image: any }>()
+  props<any>()
 )

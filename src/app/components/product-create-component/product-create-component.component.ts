@@ -8,9 +8,9 @@ import { startSpinner, stopSpinner } from '@actions/spinner.actions';
 import { resetProductCreateObject, updateProductCreateObject } from '@actions/create-product.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { CategoryGroups, defaultImageSrc } from '@config/index';
-import { addProductImage, getProduct, removeProductImage } from '@store/actions/products.actions';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { CategoryGroups, Collections, defaultImageSrc } from '@config/index';
+import { addProductImage, removeProductImage } from '@store/actions/products.actions';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-create-component',
@@ -22,42 +22,29 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
   @ViewChild('inputRef') inputRef;
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
 
-  selectedProduct: Observable<ProductModel>;
+  selectedProduct$: Observable<ProductModel>;
   selectedFiles = [];
   productForm: FormGroup;
   defaultImageSrc = defaultImageSrc;
   formSubmitted = false;
   categoryGroups = CategoryGroups;
   createdImages = [];
-  // editObjectId = null;
 
   constructor(
     private _fb: FormBuilder,
     private productService: ProductService,
     private _notificationService: NotificationsService,
     private store: Store,
-    private router: Router,
-    private route: ActivatedRoute
   ) {
-    // this.route.params.subscribe((params) => {
-    //   const { id } = params;
-    //   console.log('received id is ', id);
-    //   if (id) {
-    //     this.editObjectId = id;
-    //   }
-    // });
   }
 
-  extractItemToEdit(id) {
-
+  updateObject(key, value): void {
+    this.store.dispatch(updateProductCreateObject({ key, value }));
   }
 
   ngOnInit(): void {
-    // if (this.editObjectId) {
-    //   this.store.dispatch(getProduct({ id: this.editObjectId }));
-    // }
     this.buildForm();
-    this.selectedProduct = this.store.select(selectSelectedProduct);
+    this.selectedProduct$ = this.store.select(selectSelectedProduct);
   }
 
   buildForm() {
@@ -65,7 +52,7 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
       product: this._fb.group({
         name: ['', Validators.required],
         description: ['', Validators.required],
-        price: ['', Validators.required],
+        price: [0, Validators.required],
         category: ['', Validators.required],
         stockCount: [0, Validators.required],
       }),
@@ -75,24 +62,22 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
   onComplete(image) {
     console.log('inside image with ', image);
     this.createdImages.push(image);
+    this.selectedFiles = this.selectedFiles.filter(f => f.name !== image.name);
     this.store.dispatch(addProductImage({ image }));
   }
 
-  onRemove(file): void {
-    this.selectedFiles = this.selectedFiles.filter(f => f.name !== file.name);
-    const match = this.createdImages.filter(im => im.name === file.name);
-    if (match.length) {
-      this.store.dispatch(removeProductImage({ image: match[0] }));
-    }
+  onRemove(image): void {
+    this.store.dispatch(removeProductImage(image));
   }
 
   uploadProduct() {
-    this.selectedProduct.subscribe(res => {
-      this.productService.createProduct(res, 'latest-products').then(() => {
-        this.reset();
+    this.selectedProduct$.subscribe(res => {
+      this.productService.setProduct(res, Collections.PRODUCTS).then(() => {
+        this._notificationService.successAlert(`${res.name} successfully created`);
+        // this.reset();
         this.store.dispatch(stopSpinner());
-      })
-    })
+      });
+    });
   }
 
   reset() {
@@ -128,9 +113,7 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateObject(key, value): void {
-    this.store.dispatch(updateProductCreateObject({ key, value }));
-  }
+
 
   onSubmit() {
     if (this.productForm.valid) {

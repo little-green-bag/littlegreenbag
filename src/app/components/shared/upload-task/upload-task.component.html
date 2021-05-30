@@ -9,10 +9,9 @@
   {{ snap.bytesTransferred }} of {{ snap.totalBytes }}
 </div>
 
-<mat-card *ngIf="file.name && downloadURL">
+<!-- <mat-card *ngIf="file.name && downloadURL">
   {{file.name}}
-  <!-- <img [src]="downloadURL" alt=""> -->
   <button appClickStopPropogation mat-raised-button color="warn" (click)="onRemove.emit(file)">
     Remove
   </button>
-</mat-card>
+</mat-card> -->

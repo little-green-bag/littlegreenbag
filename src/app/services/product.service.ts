@@ -34,23 +34,14 @@ export class ProductService {
       .snapshotChanges();
   }
 
-  createProduct(product: ProductModel, collection: string): Promise<any> {
+  setProduct(product: ProductModel, collection: string): Promise<any> {
     console.log('product is ', product);
-    return this.firestore
-      .collection(collection)
-      .add({ ...product })
-      .catch((err) => console.log('error creating product', err))
-  }
-
-  updateProduct(product: ProductModel, collection: string): void {
-    this.firestore
-      .doc(`${collection}/${product.id}`)
-      .update(product)
-      .catch((err) => console.log('error updating product', err));
-    this.notificationsService.successAlert(
-      `${product.name} successfully updated`
-    );
-
+    return this.firestore.collection(collection).doc(product.name).set(product).then(() => {
+      console.log("Document successfully written!");
+    })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
   }
 
   deleteProduct(product: ProductModel, collection: string): void {

@@ -4,8 +4,8 @@ import { ProductModel } from '@models/index';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { CategoryGroups, defaultImageSrc } from '@config/index';
-import { updateProductCreateObject } from '@store/actions/create-product.actions';
+import { CategoryGroups, Collections, defaultImageSrc } from '@config/index';
+import { setProductCreateObject, updateProductCreateObject } from '@store/actions/create-product.actions';
 import { map } from 'rxjs/operators';
 import { ProductService } from '@services/product.service';
 import { addProductImage } from '@store/actions/products.actions';
@@ -23,19 +23,18 @@ export class DialogComponent implements AfterViewInit {
   @ViewChild('category') category;
 
   product$: Observable<ProductModel>;
-  selectedProduct: Observable<ProductModel>;
-
   selectedFiles = [];
   files = [];
-  images = [];
   productForm: FormGroup;
   currentImgSrc = "";
   formSubmitted = false;
-  action: string;
+  action = "";
   local_data: any;
   coverImageSrc = '';
   categoryGroups = CategoryGroups;
   selectedCategory = '';
+  currentImages = [];
+  createdImages = [];
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
@@ -48,126 +47,125 @@ export class DialogComponent implements AfterViewInit {
   ) {
     this.local_data = { ...data };
     this.action = this.local_data.action;
+    this.fetchImages();
+    this.fetchCategory();
     this.buildForm();
     this.product$ = this.store.select(selectSelectedProduct);
   }
 
   ngAfterViewInit() {
-    console.log('this.local_data is ', this.local_data);
-    console.log('this.productForm.value is ', this.productForm.value);
-    console.log('this.productForm.value is ', this.productForm.value);
-
-    // this.productForm.patchValue({ product: { category: this.local_data.category } })
-    // this.store.dispatch(updateProductCreateObject(this.productForm.value))
-
-    // const images = this.local_data.imageUrl;
-    // 
-    // this.images.push(images);
+    this.store.dispatch(setProductCreateObject(this.local_data))
   }
 
-  onComplete(e) {
-    console.log('complete', e);
-    if (e && e.url) {
-      // this.images.push(e.url);
-      // this.store.dispatch(addProductImage({}));
-    }
+  updateObject(key, value): void {
+    this.store.dispatch(updateProductCreateObject({ key, value }));
   }
 
-  updateObject(e) {
-    console.log('e is ', e);
-    // const form = this.productForm.value;
-    // console.log('form now reads ', form);
-    // this.store.dispatch(updateProductCreateObject(form));
+  onComplete(image) {
+    // console.log('inside image with ', image);
+    // this.createdImages.push(image);
+    // this.selectedFiles = this.selectedFiles.filter(f => f.name !== image.name);
+    // this.store.dispatch(addProductImage({ image }));
+    // this.productForm.patchValue({ product: { images: this.createdImages } })
   }
 
-  getCategory() {
-    const currentCat = this.local_data.category;
-    let match = null;
-    this.categoryGroups.forEach(group => {
-      group.categories.filter(cat => {
-        if (cat.value.toLocaleLowerCase().trim().includes(currentCat.toLocaleLowerCase().trim())) {
-          console.log('match is ', cat);
-          match = cat;
-        }
-      });
-      if (match) {
-        this.productForm.patchValue({ product: { category: match } });
-      }
-    })
+
+
+  onDelete(image) {
+    // console.log('image to delete is ', image);
+    // this.currentImages = this.currentImages.filter(i => {
+    //   console.log('image to check is ', i);
+    //   return i.name !== image.name;
+    // })
+    // this.productForm.patchValue({ product: { images: this.currentImages } })
   }
 
-  fetchCategory(): string {
+  // getCategory() {
+  //   const currentCat = this.local_data.category;
+  //   let match = null;
+  //   this.categoryGroups.forEach(group => {
+  //     group.categories.filter(cat => {
+  //       if (cat.value.toLocaleLowerCase().trim().includes(currentCat.toLocaleLowerCase().trim())) {
+  //         console.log('match is ', cat);
+  //         match = cat;
+  //       }
+  //     });
+  //     if (match) {
+  //       this.productForm.patchValue({ product: { category: match } });
+  //     }
+  //   })
+  // }
+
+  fetchImages() {
+    let result = [];
+    result = this.local_data.images.length ? [...this.local_data.images] : this.local_data.imageUrl ? [{ name: '', url: this.local_data.imageUrl }] : [];
+    console.log('result is ', result);
+    this.currentImages = result;
+  }
+
+  fetchCategory(): void {
     let result = '';
     const searchString = this.local_data.category.toLocaleLowerCase().trim();
     CategoryGroups.forEach(group => {
       group.categories.forEach(cat => {
         const value1 = cat.value.toLocaleLowerCase().trim();
-
         const value2 = cat.viewValue.toLocaleLowerCase().trim();
         const fullValue = `${value1}${value2}`;
-        console.log('fullValue is ', fullValue);
-
         const match = fullValue.search(searchString);
         if (match > -1) {
           result = cat.viewValue;
         }
       })
     })
-    return result;
+    this.selectedCategory = result;
   }
 
   buildForm(): void {
-    this.images = this.local_data.images ? this.local_data.images : [this.local_data.imageUrl];
     this.productForm = this._fb.group({
       product: this._fb.group({
         name: [this.local_data.name, Validators.required],
         description: [this.local_data.description, Validators.required],
         price: [this.local_data.price, Validators.required],
-        images: [[]],
-        category: [this.fetchCategory(), Validators.required],
+        images: [this.currentImages],
+        category: [this.selectedCategory, Validators.required],
+        stockCount: [0, Validators.required],
       }),
     });
-
-    console.log('this.category is ', this.category);
   }
 
   onFilesSelected(event: any) {
-    let newItems = [...event.target.files];
-    const currentItems = [...this.selectedFiles];
-    if (!currentItems.length) {
-      this.selectedFiles = newItems;
-    } else {
-      currentItems.forEach(cI => {
-        const match = newItems.filter(nI => nI.name.toLowerCase().trim() === cI.name.toLowerCase().trim());
-        if (match.length) {
-          newItems = newItems.filter(i => i.name.toLowerCase().trim() !== match[0].name.toLowerCase().trim());
-        }
-      });
-      const allFiles = [...currentItems, ...newItems];
-      this.selectedFiles = allFiles;
-    }
-  }
+    // const currentItems = [...this.selectedFiles];
+    // let newItems = [...event.target.files];
+    // newItems = newItems.filter(i => {
+    //   const acceptedImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+    //   return i && acceptedImageTypes.includes(i['type']);
+    // })
 
-  doAction() {
-    this.dialogRef.close({ event: this.action, data: this.local_data });
+    // if (!currentItems.length) {
+    //   this.selectedFiles = newItems;
+    // } else {
+    //   currentItems.forEach(cI => {
+    //     const match = newItems.filter(nI => nI.name.toLowerCase().trim() === cI.name.toLowerCase().trim());
+    //     if (match.length) {
+    //       newItems = newItems.filter(i => i.name.toLowerCase().trim() !== match[0].name.toLowerCase().trim());
+    //     }
+    //   });
+    //   const allFiles = [...currentItems, ...newItems];
+    //   this.selectedFiles = allFiles;
+    // }
   }
 
   onSubmit() {
-    console.log('this.form is ', this.productForm);
-    const cat = this.productForm.get('product.category')
-    console.log('category is ', cat);
-    const existsAlready = '';
-    // this.productService.createProduct(this.productForm.value, `${cat}-TESTING`);
+    this.closeDialog({ type: { event: 'Submit' }, value: this.productForm.value.product });
   }
 
-  closeDialog() {
-    this.dialogRef.close({ event: 'Cancel' });
+  onCancel() {
+    this.closeDialog({ type: { event: 'Cancel' }, value: null });
   }
 
-  onRemove(url) {
-    console.log('url is ', url);
-    // this.images = this.images.filter(i => i !== url);
-    // this.productForm.setValue({ ...this.productForm.value, images: this.images });
-    // this.store.dispatch(updateProductCreateObject(this.productForm.value))
+  closeDialog({ type, value }) {
+    this.dialogRef.close({ type, value });
   }
+
+
 }

@@ -3,6 +3,7 @@ import { ProductService } from '@services/product.service';
 import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { DialogService } from '@services/shared/dialog/dialog.service';
 import { ProductModel } from '@models/product.model';
+import { Collections } from '@config/collections';
 
 @Component({
   selector: 'app-table',
@@ -42,9 +43,9 @@ export class TableComponent {
       .afterClosed()
       .subscribe((res) => {
         console.log('updated res is ', res);
-        if (res.event !== 'Cancel') {
-          console.log('should send to product service now', res);
-          // this.productService.updateProduct(res.data, 'edited-products');
+        if (res.type.event === 'Submit') {
+          console.log('should send to product service now', res.value);
+          this.productService.setProduct(res.value, Collections.PRODUCTS);
         }
       });
   }
