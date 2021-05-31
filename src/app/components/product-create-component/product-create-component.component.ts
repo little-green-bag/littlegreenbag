@@ -63,7 +63,7 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
     console.log('inside image with ', image);
     this.createdImages.push(image);
     this.selectedFiles = this.selectedFiles.filter(f => f.name !== image.name);
-    this.store.dispatch(addProductImage({ image }));
+    this.store.dispatch(addProductImage(image));
   }
 
   onRemove(image): void {

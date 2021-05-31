@@ -19,7 +19,7 @@ const _appReducer = createReducer(
   on(getProductSuccess, (state, { product }) => {
     return { ...state, selectedProduct: product };
   }),
-  on(addProductImage, (state, { image }) => {
+  on(addProductImage, (state, image) => {
     const currentImages = state.selectedProduct.images;
     const updatedImages = [...currentImages, image];
     return { ...state, selectedProduct: { ...state.selectedProduct, images: updatedImages } }

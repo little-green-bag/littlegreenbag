@@ -8,8 +8,9 @@ import { CategoryGroups, Collections, defaultImageSrc } from '@config/index';
 import { setProductCreateObject, updateProductCreateObject } from '@store/actions/create-product.actions';
 import { map } from 'rxjs/operators';
 import { ProductService } from '@services/product.service';
-import { addProductImage } from '@store/actions/products.actions';
+import { addProductImage, removeProductImage } from '@store/actions/products.actions';
 import { selectSelectedProduct } from '@store/selectors';
+import { NotificationsService } from '@services/shared/notifications/notifications.service';
 
 @Component({
   selector: 'app-dialog',
@@ -42,7 +43,7 @@ export class DialogComponent implements AfterViewInit {
     private _fb: FormBuilder,
     private store: Store,
     private productService: ProductService,
-
+    private notificationService: NotificationsService
 
   ) {
     this.local_data = { ...data };
@@ -57,49 +58,9 @@ export class DialogComponent implements AfterViewInit {
     this.store.dispatch(setProductCreateObject(this.local_data))
   }
 
-  updateObject(key, value): void {
-    this.store.dispatch(updateProductCreateObject({ key, value }));
-  }
-
-  onComplete(image) {
-    // console.log('inside image with ', image);
-    // this.createdImages.push(image);
-    // this.selectedFiles = this.selectedFiles.filter(f => f.name !== image.name);
-    // this.store.dispatch(addProductImage({ image }));
-    // this.productForm.patchValue({ product: { images: this.createdImages } })
-  }
-
-
-
-  onDelete(image) {
-    // console.log('image to delete is ', image);
-    // this.currentImages = this.currentImages.filter(i => {
-    //   console.log('image to check is ', i);
-    //   return i.name !== image.name;
-    // })
-    // this.productForm.patchValue({ product: { images: this.currentImages } })
-  }
-
-  // getCategory() {
-  //   const currentCat = this.local_data.category;
-  //   let match = null;
-  //   this.categoryGroups.forEach(group => {
-  //     group.categories.filter(cat => {
-  //       if (cat.value.toLocaleLowerCase().trim().includes(currentCat.toLocaleLowerCase().trim())) {
-  //         console.log('match is ', cat);
-  //         match = cat;
-  //       }
-  //     });
-  //     if (match) {
-  //       this.productForm.patchValue({ product: { category: match } });
-  //     }
-  //   })
-  // }
-
   fetchImages() {
     let result = [];
     result = this.local_data.images.length ? [...this.local_data.images] : this.local_data.imageUrl ? [{ name: '', url: this.local_data.imageUrl }] : [];
-    console.log('result is ', result);
     this.currentImages = result;
   }
 
@@ -133,26 +94,73 @@ export class DialogComponent implements AfterViewInit {
     });
   }
 
-  onFilesSelected(event: any) {
-    // const currentItems = [...this.selectedFiles];
-    // let newItems = [...event.target.files];
-    // newItems = newItems.filter(i => {
-    //   const acceptedImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
-    //   return i && acceptedImageTypes.includes(i['type']);
-    // })
+  updateObject(key, value): void {
+    this.store.dispatch(updateProductCreateObject({ key, value }));
+  }
 
-    // if (!currentItems.length) {
-    //   this.selectedFiles = newItems;
-    // } else {
-    //   currentItems.forEach(cI => {
-    //     const match = newItems.filter(nI => nI.name.toLowerCase().trim() === cI.name.toLowerCase().trim());
-    //     if (match.length) {
-    //       newItems = newItems.filter(i => i.name.toLowerCase().trim() !== match[0].name.toLowerCase().trim());
-    //     }
-    //   });
-    //   const allFiles = [...currentItems, ...newItems];
-    //   this.selectedFiles = allFiles;
-    // }
+
+
+  onComplete(image) {
+    this.store.dispatch(addProductImage(image));
+    this.selectedFiles = this.selectedFiles.filter(f => f.name !== image.name);
+    const updatedImages = [...this.currentImages, image];
+    this.productForm.patchValue({ product: { images: updatedImages } });
+    this.currentImages = updatedImages;
+  }
+
+  onDelete(image) {
+    this.store.dispatch(removeProductImage(image));
+    this.currentImages = this.currentImages.filter(i => {
+      return i.name !== image.name;
+    })
+    this.productForm.patchValue({ product: { images: this.currentImages } })
+  }
+
+  // getCategory() {
+  //   const currentCat = this.local_data.category;
+  //   let match = null;
+  //   this.categoryGroups.forEach(group => {
+  //     group.categories.filter(cat => {
+  //       if (cat.value.toLocaleLowerCase().trim().includes(currentCat.toLocaleLowerCase().trim())) {
+  //         console.log('match is ', cat);
+  //         match = cat;
+  //       }
+  //     });
+  //     if (match) {
+  //       this.productForm.patchValue({ product: { category: match } });
+  //     }
+  //   })
+  // }
+
+
+
+  onFilesSelected(event: any) {
+    const currentItems = [...this.selectedFiles];
+    let newItems = [...event.target.files];
+
+    newItems = newItems.filter(i => {
+      const acceptedImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+      return i && acceptedImageTypes.includes(i['type']);
+    })
+
+    if (!newItems.length) {
+      this.notificationService.warningAlert('None of these images are useable. .jpg, jpeg, or png pleaze');
+    } else {
+      if (!currentItems.length) {
+        this.selectedFiles = newItems;
+      } else {
+        currentItems.forEach(cI => {
+          const match = newItems.filter(nI => nI.name.toLowerCase().trim() === cI.name.toLowerCase().trim());
+          if (match.length) {
+            this.notificationService.warningAlert(`${match[0].name} is already loaded here`);
+            newItems = newItems.filter(i => i.name.toLowerCase().trim() !== match[0].name.toLowerCase().trim());
+          }
+        });
+        const allFiles = [...currentItems, ...newItems];
+        this.selectedFiles = allFiles;
+      }
+    }
+
   }
 
   onSubmit() {
