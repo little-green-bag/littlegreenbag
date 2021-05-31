@@ -38,7 +38,7 @@ export class ProductsEffects {
         this.productService.getProducts().pipe(
           map((actions) =>
             actions.map((action: any) => {
-              return this.productService.getData(action);
+              return this.productService.getProductData(action);
             })
           ),
           map(
@@ -58,5 +58,5 @@ export class ProductsEffects {
   constructor(
     private actions$: Actions,
     private productService: ProductService
-  ) {}
+  ) { }
 }

@@ -1,8 +1,4 @@
 <mat-drawer-container class="app-container" autosize [hasBackdrop]="true">
-  <div class="spinner" *ngIf="(loading$ | async)">
-    <mat-spinner>
-    </mat-spinner>
-  </div>
   <mat-drawer #drawer class="app-sidenav" mode="side">
     <app-side-nav></app-side-nav>
   </mat-drawer>
@@ -24,3 +20,8 @@
     </div>
   </div>
 </mat-drawer-container>
+
+<div class="spinner" *ngIf="(loading$ | async)">
+  <mat-spinner>
+  </mat-spinner>
+</div>

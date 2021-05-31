@@ -6,10 +6,9 @@ import {
   removeProductImage
 } from '../actions/products.actions';
 import { initialAppState } from './../states/products.state';
-import { state } from '@angular/animations';
 import { startSpinner, stopSpinner } from '@store/actions/spinner.actions';
 import { resetProductCreateObject, setProductCreateObject, updateProductCreateObject } from '@store/actions/create-product.actions';
-import { updateUpload } from '@actions/upload.actions';
+import { setUserData } from '@actions/user.actions';
 
 const _appReducer = createReducer(
   initialAppState,
@@ -49,6 +48,9 @@ const _appReducer = createReducer(
   }),
   on(setProductCreateObject, (state, props) => {
     return { ...state, selectedProduct: props }
+  }),
+  on(setUserData, (state, user) => {
+    return { ...state, user }
   })
 );
 

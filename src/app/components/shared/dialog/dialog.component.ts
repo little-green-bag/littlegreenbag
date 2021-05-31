@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { CategoryGroups, Collections, defaultImageSrc } from '@config/index';
-import { setProductCreateObject, updateProductCreateObject } from '@store/actions/create-product.actions';
+import { resetProductCreateObject, setProductCreateObject, updateProductCreateObject } from '@store/actions/create-product.actions';
 import { map } from 'rxjs/operators';
 import { ProductService } from '@services/product.service';
 import { addProductImage, removeProductImage } from '@store/actions/products.actions';
@@ -172,6 +172,7 @@ export class DialogComponent implements AfterViewInit {
   }
 
   closeDialog({ type, value }) {
+    this.store.dispatch(resetProductCreateObject());
     this.dialogRef.close({ type, value });
   }
 

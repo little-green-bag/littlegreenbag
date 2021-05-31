@@ -49,3 +49,14 @@ export const selectSelectedProductImages = createSelector(
     return state;
   }
 );
+
+export const _selectUserData = (state: { app: AppState }) => {
+  return state.app.user;
+};
+
+export const selectUserData = createSelector(
+  _selectUserData,
+  (state) => {
+    return state;
+  }
+);

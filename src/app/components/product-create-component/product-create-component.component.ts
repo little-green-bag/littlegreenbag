@@ -8,7 +8,7 @@ import { startSpinner, stopSpinner } from '@actions/spinner.actions';
 import { resetProductCreateObject, updateProductCreateObject } from '@actions/create-product.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { CategoryGroups, Collections, defaultImageSrc } from '@config/index';
+import { acceptedImageTypes, CategoryGroups, Collections, defaultImageSrc } from '@config/index';
 import { addProductImage, removeProductImage } from '@store/actions/products.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -60,7 +60,6 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
   }
 
   onComplete(image) {
-    console.log('inside image with ', image);
     this.createdImages.push(image);
     this.selectedFiles = this.selectedFiles.filter(f => f.name !== image.name);
     this.store.dispatch(addProductImage(image));
@@ -74,7 +73,7 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
     this.selectedProduct$.subscribe(res => {
       this.productService.setProduct(res, Collections.PRODUCTS).then(() => {
         this._notificationService.successAlert(`${res.name} successfully created`);
-        // this.reset();
+        this.reset();
         this.store.dispatch(stopSpinner());
       });
     });
@@ -84,21 +83,17 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
     this.store.dispatch(resetProductCreateObject());
     this.selectedFiles = [];
     this.formDirective.resetForm();
-    this.myNgForm.resetForm();
-    this.productForm.reset();
-    this.productForm.markAsPristine();
-    this.productForm.markAsUntouched();
     this.formSubmitted = false;
   }
 
   onFilesSelected(event: any) {
+    // break this out into its own function as it's used in dialog too
+    // add size checks and copys for thumbnails etc..
     const currentItems = [...this.selectedFiles];
     let newItems = [...event.target.files];
     newItems = newItems.filter(i => {
-      const acceptedImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
       return i && acceptedImageTypes.includes(i['type']);
     })
-
     if (!currentItems.length) {
       this.selectedFiles = newItems;
     } else {

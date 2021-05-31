@@ -1,6 +1,6 @@
 <div id="lightgallery" #lightgallery>
-  <a class="gallery-item" [href]="item.imageUrl" *ngFor="let item of data">
-    <img class="img-responsive" [src]="item.imageUrl" />
+  <a class="gallery-item" [href]="item.imageUrl" *ngFor="let item of data[0].images" [attr.data-src]="item.url">
+    <img class="img-responsive" [src]="item.url" />
   </a>
 </div>
 

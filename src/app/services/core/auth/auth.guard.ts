@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) { }
 
   canActivate(next, state): Observable<boolean> {
     return this.auth.user$.pipe(
@@ -18,12 +18,13 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['/no-access']);
         }
         return !!user;
-      }),
-      tap((loggedIn) => {
-        if (!loggedIn) {
-          this.router.navigate(['/no-access']);
-        }
       })
+      // ,
+      // tap((loggedIn) => {
+      //   if (!loggedIn) {
+      //     this.router.navigate(['/no-access']);
+      //   }
+      // })
     );
   }
 }

@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   loading$: Observable<boolean>;
   opened: boolean;
 
-  constructor(private sidenavService: SidenavService, private store: Store) {
+  constructor(private sidenavService: SidenavService, private store: Store,) {
     this.loading$ = this.store.select(selectLoading);
   }
 
@@ -25,8 +25,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.store.dispatch(loadProducts());
     this.sidenavService.setDrawer(this.drawer);
+    this.store.dispatch(loadProducts());
+
   }
 
 }

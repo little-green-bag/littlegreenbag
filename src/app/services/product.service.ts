@@ -5,6 +5,9 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ProductModel } from '@models/index';
 import { Collections } from '@config/index';
+import { Store } from '@ngrx/store';
+import { selectUserData } from '@store/selectors';
+import firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +17,11 @@ export class ProductService {
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
     private notificationsService: NotificationsService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private store: Store
   ) { }
 
-  getData(action) {
+  getProductData(action) {
     const data = action.payload.doc.data() as ProductModel;
     const id = action.payload.doc.id;
     const result = { id, ...data };
@@ -36,11 +40,15 @@ export class ProductService {
 
   setProduct(product: ProductModel, collection: string): Promise<any> {
     console.log('product is ', product);
-    return this.firestore.collection(collection).doc(product.name).set(product).then(() => {
-      console.log("Document successfully written!");
+    let user;
+    const { serverTimestamp } = firebase.firestore.FieldValue;
+    this.store.select(selectUserData).subscribe(res => user = res);
+    const productToSet = { ...product, uid: user.id, createdAt: serverTimestamp() };
+    return this.firestore.collection(collection).doc(product.name).set(productToSet, { merge: true }).then(() => {
+      this.notificationsService.successAlert('Document successfully written!')
     })
       .catch((error) => {
-        console.error("Error writing document: ", error);
+        this.notificationsService.warningAlert('Error writing document: ", error')
       });
   }
 

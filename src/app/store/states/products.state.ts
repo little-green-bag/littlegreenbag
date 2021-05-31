@@ -5,6 +5,7 @@ export interface AppState {
   selectedProduct: ProductModel;
   cart: ProductModel[];
   loading: boolean;
+  user: {}
 }
 
 export const initialAppState: AppState = {
@@ -12,4 +13,5 @@ export const initialAppState: AppState = {
   selectedProduct: new ProductModel({}),
   cart: [],
   loading: null,
+  user: null
 };
