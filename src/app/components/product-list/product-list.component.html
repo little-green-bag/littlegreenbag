@@ -1,7 +1,8 @@
-<div>
+<!-- <div>
   <button mat-raised-button color="primary" (click)="downloadLatestProductsList()">Download Latest Products
     List</button>
+</div> -->
+<div class="container">
+  <button mat-raised-button color="primary">Product List</button>
+  <app-table color="primary" [data]="data$ | async"> </app-table>
 </div>
-<app-table color="primary" [data]="data$ | async"> </app-table>
-
-<app-grid-list></app-grid-list>

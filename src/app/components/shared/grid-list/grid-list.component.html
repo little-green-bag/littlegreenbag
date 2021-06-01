@@ -1,5 +1,5 @@
 <mat-grid-list cols="4" rowHeight="2:1" gutterSize="0">
   <mat-grid-tile *ngFor="let tile of (data$ | async)"
-    [ngStyle]="{'background-image': 'url(' + tile.images[0].url + ')'}">
+    [ngStyle]="{'background-image': 'url(' + tile.images[0]?.url + ')'}">
   </mat-grid-tile>
 </mat-grid-list>

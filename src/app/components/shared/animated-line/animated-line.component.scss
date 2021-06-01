@@ -2,10 +2,9 @@
 
 .master-container {
   display: grid;
-  grid-auto-flow: column;
   .green-line--inner-container {
     height: 2rem;
-    background: black;
+    background: $black;
     position: relative;
     overflow: hidden;
     .green-line {
@@ -17,7 +16,7 @@
     .moving-box-top-to-bottom {
       width: 2rem;
       height: 100%;
-      background: black;
+      background: $black;
       position: absolute;
       margin: 0 auto;
       top: 0;

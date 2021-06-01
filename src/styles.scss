@@ -99,3 +99,20 @@ image {
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+.mat-dialog-container-upgrade {
+  max-width: 80vw !important;
+  min-width: 45rem !important;
+  width: 100vw !important;
+}
+
+.green-snackbar,
+.red-snackbar {
+  font-weight: bolder;
+}
+.green-snackbar {
+  background: $primary-dark;
+}
+.red-snackbar {
+  background: $red;
+}

@@ -4,16 +4,16 @@ export const LinksNavigation = [
     icon: 'home',
     protected: false,
   },
-  {
-    url: '/shop',
-    icon: 'store',
-    protected: false,
-  },
-  {
-    url: '/cart',
-    icon: 'shopping_basket',
-    protected: false,
-  },
+  // {
+  //   url: '/shop',
+  //   icon: 'store',
+  //   protected: false,
+  // },
+  // {
+  //   url: '/cart',
+  //   icon: 'shopping_basket',
+  //   protected: false,
+  // },
   {
     url: '/create',
     icon: 'create',

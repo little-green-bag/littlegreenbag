@@ -12,26 +12,26 @@ export const CategoryGroups: CategoryGroup[] = [
   {
     name: 'Glass Gallery',
     categories: [
-      { value: 'rig-0', viewValue: 'Rig' },
-      { value: 'pendants-1', viewValue: 'Pendants' },
-      { value: 'dab-2', viewValue: 'Dab' },
-      { value: 'tools-3', viewValue: 'Tools' }
+      { value: 'rig', viewValue: 'Rig' },
+      { value: 'pendants', viewValue: 'Pendants' },
+      { value: 'dab', viewValue: 'Dab' },
+      { value: 'tools', viewValue: 'Tools' }
     ]
   },
   {
     name: 'Accessories',
     categories: [
-      { value: 'cleaning-0', viewValue: 'Cleaning' },
-      { value: 'dab-mats-1', viewValue: 'Dab Mats' },
+      { value: 'cleaning', viewValue: 'Cleaning' },
+      { value: 'dabmats', viewValue: 'Dab Mats' },
     ]
   },
   {
     name: 'Glass Essentials',
     categories: [
-      { value: 'bangers-0', viewValue: 'Bangers' },
-      { value: 'slupers-1', viewValue: 'Slupers' },
-      { value: 'marbles-2', viewValue: 'Marbles' },
-      { value: 'carb-caps-3', viewValue: 'Carb-caps' }
+      { value: 'bangers', viewValue: 'Bangers' },
+      { value: 'slupers', viewValue: 'Slupers' },
+      { value: 'marbles', viewValue: 'Marbles' },
+      { value: 'carbcaps', viewValue: 'Carb-caps' }
     ]
   },
 ];

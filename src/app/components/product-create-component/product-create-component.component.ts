@@ -39,6 +39,7 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
   }
 
   updateObject(key, value): void {
+    console.log('value is ', value);
     this.store.dispatch(updateProductCreateObject({ key, value }));
   }
 
@@ -54,7 +55,7 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
         name: 'Jimmy',
         description: 'Description',
         price: 2,
-        category: CategoryGroups[0].name,
+        category: CategoryGroups[0].categories[0].viewValue,
         stockCount: 3,
         images: []
       }
@@ -95,7 +96,7 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
 
   uploadProduct() {
     this.selectedProduct$.subscribe(res => {
-      this.productService.setProduct(res, Collections.TEST_PRODUCTS).then(() => {
+      this.productService.setProduct(res, Collections.STORE_PRODUCTS).then(() => {
         this._notificationService.successAlert(`${res.name} successfully created`);
         this.reset();
       });
@@ -138,4 +139,4 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
 //     'PRODUCTS',
 //     'green-snackbar'
 //   );
-// }
+// }  

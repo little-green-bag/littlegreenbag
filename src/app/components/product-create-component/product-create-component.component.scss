@@ -1,8 +1,10 @@
 @import 'variables';
+@import 'mixins';
 
 .product-card {
   margin: 0 auto;
   max-width: $product-card-max-width;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .product-header-image {
@@ -13,7 +15,11 @@
 
 .inputs {
   display: grid;
+  height: 100%;
   align-items: center;
+  grid-gap: 10px;
+  padding: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .mat-raised-button {
@@ -26,9 +32,15 @@ img.thumb {
 
 .uploaded-images {
   display: grid;
-  grid-auto-flow: column;
-  justify-content: flex-start;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  justify-items: flex-start;
+  grid-gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+  box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
 }
+
 .uploaded-image {
   display: grid;
   grid-template-columns: 1fr;
@@ -37,4 +49,15 @@ img.thumb {
   border: 2px solid $red;
   width: fit-content;
   justify-items: center;
+}
+
+.group {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: 10px;
+  align-items: flex-start;
+  padding: 10px;
+  @include respond(phone) {
+    grid-template-columns: 1fr;
+  }
 }

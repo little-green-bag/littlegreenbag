@@ -8,28 +8,28 @@ import { ProductActionTypes } from '@actions/index';
 
 @Injectable()
 export class ProductsEffects {
-  getProduct$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ProductActionTypes.GET_PRODUCT),
-      mergeMap(({ id }) =>
-        this.productService.getProduct(id).pipe(
-          map((actions) => {
-            const res = actions.payload.data() as ProductModel;
-            return res;
-          }),
-          map(
-            (product) => {
-              return {
-                type: ProductActionTypes.GET_PRODUCT_SUCCESS,
-                product,
-              };
-            },
-            catchError(() => EMPTY)
-          )
-        )
-      )
-    )
-  );
+  // getProduct$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(ProductActionTypes.GET_PRODUCT),
+  //     mergeMap(({ id }) =>
+  //       this.productService.getProduct(id).pipe(
+  //         map((actions) => {
+  //           const res = actions.payload.data() as ProductModel;
+  //           return res;
+  //         }),
+  //         map(
+  //           (product) => {
+  //             return {
+  //               type: ProductActionTypes.GET_PRODUCT_SUCCESS,
+  //               product,
+  //             };
+  //           },
+  //           catchError(() => EMPTY)
+  //         )
+  //       )
+  //     )
+  //   )
+  // );
 
   loadProducts$ = createEffect(() =>
     this.actions$.pipe(

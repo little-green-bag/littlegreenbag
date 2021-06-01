@@ -28,7 +28,7 @@ export class DialogComponent implements AfterViewInit {
   currentImgSrc = "";
   formSubmitted = false;
   action = "";
-  local_data: any;
+  local_data: any = {};
   coverImageSrc = '';
   categoryGroups = CategoryGroups;
   selectedCategory = '';
@@ -53,6 +53,7 @@ export class DialogComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.store.dispatch(setProductCreateObject(this.local_data))
+    console.log('local_data is ', this.local_data);
   }
 
   fetchImages() {
@@ -62,8 +63,8 @@ export class DialogComponent implements AfterViewInit {
   }
 
   fetchCategory(): void {
-    let result = '';
     const searchString = this.local_data.category.toLocaleLowerCase().trim();
+    let result = '';
     CategoryGroups.forEach(group => {
       group.categories.forEach(cat => {
         const value1 = cat.value.toLocaleLowerCase().trim();
@@ -74,7 +75,7 @@ export class DialogComponent implements AfterViewInit {
           result = cat.viewValue;
         }
       })
-    })
+    });
     this.selectedCategory = result;
   }
 
@@ -85,8 +86,8 @@ export class DialogComponent implements AfterViewInit {
         description: [this.local_data.description, Validators.required],
         price: [this.local_data.price, Validators.required],
         images: [this.currentImages],
-        category: [this.selectedCategory, Validators.required],
-        stockCount: [0, Validators.required],
+        category: [this.local_data.category, Validators.required],
+        stockCount: [this.local_data.stockCount, Validators.required],
       }),
     });
   }
@@ -110,24 +111,6 @@ export class DialogComponent implements AfterViewInit {
     })
     this.productForm.patchValue({ product: { images: this.currentImages } })
   }
-
-  // getCategory() {
-  //   const currentCat = this.local_data.category;
-  //   let match = null;
-  //   this.categoryGroups.forEach(group => {
-  //     group.categories.filter(cat => {
-  //       if (cat.value.toLocaleLowerCase().trim().includes(currentCat.toLocaleLowerCase().trim())) {
-  //         console.log('match is ', cat);
-  //         match = cat;
-  //       }
-  //     });
-  //     if (match) {
-  //       this.productForm.patchValue({ product: { category: match } });
-  //     }
-  //   })
-  // }
-
-
 
   onFilesSelected(event: any) {
     const currentItems = [...this.selectedFiles];
@@ -155,11 +138,12 @@ export class DialogComponent implements AfterViewInit {
         this.selectedFiles = allFiles;
       }
     }
-
   }
 
   onSubmit() {
-    this.closeDialog({ type: { event: 'Submit' }, value: this.productForm.value.product });
+    const updatedObject = { ...this.local_data, ...this.productForm.value.product };
+    console.log('updatedObject is ', updatedObject);
+    this.closeDialog({ type: { event: 'Submit' }, value: updatedObject });
   }
 
   onCancel() {

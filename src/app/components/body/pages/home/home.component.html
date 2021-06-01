@@ -1,15 +1,28 @@
-<div style="display: grid;">
-  <!-- <app-animated-line></app-animated-line> -->
-  <button mat-raised-button>
-    <app-animated-text [text]="'Rigs'"></app-animated-text>
-  </button>
-  <!-- <app-animated-line></app-animated-line> -->
-  <button mat-raised-button>
-    <app-animated-text [text]="'Bangers'"></app-animated-text>
-  </button>
-  <!-- <app-animated-line></app-animated-line> -->
-  <button mat-raised-button>
-    <app-animated-text [text]="'Accessories'"></app-animated-text>
-  </button>
-  <!-- <app-animated-line></app-animated-line> -->
+<div class="container">
+  <div class="flashing-title">
+    <div class="light"></div>
+    <div class="blink">
+      <span>The Little</span>
+      <span> Green Bag</span>
+    </div>
+  </div>
+
+  <div class="titles">
+    <app-animated-line></app-animated-line>
+    <button mat-raised-button>
+      <app-animated-text [text]="'Rigs'"></app-animated-text>
+    </button>
+    <button mat-raised-button>
+      <app-animated-text [text]="'Bangers'"></app-animated-text>
+    </button>
+    <button mat-raised-button>
+      <app-animated-text [text]="'Accessories'"></app-animated-text>
+    </button>
+  </div>
+
+  <div class="link">
+    We are currently operating from Instagram
+  </div>
+
+
 </div>

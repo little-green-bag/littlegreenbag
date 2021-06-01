@@ -18,6 +18,7 @@ export class DialogService {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = data;
+    dialogConfig.panelClass = 'mat-dialog-container-upgrade';
     const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     return dialogRef;
   }
@@ -25,6 +26,7 @@ export class DialogService {
   openConfirmationDialog(data?): MatDialogRef<ConfirmationDialogComponent> {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = data;
+    dialogConfig.panelClass = 'mat-dialog-container-upgrade';
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
     return dialogRef;
   }

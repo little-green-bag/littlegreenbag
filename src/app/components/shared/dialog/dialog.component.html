@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>
   <strong>{{ action }}</strong>
-  <button mat-raised-button color="primary" (click)="onCancel()">
+  <button mat-raised-button color="warn" (click)="onCancel()">
     Close
   </button>
 </h1>
@@ -62,12 +62,13 @@
             Add Images
           </button>
 
-          <div class="images" *ngFor="let image of productForm.get('product.images').value">
-            <p> {{image.name}}</p>
-            <img [src]="(image.url)" alt="">
-            <button appClickStopPropogation mat-raised-button color="primary" (click)="onDelete(image)">
-              Delete
-            </button>
+          <div class="images">
+            <div class="image" *ngFor="let image of productForm.get('product.images').value">
+              <img [src]="(image.url)" alt="">
+              <button appClickStopPropogation mat-raised-button color="warn" (click)="onDelete(image)">
+                Delete
+              </button>
+            </div>
           </div>
 
           <div class="files">

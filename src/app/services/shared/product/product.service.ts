@@ -24,6 +24,9 @@ export class ProductService {
     const data = action.payload.doc.data() as ProductModel;
     const id = action.payload.doc.id;
     let updated = { ...data, id };
+    if (!updated.images) {
+      updated.images = [];
+    }
     if (updated.imageUrl) {
       updated.images.push({ name: '', url: updated.imageUrl });
       delete updated.imageUrl;
@@ -32,24 +35,27 @@ export class ProductService {
   }
 
   getProducts() {
-    return this.firestore.collection(Collections.TEST_PRODUCTS).snapshotChanges();
+    return this.firestore.collection(Collections.STORE_PRODUCTS).snapshotChanges();
   }
 
   getProduct(id: string = '') {
-    return this.firestore
-      .doc(`${Collections.PRODUCTS}/${id}`)
-      .snapshotChanges();
+    // return this.firestore
+    //   .doc(`${Collections.PRODUCTS}/${id}`)
+    //   .snapshotChanges();
   }
 
   setProduct(product: ProductModel, collection: string): Promise<any> {
     const { serverTimestamp } = firebase.firestore.FieldValue;
     const productToSet = { ...product, createdAt: serverTimestamp() };
     console.log('productToSet is ', productToSet);
+    if (!product.name.length) {
+      return;
+    }
     return this.firestore.collection(collection).doc(product.name).set(productToSet, { merge: true }).then(() => {
       this.notificationsService.successAlert('Document successfully written!')
     })
       .catch((error) => {
-        this.notificationsService.warningAlert('Error writing document: ", error')
+        this.notificationsService.warningAlert('Error writing document: ', error)
       });
   }
 
@@ -60,15 +66,29 @@ export class ProductService {
       .subscribe((res) => {
         const { event } = res.type;
         if (event === 'Submit') {
-          const storageRef = this.firestore.collection(Collections.TEST_PRODUCTS);
+          const storageRef = this.firestore.collection(Collections.STORE_PRODUCTS);
           const itemRef = storageRef.doc(`${product.id}`).ref;
-          console.log('itemRef is ', itemRef.id);
-
           itemRef.delete().then(res => {
             this.notificationsService.successAlert(
               `${product.name} successfully deleted`
             );
           }).catch(err => this.notificationsService.warningAlert('error deleting that product', err))
+        }
+      });
+  }
+
+  editProduct(product: ProductModel): void {
+    this.dialogService.openDialog({ ...product, action: 'Update' })
+      .afterClosed()
+      .subscribe((res) => {
+        console.log('updated res is ', res);
+        const { event } = res.type;
+        if (event === 'Submit') {
+          const storageRef = this.firestore.collection(Collections.STORE_PRODUCTS);
+          const itemRef = storageRef.doc(`${product.id}`).ref;
+          itemRef.update(res.value).then(() => {
+            this.notificationsService.successAlert(`${res.value.name} successfully updated`)
+          }).catch(err => this.notificationsService.warningAlert('error editing this ', err));
         }
       });
   }
