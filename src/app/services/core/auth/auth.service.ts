@@ -38,6 +38,10 @@ export class AuthService {
     );
   }
 
+  getUserStatus() {
+    return this.user$;
+  }
+
   async googleSignIn() {
     const provider = new auth.auth.GoogleAuthProvider();
     const credential = await this.afAuth.signInWithPopup(provider);

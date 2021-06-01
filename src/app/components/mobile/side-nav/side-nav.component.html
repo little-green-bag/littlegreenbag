@@ -1,5 +1,6 @@
 <ul>
   <li *ngFor="let link of links">
-    <app-link [linkConfig]="{ url: link.url, icon: link.icon }"></app-link>
+    <app-link [linkConfig]="{ url: link.url, icon: link.icon }"
+      *ngIf="((user$ | async)?.uid === '27PqJHgiSSZxeJnP5KwVSwPzbjZ2' && link.protected) || !link.protected"></app-link>
   </li>
 </ul>
