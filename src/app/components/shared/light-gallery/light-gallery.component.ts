@@ -32,7 +32,6 @@ export class LightGalleryComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.lightgallery = lightGallery(this.lightgallery.nativeElement, this.settings);
-    console.log('lg data is ', this.data);
   }
 
 

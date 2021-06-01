@@ -53,7 +53,6 @@ export class DialogComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.store.dispatch(setProductCreateObject(this.local_data))
-    console.log('local_data is ', this.local_data);
   }
 
   fetchImages() {
@@ -142,7 +141,6 @@ export class DialogComponent implements AfterViewInit {
 
   onSubmit() {
     const updatedObject = { ...this.local_data, ...this.productForm.value.product };
-    console.log('updatedObject is ', updatedObject);
     this.closeDialog({ type: { event: 'Submit' }, value: updatedObject });
   }
 

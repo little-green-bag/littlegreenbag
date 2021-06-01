@@ -47,7 +47,6 @@ export class ProductService {
   setProduct(product: ProductModel, collection: string): Promise<any> {
     const { serverTimestamp } = firebase.firestore.FieldValue;
     const productToSet = { ...product, createdAt: serverTimestamp() };
-    console.log('productToSet is ', productToSet);
     if (!product.name.length) {
       return;
     }
@@ -81,7 +80,6 @@ export class ProductService {
     this.dialogService.openDialog({ ...product, action: 'Update' })
       .afterClosed()
       .subscribe((res) => {
-        console.log('updated res is ', res);
         const { event } = res.type;
         if (event === 'Submit') {
           const storageRef = this.firestore.collection(Collections.STORE_PRODUCTS);

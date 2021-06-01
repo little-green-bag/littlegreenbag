@@ -8,7 +8,7 @@ import { startSpinner, stopSpinner } from '@actions/spinner.actions';
 import { resetProductCreateObject, setProductCreateObject, updateProductCreateObject } from '@actions/create-product.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { acceptedImageTypes, CategoryGroups, Collections, defaultImageSrc } from '@config/index';
+import { CategoryGroups, Collections, defaultImageSrc } from '@config/index';
 import { addProductImage, removeProductImage } from '@store/actions/products.actions';
 import { cleanFileName } from 'src/app/tools/string.functions';
 
@@ -39,7 +39,6 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
   }
 
   updateObject(key, value): void {
-    console.log('value is ', value);
     this.store.dispatch(updateProductCreateObject({ key, value }));
   }
 

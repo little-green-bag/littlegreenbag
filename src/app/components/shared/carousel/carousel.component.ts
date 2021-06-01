@@ -14,7 +14,6 @@ import SwiperCore, {
   Controller
 } from "swiper/core";
 import { Store } from '@ngrx/store';
-import { selectProducts } from '@store/selectors';
 
 // install Swiper components
 SwiperCore.use([
@@ -104,7 +103,6 @@ export class CarouselComponent {
   );
 
   log(string) {
-    // console.log(string);
   }
 
   breakPointsToggle: boolean;

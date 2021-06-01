@@ -26,7 +26,6 @@ export class InspectionComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('this.id is ', this.productId);
     // this.store.dispatch(getProduct({ id: this.productId }))
   }
 

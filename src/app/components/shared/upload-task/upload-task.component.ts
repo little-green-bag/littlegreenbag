@@ -58,22 +58,17 @@ export class UploadTaskComponent implements OnInit, OnDestroy {
     const path = imageRef.fullPath;
 
     imageRef.getDownloadURL().then(url => {
-      console.log('exists already at ', url);
       this.downloadURL = url;
       const result = { name: cleanFileName(this.file.name), url };
-      console.log('EMITTING RESULT ', result);
       this.complete.emit(result)
       this.reset();
     }).catch(err => {
-      console.log('successful error as doesnt exist yet ');
       this.uploadTask(path);
       this.snapshot.subscribe((res: UploadTaskSnapshot) => {
         if (res.state === 'success') {
           imageRef.getDownloadURL().then(url => {
-            console.log('exists now at ', url);
             this.downloadURL = url;
             const result = { name: cleanFileName(this.file.name), url };
-            console.log('EMITTING RESULT ', result);
             this.complete.emit(result)
             this.reset();
           }).catch(err => {
@@ -82,27 +77,7 @@ export class UploadTaskComponent implements OnInit, OnDestroy {
         }
       })
     });
-    // imageRef.getDownloadURL().then(url => {
-    //   const createdImage = { name: this.file.name, url };
-    //   this.downloadURL = url;
-    //   this.complete.emit(createdImage);
-    // }).catch(async err => {
-    //   switch (err.code) {
-    //     case 'storage/object-not-found':
-    //       this.store.dispatch(startSpinner());
-    //       // The main task
-    //       this.task = this.storage.upload(path, this.file);
-    //       // Progress monitoring
-    //       this.percentage = this.task.percentageChanges();
-    //       this.snapshot = this.task.snapshotChanges().pipe(
-    //         finalize(async () => {
-    //           const createdImage = { name: this.file.name, url: this.downloadURL };
-    //           this.complete.emit(createdImage)
-    //           this.store.dispatch(stopSpinner());
-    //         }),
-    //       );
-    //   }
-    // });
+
   };
 
   ngOnDestroy() {

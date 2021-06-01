@@ -27,7 +27,6 @@ export class TableComponent {
   ) { }
 
   onRowClicked(r) {
-    // console.log('r is ', r);
   }
 
   delete(product) {

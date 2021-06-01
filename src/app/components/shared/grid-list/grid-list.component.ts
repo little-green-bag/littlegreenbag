@@ -23,9 +23,6 @@ export class GridListComponent implements OnInit {
 
   ngOnInit() {
     this.data$ = this.store.select(selectProducts);
-    // this.data$.subscribe(res => {
-    //   console.log('res is', res[0].images);
-    // })
   }
 
   tiles: Tile[] = [

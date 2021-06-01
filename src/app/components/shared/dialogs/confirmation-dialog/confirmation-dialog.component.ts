@@ -20,7 +20,6 @@ export class ConfirmationDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('local_data is ', this.local_data);
   }
 
   onSubmit() {
