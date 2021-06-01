@@ -1,18 +1,19 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { AngularFireUploadTask, AngularFireStorage } from '@angular/fire/storage';
-import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { filter, finalize, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AngularFirestoreCollection, } from '@angular/fire/firestore';
 import { startSpinner, stopSpinner } from '@store/actions/spinner.actions';
 import firebase from 'firebase';
-
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+import { cleanFileName } from '../../../tools/string.functions';
 @Component({
   selector: 'app-upload-task',
   templateUrl: './upload-task.component.html',
   styleUrls: ['./upload-task.component.scss']
 })
-export class UploadTaskComponent implements OnInit {
+export class UploadTaskComponent implements OnInit, OnDestroy {
   @Input() file: File;
   @Output() complete = new EventEmitter();
   @Output() onRemove = new EventEmitter();
@@ -21,6 +22,7 @@ export class UploadTaskComponent implements OnInit {
   task: AngularFireUploadTask;
   percentage: Observable<number>;
   snapshot: Observable<any>;
+  snapSubscription: Subscription;
   downloadURL: string;
   currentPercent: any;
   constructor(private storage: AngularFireStorage, private store: Store
@@ -30,47 +32,80 @@ export class UploadTaskComponent implements OnInit {
     this.startUpload();
   }
 
-  cleanFileName(s): string {
-    let strippedResult = s;
-    strippedResult = strippedResult.replace('.jpg', '');
-    strippedResult = strippedResult.replace('.png', '');
-    strippedResult = strippedResult.replace('.jpeg', '');
-    return strippedResult;
-  }
+
 
   isActive(snapshot) {
     return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes;
   }
 
+  uploadTask(path) {
+    this.store.dispatch(startSpinner());
+    this.task = this.storage.upload(path, this.file);
+    this.percentage = this.task.percentageChanges();
+    this.snapshot = this.task.snapshotChanges();
+  }
+
+  reset() {
+    this.percentage = null;
+    this.snapshot = null;
+    this.store.dispatch(stopSpinner());
+  }
+
   startUpload() {
     var storageRef = firebase.storage().ref();
     const imagesRef = storageRef.child('images');
-    const imageRef = imagesRef.child(`${this.cleanFileName(this.file.name)}`);
+    const imageRef = imagesRef.child(`${this.file.name}`);
     const path = imageRef.fullPath;
-    const finalRef = this.storage.ref(path);
+
     imageRef.getDownloadURL().then(url => {
-      console.log('it exists');
-      const createdImage = { name: this.file.name, url };
+      console.log('exists already at ', url);
       this.downloadURL = url;
-      this.complete.emit(createdImage);
-    }).catch(async err => {
-      console.log('err is ', err);
-      switch (err.code) {
-        case 'storage/object-not-found':
-          this.store.dispatch(startSpinner());
-          // The main task
-          this.task = this.storage.upload(path, this.file);
-          // Progress monitoring
-          this.percentage = this.task.percentageChanges();
-          this.snapshot = this.task.snapshotChanges().pipe(
-            finalize(async () => {
-              this.downloadURL = await finalRef.getDownloadURL().toPromise();
-              const createdImage = { name: this.file.name, url: this.downloadURL };
-              this.complete.emit(createdImage)
-              this.store.dispatch(stopSpinner());
-            }),
-          );
-      }
+      const result = { name: cleanFileName(this.file.name), url };
+      console.log('EMITTING RESULT ', result);
+      this.complete.emit(result)
+      this.reset();
+    }).catch(err => {
+      console.log('successful error as doesnt exist yet ');
+      this.uploadTask(path);
+      this.snapshot.subscribe((res: UploadTaskSnapshot) => {
+        if (res.state === 'success') {
+          imageRef.getDownloadURL().then(url => {
+            console.log('exists now at ', url);
+            this.downloadURL = url;
+            const result = { name: cleanFileName(this.file.name), url };
+            console.log('EMITTING RESULT ', result);
+            this.complete.emit(result)
+            this.reset();
+          }).catch(err => {
+            console.log('still a problem', err);
+          });
+        }
+      })
     });
+    // imageRef.getDownloadURL().then(url => {
+    //   const createdImage = { name: this.file.name, url };
+    //   this.downloadURL = url;
+    //   this.complete.emit(createdImage);
+    // }).catch(async err => {
+    //   switch (err.code) {
+    //     case 'storage/object-not-found':
+    //       this.store.dispatch(startSpinner());
+    //       // The main task
+    //       this.task = this.storage.upload(path, this.file);
+    //       // Progress monitoring
+    //       this.percentage = this.task.percentageChanges();
+    //       this.snapshot = this.task.snapshotChanges().pipe(
+    //         finalize(async () => {
+    //           const createdImage = { name: this.file.name, url: this.downloadURL };
+    //           this.complete.emit(createdImage)
+    //           this.store.dispatch(stopSpinner());
+    //         }),
+    //       );
+    //   }
+    // });
   };
+
+  ngOnDestroy() {
+    this.reset();
+  }
 }

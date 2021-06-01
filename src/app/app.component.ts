@@ -27,7 +27,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.sidenavService.setDrawer(this.drawer);
     this.store.dispatch(loadProducts());
-
   }
 
 }

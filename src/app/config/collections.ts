@@ -1,3 +1,4 @@
 export enum Collections {
-  PRODUCTS = 'latest-products',
+  PRODUCTS = 'products',
+  TEST_PRODUCTS = 'test-products'
 }

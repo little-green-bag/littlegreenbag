@@ -8,6 +8,7 @@ import { environment } from '@environments/environment';
 import { LightgalleryModule } from 'lightgallery/angular';
 
 // Store
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { appReducer } from '@reducers/index';
@@ -15,8 +16,8 @@ import { ProductsEffects } from '@effects/products.effects';
 
 // Services
 import { SidenavService } from '@services/shared/sidenav/sidenav.service';
-import { RoutingService } from '@services/core/routing.service';
-import { ExcelService } from '@services/shared/excel.service';
+import { RoutingService } from '@services/core/routing/routing.service';
+import { ExcelService } from '@services/shared/excel/excel.service';
 
 // Swiper
 import { SwiperModule } from "swiper/angular";
@@ -46,17 +47,18 @@ import { LinkComponent } from '@components/shared/link/link.component';
 import { ShopComponent } from '@components/body/pages/shop/shop.component';
 import { DialogComponent } from '@components/shared/dialog/dialog.component';
 import { TableComponent } from '@components/shared/table/table.component';
-import { StoreModule } from '@ngrx/store';
 import { CartComponent } from '@components/body/pages/cart/cart.component';
 import { ProductComponent } from '@components/product/product.component';
-import { UploadTaskComponent } from './components/shared/upload-task/upload-task.component';
-import { AnimatedTextComponent } from './components/shared/animated-text/animated-text.component';
-import { GoogleLoginComponent } from './components/core/login/google-login/google-login.component';
-import { InspectionComponent } from './components/body/pages/inspection/inspection.component';
+import { UploadTaskComponent } from '@components/shared/upload-task/upload-task.component';
+import { AnimatedTextComponent } from '@components/shared/animated-text/animated-text.component';
+import { GoogleLoginComponent } from '@components/core/login/google-login/google-login.component';
+import { InspectionComponent } from '@components/body/pages/inspection/inspection.component';
 import { ClickStopPropogationDirective } from './directives/click-stop-propogation.directive';
-import { LightGalleryComponent } from './components/shared/light-gallery/light-gallery.component';
-import { DisplayCardComponent } from './components/shared/display-card/display-card.component';
-import { AnimatedLineComponent } from './components/shared/animated-line/animated-line.component';
+import { LightGalleryComponent } from '@components/shared/light-gallery/light-gallery.component';
+import { DisplayCardComponent } from '@components/shared/display-card/display-card.component';
+import { AnimatedLineComponent } from '@components/shared/animated-line/animated-line.component';
+import { ConfirmationDialogComponent } from '@components/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { GridListComponent } from './components/shared/grid-list/grid-list.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +87,8 @@ import { AnimatedLineComponent } from './components/shared/animated-line/animate
     LightGalleryComponent,
     DisplayCardComponent,
     AnimatedLineComponent,
+    ConfirmationDialogComponent,
+    GridListComponent,
   ],
   imports: [
     BrowserModule,

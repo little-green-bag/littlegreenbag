@@ -1,13 +1,11 @@
-import { OnInit, Component, Inject, Optional, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Inject, Optional, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductModel } from '@models/index';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { CategoryGroups, Collections, defaultImageSrc } from '@config/index';
+import { CategoryGroups } from '@config/index';
 import { resetProductCreateObject, setProductCreateObject, updateProductCreateObject } from '@store/actions/create-product.actions';
-import { map } from 'rxjs/operators';
-import { ProductService } from '@services/product.service';
 import { addProductImage, removeProductImage } from '@store/actions/products.actions';
 import { selectSelectedProduct } from '@store/selectors';
 import { NotificationsService } from '@services/shared/notifications/notifications.service';
@@ -42,7 +40,6 @@ export class DialogComponent implements AfterViewInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public data: ProductModel,
     private _fb: FormBuilder,
     private store: Store,
-    private productService: ProductService,
     private notificationService: NotificationsService
 
   ) {
@@ -97,8 +94,6 @@ export class DialogComponent implements AfterViewInit {
   updateObject(key, value): void {
     this.store.dispatch(updateProductCreateObject({ key, value }));
   }
-
-
 
   onComplete(image) {
     this.store.dispatch(addProductImage(image));

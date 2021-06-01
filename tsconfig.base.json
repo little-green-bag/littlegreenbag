@@ -18,7 +18,8 @@
       "@effects/*": ["./src/app/store/effects/*"],
       "@reducers/*": ["./src/app/store/reducers/*"],
       "@selectors/*": ["./src/app/store/selectors/*"],
-      "@states/*": ["./src/app/store/states/*"]
+      "@states/*": ["./src/app/store/states/*"],
+      "@directives/*": ["./src/app/directives/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

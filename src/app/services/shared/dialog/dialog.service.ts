@@ -4,6 +4,7 @@ import {
   MatDialogConfig,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '@components/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { DialogComponent } from '@components/shared/dialog/dialog.component';
 
 @Injectable({
@@ -18,6 +19,13 @@ export class DialogService {
     dialogConfig.autoFocus = true;
     dialogConfig.data = data;
     const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+    return dialogRef;
+  }
+
+  openConfirmationDialog(data?): MatDialogRef<ConfirmationDialogComponent> {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = data;
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
     return dialogRef;
   }
 

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, of } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
-import { ProductModel } from '../../models/product.model';
-import { ProductService } from '../../services/product.service';
-import { ProductActionTypes } from '../../store/actions/products.actions';
+import { ProductModel } from '@models/product.model';
+import { ProductService } from '@services/shared/product/product.service';
+import { ProductActionTypes } from '@actions/index';
 
 @Injectable()
 export class ProductsEffects {
@@ -36,10 +36,11 @@ export class ProductsEffects {
       ofType(ProductActionTypes.LOAD_PRODUCTS),
       mergeMap(() =>
         this.productService.getProducts().pipe(
-          map((actions) =>
-            actions.map((action: any) => {
+          map((actions) => {
+            return actions.map((action: any) => {
               return this.productService.getProductData(action);
             })
+          }
           ),
           map(
             (products) => {

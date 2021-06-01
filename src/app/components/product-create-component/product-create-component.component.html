@@ -1,3 +1,6 @@
+<button appClickStopPropogation mat-raised-button color="warn" (click)="autofill()">
+  AutoFill
+</button>
 <div class="form-container">
   <form [formGroup]="productForm" #f="ngForm">
     <div class="group" formGroupName="product">
@@ -67,7 +70,8 @@
           <p>{{ productForm.get("product.description").value }}</p>
         </mat-card-content>
         <mat-card-actions>
-          <button appClickStopPropogation mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!f.valid">
+          <button appClickStopPropogation mat-raised-button color="primary" (click)="onSubmit($event)"
+            [disabled]="!f.valid">
             Submit
           </button>
         </mat-card-actions>
@@ -80,12 +84,16 @@
         </div>
       </div>
 
-      <div class="images" *ngFor="let image of (selectedProduct$ | async).images">
-        {{image.name}}
-        <img [src]="image.url" alt="" style="height: 100px; width:100px;">
-        <button appClickStopPropogation mat-raised-button color="warn" (click)="onRemove(image)">
-          Delete
-        </button>
+      <div class="uploaded-images">
+        <div class="uploaded-image" *ngFor="let image of (selectedProduct$ | async).images">
+          <p class="name">{{image.name}}</p>
+          <div class="background-image" [ngStyle]="{'background-image': 'url(' + image.url + ')'}" alt=""
+            style="height: 100px; width:100px;">
+          </div>
+          <button appClickStopPropogation mat-raised-button color="warn" (click)="onRemove(image)">
+            Delete
+          </button>
+        </div>
       </div>
 
       <input type="file" multiple placeholder="Choose Image" (change)="onFilesSelected($event)" #fileInput
@@ -94,4 +102,4 @@
   </form>
 </div>
 
-<app-product-list></app-product-list>
+<app-grid-list></app-grid-list>

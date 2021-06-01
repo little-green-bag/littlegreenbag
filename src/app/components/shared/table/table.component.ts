@@ -1,6 +1,6 @@
-import { RoutingService } from '@services/core/routing.service';
-import { ProductService } from '@services/product.service';
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { RoutingService } from '@services/core/routing/routing.service';
+import { ProductService } from '@services/shared/product/product.service';
+import { Component, Input } from '@angular/core';
 import { DialogService } from '@services/shared/dialog/dialog.service';
 import { ProductModel } from '@models/product.model';
 import { Collections } from '@config/collections';
@@ -18,10 +18,9 @@ export class TableComponent {
     'price',
     'description',
     'productGroup',
-    'edit',
-    // 'delete',
-    'inspect',
-    'image',
+    // 'edit',
+    'delete',
+    // 'inspect',
   ];
 
   constructor(
@@ -31,11 +30,11 @@ export class TableComponent {
   ) { }
 
   onRowClicked(r) {
-    console.log('r is ', r);
+    // console.log('r is ', r);
   }
 
-  delete(e) {
-    // this.productService.deleteProduct(e, 'products');
+  delete(product) {
+    this.productService.deleteProduct(product);
   }
 
   edit(product: ProductModel): void {
@@ -43,8 +42,8 @@ export class TableComponent {
       .afterClosed()
       .subscribe((res) => {
         console.log('updated res is ', res);
-        if (res.type.event === 'Submit') {
-          console.log('should send to product service now', res.value);
+        const { event } = res.type;
+        if (event === 'Submit') {
           this.productService.setProduct(res.value, Collections.PRODUCTS);
         }
       });

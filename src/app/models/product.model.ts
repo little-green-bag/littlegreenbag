@@ -16,7 +16,7 @@ export class ProductModel {
   category: string;
   images?: ImageModel[];
   // remove bottom and change for cover image
-  imageUrl?: string[];
+  imageUrl?: string;
   price: number;
   stockCount?: number;
 

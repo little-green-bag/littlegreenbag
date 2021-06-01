@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { ProductService } from '@services/product.service';
+import { ProductService } from '@services/shared/product/product.service';
 import { NotificationsService } from '@services/shared/notifications/notifications.service';
 import { ProductModel } from '@models/index';
 import { selectSelectedProduct } from '@store/selectors';
 import { startSpinner, stopSpinner } from '@actions/spinner.actions';
-import { resetProductCreateObject, updateProductCreateObject } from '@actions/create-product.actions';
+import { resetProductCreateObject, setProductCreateObject, updateProductCreateObject } from '@actions/create-product.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { acceptedImageTypes, CategoryGroups, Collections, defaultImageSrc } from '@config/index';
 import { addProductImage, removeProductImage } from '@store/actions/products.actions';
-import { ActivatedRoute, Router } from '@angular/router';
+import { cleanFileName } from 'src/app/tools/string.functions';
 
 @Component({
   selector: 'app-product-create-component',
@@ -47,6 +47,24 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
     this.selectedProduct$ = this.store.select(selectSelectedProduct);
   }
 
+  autofill() {
+
+    const product = {
+      product: {
+        name: 'Jimmy',
+        description: 'Description',
+        price: 2,
+        category: CategoryGroups[0].name,
+        stockCount: 3,
+        images: []
+      }
+    };
+    this.productForm.patchValue(
+      product
+    );
+    this.store.dispatch(setProductCreateObject(product.product));
+  }
+
   buildForm() {
     this.productForm = this._fb.group({
       product: this._fb.group({
@@ -60,57 +78,45 @@ export class ProductCreateComponentComponent implements OnInit, OnDestroy {
   }
 
   onComplete(image) {
-    this.createdImages.push(image);
-    this.selectedFiles = this.selectedFiles.filter(f => f.name !== image.name);
-    this.store.dispatch(addProductImage(image));
+    const match = this.createdImages.filter(i => i.name === image.name);
+    if (!match.length) {
+      this.createdImages.push(image);
+      this.store.dispatch(addProductImage(image));
+    }
+    this.selectedFiles = this.selectedFiles.filter(f => {
+      return cleanFileName(f.name) !== cleanFileName(image.name)
+    });
   }
 
   onRemove(image): void {
     this.store.dispatch(removeProductImage(image));
+    this.createdImages = this.createdImages.filter(i => i.name !== image.name);
   }
 
   uploadProduct() {
     this.selectedProduct$.subscribe(res => {
-      this.productService.setProduct(res, Collections.PRODUCTS).then(() => {
+      this.productService.setProduct(res, Collections.TEST_PRODUCTS).then(() => {
         this._notificationService.successAlert(`${res.name} successfully created`);
         this.reset();
-        this.store.dispatch(stopSpinner());
       });
     });
   }
 
   reset() {
-    this.store.dispatch(resetProductCreateObject());
+    this.store.dispatch(stopSpinner());
+    this.createdImages = [];
     this.selectedFiles = [];
     this.formDirective.resetForm();
     this.formSubmitted = false;
+    this.store.dispatch(resetProductCreateObject());
   }
 
   onFilesSelected(event: any) {
-    // break this out into its own function as it's used in dialog too
-    // add size checks and copys for thumbnails etc..
-    const currentItems = [...this.selectedFiles];
-    let newItems = [...event.target.files];
-    newItems = newItems.filter(i => {
-      return i && acceptedImageTypes.includes(i['type']);
-    })
-    if (!currentItems.length) {
-      this.selectedFiles = newItems;
-    } else {
-      currentItems.forEach(cI => {
-        const match = newItems.filter(nI => nI.name.toLowerCase().trim() === cI.name.toLowerCase().trim());
-        if (match.length) {
-          newItems = newItems.filter(i => i.name.toLowerCase().trim() !== match[0].name.toLowerCase().trim());
-        }
-      });
-      const allFiles = [...currentItems, ...newItems];
-      this.selectedFiles = allFiles;
-    }
+    this.selectedFiles = [...event.target.files];
   }
 
-
-
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault();
     if (this.productForm.valid) {
       this.formSubmitted = true;
       this.store.dispatch(startSpinner());

@@ -3,9 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { loadProducts } from '@actions/products.actions';
 import { selectProducts } from '@selectors/index';
-import { AppState } from '@states/products.state';
-import { ExcelService } from '@services/shared/excel.service';
-import { tap, map } from 'rxjs/operators';
+import { ExcelService } from '@services/shared/excel/excel.service';
 
 @Component({
   selector: 'app-product-list',
@@ -15,9 +13,10 @@ import { tap, map } from 'rxjs/operators';
 export class ProductListComponent implements OnInit {
   data$: Observable<any>;
 
-  constructor(private store: Store<{ app: AppState }>, private excelService: ExcelService) { }
+  constructor(private store: Store, private excelService: ExcelService) { }
 
   ngOnInit(): void {
+    this.store.dispatch(loadProducts());
     this.data$ = this.store.select(selectProducts);
   }
 

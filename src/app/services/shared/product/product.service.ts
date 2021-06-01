@@ -1,5 +1,4 @@
-import { DialogService } from '@services/shared/dialog/dialog.service';
-import { NotificationsService } from './shared/notifications/notifications.service';
+import { NotificationsService } from '@services/shared/notifications/notifications.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -8,6 +7,7 @@ import { Collections } from '@config/index';
 import { Store } from '@ngrx/store';
 import { selectUserData } from '@store/selectors';
 import firebase from 'firebase';
+import { DialogService } from '../dialog/dialog.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,19 +17,22 @@ export class ProductService {
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
     private notificationsService: NotificationsService,
-    private dialogService: DialogService,
-    private store: Store
+    private dialogService: DialogService
   ) { }
 
   getProductData(action) {
     const data = action.payload.doc.data() as ProductModel;
     const id = action.payload.doc.id;
-    const result = { id, ...data };
-    return result;
+    let updated = { ...data, id };
+    if (updated.imageUrl) {
+      updated.images.push({ name: '', url: updated.imageUrl });
+      delete updated.imageUrl;
+    }
+    return updated;
   }
 
   getProducts() {
-    return this.firestore.collection(Collections.PRODUCTS).snapshotChanges();
+    return this.firestore.collection(Collections.TEST_PRODUCTS).snapshotChanges();
   }
 
   getProduct(id: string = '') {
@@ -39,11 +42,9 @@ export class ProductService {
   }
 
   setProduct(product: ProductModel, collection: string): Promise<any> {
-    console.log('product is ', product);
-    let user;
     const { serverTimestamp } = firebase.firestore.FieldValue;
-    this.store.select(selectUserData).subscribe(res => user = res);
-    const productToSet = { ...product, uid: user.id, createdAt: serverTimestamp() };
+    const productToSet = { ...product, createdAt: serverTimestamp() };
+    console.log('productToSet is ', productToSet);
     return this.firestore.collection(collection).doc(product.name).set(productToSet, { merge: true }).then(() => {
       this.notificationsService.successAlert('Document successfully written!')
     })
@@ -52,22 +53,24 @@ export class ProductService {
       });
   }
 
-  deleteProduct(product: ProductModel, collection: string): void {
-    // this.dialogService
-    //   .openDialog({ action: 'Delete' })
-    //   .afterClosed()
-    //   .subscribe((res) => {
-    //     if (res.event !== 'Cancel') {
-    //       this.firestore
-    //         .doc(`${collection}/${product.id}`)
-    //         .delete()
-    //         .catch((err) => console.log('error deleting that product', err));
-    //       this.removeStorageRef(product.imageUrl);
-    //       this.notificationsService.successAlert(
-    //         `${product.name} successfully deleted`
-    //       );
-    //     }
-    //   });
+  deleteProduct(product: ProductModel): void {
+    this.dialogService
+      .openConfirmationDialog({ action: 'Delete', product })
+      .afterClosed()
+      .subscribe((res) => {
+        const { event } = res.type;
+        if (event === 'Submit') {
+          const storageRef = this.firestore.collection(Collections.TEST_PRODUCTS);
+          const itemRef = storageRef.doc(`${product.id}`).ref;
+          console.log('itemRef is ', itemRef.id);
+
+          itemRef.delete().then(res => {
+            this.notificationsService.successAlert(
+              `${product.name} successfully deleted`
+            );
+          }).catch(err => this.notificationsService.warningAlert('error deleting that product', err))
+        }
+      });
   }
 
   removeStorageRef(imgUrl: string): void {

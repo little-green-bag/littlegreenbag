@@ -5,7 +5,7 @@ import {
   addProductImage,
   removeProductImage
 } from '../actions/products.actions';
-import { initialAppState } from './../states/products.state';
+import { initialAppState } from './../states/app.state';
 import { startSpinner, stopSpinner } from '@store/actions/spinner.actions';
 import { resetProductCreateObject, setProductCreateObject, updateProductCreateObject } from '@store/actions/create-product.actions';
 import { setUserData } from '@actions/user.actions';
@@ -15,22 +15,21 @@ const _appReducer = createReducer(
   on(loadProductsSuccess, (state, { products }) => {
     return { ...state, products };
   }),
+
   on(getProductSuccess, (state, { product }) => {
     return { ...state, selectedProduct: product };
   }),
   on(addProductImage, (state, image) => {
     const currentImages = state.selectedProduct.images;
-    const updatedImages = [...currentImages, image];
+    const updatedImages = [...currentImages, { name: image.name, url: image.url }];
     return { ...state, selectedProduct: { ...state.selectedProduct, images: updatedImages } }
   }),
   on(removeProductImage, (state, image) => {
     const currentImages = state.selectedProduct.images;
-    if (image) {
-      const newImages = currentImages.filter(i => i.url !== image.url);
-      return { ...state, selectedProduct: { ...state.selectedProduct, images: [...newImages] } }
-    } else {
-      return { ...state };
-    }
+    const updatedImages = currentImages.filter(i => {
+      return i.url !== image.url;
+    });
+    return { ...state, selectedProduct: { ...state.selectedProduct, images: updatedImages.length ? updatedImages : [] } }
   }),
   on(startSpinner, (state) => {
     return { ...state, loading: true }

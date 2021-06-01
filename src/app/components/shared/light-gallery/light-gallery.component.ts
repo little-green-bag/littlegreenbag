@@ -32,9 +32,7 @@ export class LightGalleryComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.lightgallery = lightGallery(this.lightgallery.nativeElement, this.settings);
-
-    console.log('lg is ', this.lightgallery);
-    console.log('data is ', this.data);
+    console.log('lg data is ', this.data);
   }
 
 
@@ -46,7 +44,6 @@ export class LightGalleryComponent implements OnInit, AfterViewInit {
 
   onBeforeSlide = (detail: BeforeSlideDetail): void => {
     const { index, prevIndex } = detail;
-    console.log(index, prevIndex);
   };
 
 }

@@ -1,0 +1,9 @@
+<div class="container" mat-dialog-actions>
+  <div class="message">
+    Are you sure you want to delete {{product.name}}
+  </div>
+  <button mat-button (click)="onSubmit()">{{ action }}</button>
+  <button mat-button (click)="onCancel()" mat-flat-button color="warn">
+    Cancel
+  </button>
+</div>
