@@ -26,20 +26,20 @@ export class GridListComponent implements OnInit {
 
   ngOnInit() {
     this.data$ = this.store.select(selectProducts);
-    this.data$.subscribe(res => {
-      this.convertedImages = this.convertImages(res);
-    })
+    // this.data$.subscribe(res => {
+    //   this.convertedImages = this.convertImages(res);
+    // })
   }
 
-  convertImages(products): void {
-    this.convertImages = products.map(product => {
-      const width = 600;
-      const height = (Math.random() * (1000 - 400) + 400).toFixed();
-      return { ...product, width, height };
+  // convertImages(products): void {
+  //   this.convertImages = products.map(product => {
+  //     const width = 600;
+  //     const height = (Math.random() * (1000 - 400) + 400).toFixed();
+  //     return { ...product, width, height };
 
-    });
-    console.log('convertImages is ', this.convertImages);
-  }
+  //   });
+  //   console.log('convertImages is ', this.convertImages);
+  // }
 
 
 

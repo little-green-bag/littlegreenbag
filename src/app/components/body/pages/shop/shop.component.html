@@ -1,11 +1,1 @@
-<mat-form-field appearance="fill">
-  <mat-label>Category</mat-label>
-  <mat-select (selectionChange)="updateObject('category', this.productForm.get('product.category').value)"
-    formControlName="category">
-    <mat-optgroup *ngFor="let group of categoryGroups" [label]="group.name" [disabled]="group.disabled">
-      <mat-option *ngFor="let category of group.categories" [value]="category.viewValue">
-        {{category.viewValue}}
-      </mat-option>
-    </mat-optgroup>
-  </mat-select>
-</mat-form-field>
+<app-light-gallery [data$]="data$"></app-light-gallery>
